@@ -1,358 +1,193 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;0,500&family=UnifrakturCook:wght@700&display=swap');
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE SACRED VEIL — stylesheet
 
+   Consolidated, single-definition-per-class version.
+   Structure:
+     1.  Variables & base
+     2.  Sticky top wrapper (header + archbar)
+     3.  Container & layout grid
+     4.  Breadcrumbs
+     5.  Page hero + page-head title block
+     6.  Sidebars (TOC, peer-nav, hub-toc, rail)
+     7.  Main content (sections, prose, tables, facts, defs, chip, figures)
+     8.  Links & tooltips
+     9.  Search results
+     10. Child-card grid (hub page index)
+     11. Responsive
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=UnifrakturCook:wght@700&display=swap');
+
+/* ─── 1. Variables & base ────────────────────────────────────────────────── */
 :root{
-  --gold: #d8c99b;
-  --gold-bright: #f2d98c;
-  --gold-dim: rgba(200,160,80,0.55);
-  --gold-faint: rgba(200,160,80,0.2);
-  --bg: #0a0612;
-  --bg-deep: #05030a;
-  --bg-elev: #120a1d;
-  --purple: rgba(130,80,160,0.3);
-  --text: #e3d4a6;
-  --text-dim: rgba(227,212,166,0.75);
-  --text-faint: rgba(227,212,166,0.45);
-  --border: rgba(180,140,70,0.25);
+  --gold:          #d8c99b;
+  --gold-bright:   #f2d98c;
+  --gold-dim:      rgba(200,160,80,0.55);
+  --gold-faint:    rgba(200,160,80,0.20);
+  --bg:            #0a0612;
+  --bg-deep:       #05030a;
+  --bg-elev:       #120a1d;
+  --purple:        rgba(130,80,160,0.30);
+  --text:          #e3d4a6;
+  --text-dim:      rgba(227,212,166,0.75);
+  --text-faint:    rgba(227,212,166,0.45);
+  --border:        rgba(180,140,70,0.25);
   --border-bright: rgba(220,180,100,0.5);
-  --rail-w: 240px;
-  --toc-w: 280px;
-  --head-h: 64px;
-  --arch-h: 44px;
+
+  /* Measured at runtime by app.js. Fallback = roughly header+archbar height. */
+  --sticky-top-h:  108px;
+  /* Space from sticky bars to where sidebars/anchors appear */
+  --sticky-gap:    20px;
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+html,body{
+  margin:0;padding:0;background:var(--bg);color:var(--text);
+  font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
 body{min-height:100vh}
 a{color:inherit}
 
-/* ════════ HEADER ════════ */
-.sv-header{
-  position:static;height:var(--head-h);
-  display:flex;align-items:center;gap:16px;padding:0 20px;
-  background:linear-gradient(180deg, rgba(12,6,22,0.96), rgba(12,6,22,0.88));
+/* No-JS fallback */
+noscript .sv-noscript{
+  display:block;max-width:640px;margin:80px auto;padding:28px 32px;
+  border:1px solid var(--border);background:rgba(15,8,24,0.6);
+  text-align:center;font-family:'Cormorant Garamond',serif;
+}
+noscript .sv-noscript h1{
+  font-family:'UnifrakturCook',serif;color:var(--gold-bright);margin:0 0 12px;
+}
+
+/* ─── 2. Sticky top wrapper (header + archbar) ───────────────────────────── */
+/* Both bars live inside .sv-sticky-top so they move together — no magic offset. */
+.sv-sticky-top{
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);
   border-bottom:1px solid var(--border);
 }
-.sv-toc-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;cursor:pointer;font-size:18px}
-.sv-mark{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-.sv-mark img{width:36px;height:36px;filter:drop-shadow(0 0 6px rgba(215,170,85,0.4));mix-blend-mode:screen;opacity:0.85}
-.sv-mark-text{font-family:'UnifrakturCook',serif;font-size:20px;color:var(--gold-bright);letter-spacing:0.01em;line-height:1}
-.sv-mark-sub{display:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--text-dim);margin-left:4px}
+
+/* Top header row: sigil + title + search + GM */
+.sv-head{
+  display:flex;align-items:center;gap:16px;
+  padding:12px clamp(16px,3vw,28px);
+  min-height:56px;
+  background:linear-gradient(180deg,rgba(12,6,22,0.96),rgba(12,6,22,0.92));
+}
+.sv-mark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--gold-bright);flex-shrink:0}
+.sv-mark-sigil{
+  width:32px;height:32px;
+  filter:drop-shadow(0 0 8px rgba(215,170,85,0.4));
+  mix-blend-mode:screen;opacity:0.9;
+}
+.sv-mark-text{
+  font-family:'UnifrakturCook',serif;font-size:20px;color:var(--gold-bright);
+  letter-spacing:0.01em;line-height:1;
+}
+.sv-mark-sub{
+  display:none;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:12px;color:var(--text-dim);margin-left:4px;
+}
 @media(min-width:1100px){.sv-mark-sub{display:inline}}
 
-.sv-nav{margin-left:auto;display:flex;align-items:center;gap:10px}
-
-.sv-search-wrap{position:relative}
+.sv-toc-toggle{
+  display:none;background:rgba(10,5,18,0.6);border:1px solid var(--border);
+  color:var(--text);width:36px;height:36px;cursor:pointer;font-size:18px;
+  align-items:center;justify-content:center;flex-shrink:0;
+}
+.sv-head-search-wrap{position:relative;flex:1;max-width:400px;margin-left:auto}
 .sv-search{
-  width:260px;padding:8px 12px;background:rgba(10,5,18,0.85);
-  border:1px solid var(--border);color:var(--text);
+  width:100%;padding:8px 12px;
+  background:rgba(10,5,18,0.6);border:1px solid var(--border);color:var(--text);
   font-family:'Cormorant Garamond',serif;font-size:15px;outline:none;
-  transition:border-color 0.2s, box-shadow 0.2s;
+  transition:border-color 0.2s,box-shadow 0.2s;
 }
 .sv-search:focus{border-color:var(--border-bright);box-shadow:0 0 16px rgba(220,180,100,0.15)}
 .sv-search::placeholder{color:var(--text-faint);font-style:italic}
 
-.sv-search-results{
-  position:absolute;top:calc(100% + 6px);left:0;right:0;
-  background:rgba(12,6,22,0.98);border:1px solid var(--border);
-  max-height:400px;overflow-y:auto;display:none;z-index:50;
-  box-shadow:0 16px 40px rgba(0,0,0,0.6);
+.sv-gm-link{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;
+  color:var(--text-dim);padding:7px 14px;text-decoration:none;
+  border:1px solid var(--border);transition:all 0.2s;flex-shrink:0;
 }
-.sv-search-results.is-open{display:block}
-.sv-search-results a{
-  display:block;padding:10px 14px;text-decoration:none;color:var(--text);
-  border-bottom:1px solid rgba(180,140,70,0.08);font-size:14px;
-}
-.sv-search-results a:last-child{border-bottom:none}
-.sv-search-results a:hover,.sv-search-results a.active{background:rgba(220,180,100,0.08);color:var(--gold-bright)}
-.sv-sr-kind{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:2px}
-.sv-sr-empty{padding:14px;font-style:italic;color:var(--text-faint);text-align:center}
+.sv-gm-link:hover{color:var(--gold-bright);border-color:var(--border-bright)}
 
-.sv-btn{
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
-  background:rgba(10,5,18,0.6);color:var(--text-dim);
-  border:1px solid var(--border);padding:8px 14px;cursor:pointer;
-  text-decoration:none;transition:all 0.2s;
-}
-.sv-btn:hover{border-color:var(--border-bright);color:var(--gold-bright);box-shadow:0 0 12px rgba(220,180,100,0.2)}
-
-/* ════════ ARCH BAR (top sub-nav) ════════ */
+/* Archbar: 8 roman-numeral hub links */
 .sv-archbar{
-  position:static;height:var(--arch-h);
-  display:flex;align-items:stretch;
-  background:linear-gradient(180deg, rgba(15,8,24,0.95), rgba(10,5,18,0.88));
-  border-bottom:1px solid var(--border);
+  display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  background:linear-gradient(180deg,rgba(15,8,24,0.95),rgba(10,5,18,0.88));
 }
+.sv-archbar::-webkit-scrollbar{display:none}
 .sv-arch{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
-  text-decoration:none;color:var(--text-dim);
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
-  border-right:1px solid rgba(180,140,70,0.1);
-  transition:all 0.25s;position:relative;overflow:hidden;
+  flex:1 0 auto;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 14px;text-decoration:none;color:var(--text-dim);
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  white-space:nowrap;border-right:1px solid rgba(180,140,70,0.1);
+  transition:all 0.25s;position:relative;
 }
 .sv-arch:last-child{border-right:none}
-.sv-arch-num{font-family:'UnifrakturCook',serif;font-size:14px;color:var(--gold-dim);letter-spacing:0}
+.sv-arch-num{
+  font-family:'UnifrakturCook',serif;font-size:13px;color:var(--gold-dim);
+  letter-spacing:0;
+}
 .sv-arch:hover{color:var(--gold-bright);background:rgba(220,180,100,0.05)}
 .sv-arch:hover .sv-arch-num{color:var(--gold-bright)}
-.sv-arch.is-active{color:var(--gold-bright);background:linear-gradient(180deg, rgba(220,180,100,0.08), rgba(130,80,160,0.08))}
-.sv-arch.is-active::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
-  background:linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+.sv-arch.is-active{
+  color:var(--gold-bright);
+  background:linear-gradient(180deg,rgba(220,180,100,0.08),rgba(130,80,160,0.08));
+  box-shadow:inset 0 -2px 0 var(--gold-bright);
 }
 .sv-arch.is-active .sv-arch-num{color:var(--gold-bright);text-shadow:0 0 8px rgba(220,180,100,0.5)}
 
-/* ════════ PAGE HEADER ════════ */
-.sv-pagehead{
-  padding:calc(var(--head-h) + var(--arch-h) + 40px) 40px 32px;
-  text-align:center;position:relative;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(60,40,90,0.22), transparent 70%),
-    linear-gradient(180deg, rgba(15,8,24,0.4), transparent 80%);
+/* ─── 3. Container & layout grid ─────────────────────────────────────────── */
+.sv-container{
+  max-width:1600px;margin:0 auto;
+  padding:0 clamp(20px,4vw,60px) 60px;
 }
-.sv-pagehead::after{
-  content:"";display:block;width:120px;height:1px;margin:18px auto 0;
-  background:linear-gradient(90deg, transparent, var(--border-bright), transparent);
-}
-.sv-page-numeral{
-  display:block;font-family:'UnifrakturCook',serif;font-size:32px;
-  color:var(--gold-dim);letter-spacing:0.1em;margin-bottom:6px;
-}
-.sv-page-title{
-  display:block;font-family:'UnifrakturCook',serif;
-  font-size:clamp(34px,4.5vw,54px);color:var(--gold-bright);
-  text-shadow:0 0 20px rgba(215,170,85,0.35),0 0 44px rgba(130,80,160,0.22);
-}
-.sv-page-sub{
-  display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:17px;color:var(--text-dim);margin-top:8px;letter-spacing:0.06em;
-}
-
-/* ════════ LAYOUT ════════ */
 .sv-layout{
   display:grid;
-  grid-template-columns:var(--toc-w) 1fr var(--rail-w);
-  gap:32px;
-  max-width:1600px;margin:0 auto;padding:0 32px 80px;
+  grid-template-columns:minmax(200px,240px) minmax(0,1fr) minmax(200px,240px);
+  gap:clamp(24px,3vw,48px);
+  margin-top:24px;
   align-items:start;
 }
 
-/* ════════ TOC (sidebar) ════════ */
-.sv-toc{
-  position:sticky;top:20px;
-  max-height:calc(100vh - 40px);
-  overflow-y:auto;padding-right:8px;
-  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
-}
-.sv-toc::-webkit-scrollbar{width:6px}
-.sv-toc::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-
-.sv-toc-hero{margin-bottom:20px;padding-bottom:14px;border-bottom:1px dotted var(--border)}
-.sv-toc-hero a{
-  display:block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.13em;
-  text-transform:uppercase;color:var(--gold-bright);text-decoration:none;
-  padding:4px 0;line-height:1.4;
-  /* Long titles like "The Faith of the Dying Sun-God, Prios" wrap cleanly across two lines */
-}
-
-.sv-toc-group{margin-bottom:20px}
-.sv-toc-group h4{
-  margin:0 0 8px;font-family:'Cinzel',serif;font-size:10px;
-  letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);
-  padding-bottom:4px;border-bottom:1px solid rgba(180,140,70,0.12);
-}
-.sv-toc-parent{
-  display:block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--gold);text-decoration:none;
-  padding:5px 0 6px;font-weight:500;
-}
-.sv-toc-parent:hover{color:var(--gold-bright)}
-.sv-toc-parent.active{color:var(--gold-bright);text-shadow:0 0 8px rgba(220,180,100,0.4)}
-
-.sv-toc-children{padding-left:14px;border-left:1px solid rgba(180,140,70,0.15);margin-left:2px;margin-top:2px}
-.sv-toc-children a,.sv-toc-flat a{
-  display:block;font-family:'Cormorant Garamond',serif;font-size:15px;
-  color:var(--text-dim);text-decoration:none;padding:3px 0;line-height:1.4;
-  transition:color 0.2s, padding-left 0.2s;
-}
-.sv-toc-children a:hover,.sv-toc-flat a:hover{color:var(--gold-bright);padding-left:4px}
-.sv-toc-children a.active,.sv-toc-flat a.active{
-  color:var(--gold-bright);font-weight:500;
-  border-left:2px solid var(--gold-bright);padding-left:10px;margin-left:-12px;
-}
-.sv-toc-flat{margin-top:2px}
-
-/* ════════ MAIN CONTENT ════════ */
-.sv-main{min-width:0;padding-top:8px}
-.sv-section{padding:20px 0 40px;scroll-margin-top:20px}
-.sv-section-group{
-  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.35em;
-  text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;
-}
-.sv-section h1{
-  font-family:'UnifrakturCook',serif;font-weight:700;
-  font-size:clamp(26px,3.2vw,40px);color:var(--gold-bright);
-  margin:0 0 6px;letter-spacing:0.02em;line-height:1.15;
-  text-shadow:0 0 16px rgba(215,170,85,0.25);
-}
-.sv-subtitle{
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;
-  color:var(--text-dim);margin:0 0 20px;letter-spacing:0.04em;
-}
-.sv-section h3{
-  font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--gold);
-  margin:28px 0 10px;padding-bottom:4px;border-bottom:1px solid rgba(180,140,70,0.18);
-}
-.sv-section p{margin:0 0 14px}
-.sv-section ul{margin:0 0 16px;padding-left:22px}
-.sv-section li{margin-bottom:6px}
-.sv-section li::marker{color:var(--gold-dim)}
-
-.sv-link{
-  color:var(--gold);text-decoration:none;
-  border-bottom:1px dotted rgba(220,180,100,0.4);
-  transition:color 0.2s, border-color 0.2s;
-}
-.sv-link:hover{color:var(--gold-bright);border-bottom-color:var(--gold-bright)}
-.sv-link[data-sv-external="1"]::after{
-  content:"↗";font-size:0.75em;margin-left:2px;color:var(--gold-dim);
-}
-
-/* Tables */
-.sv-table-wrap{overflow-x:auto;margin:14px 0 20px}
-.sv-table{
-  width:100%;border-collapse:collapse;font-size:15px;
-  background:rgba(15,8,24,0.5);border:1px solid var(--border);
-}
-.sv-table th,.sv-table td{
-  padding:10px 14px;text-align:left;
-  border-bottom:1px solid rgba(180,140,70,0.12);vertical-align:top;
-}
-.sv-table th{
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.15em;
-  text-transform:uppercase;color:var(--gold-dim);background:rgba(12,6,22,0.5);
-  border-bottom-color:var(--border);
-}
-.sv-table tr:last-child td{border-bottom:none}
-
-/* Facts / defs */
-.sv-facts{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px 22px;margin:14px 0 18px;padding:16px 20px;
-  background:rgba(15,8,24,0.5);border:1px solid var(--border);
-}
-.sv-fact-k{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:2px}
-.sv-fact-v{font-size:15px;color:var(--text)}
-
-.sv-defs{margin:12px 0 18px;padding:0}
-.sv-def{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:8px 0;border-bottom:1px dotted rgba(180,140,70,0.15)}
-.sv-def:last-child{border-bottom:none}
-.sv-def dt{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-dim);padding-top:2px}
-.sv-def dd{margin:0;color:var(--text)}
-
-/* House/org chip at top of section */
-.sv-chip{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:10px 24px;margin:12px 0 22px;padding:14px 20px;
-  background:linear-gradient(180deg, rgba(30,18,42,0.5), rgba(15,8,24,0.5));
-  border:1px solid var(--border);border-left:2px solid var(--border-bright);
-}
-.sv-chip dt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:2px}
-.sv-chip dd{margin:0;font-style:italic;color:var(--text);font-size:15px}
-
-/* Section divider ornament */
-.sv-ornament{text-align:center;padding:14px 0 4px;color:var(--gold-dim);opacity:0.7}
-.sv-star{font-size:14px;letter-spacing:0.4em}
-
-/* ════════ RIGHT RAIL ════════ */
-.sv-rail{
-  position:sticky;top:20px;
-  max-height:calc(100vh - 40px);
-  overflow-y:auto;padding:16px 16px 16px 20px;
-  border-left:1px dotted var(--border);font-size:15px;
-}
-.sv-rail h5{
-  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--gold-dim);
-  margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(180,140,70,0.1);
-}
-.sv-rail h5:first-child{margin-top:0}
-.sv-rail ul{margin:0;padding:0;list-style:none}
-.sv-rail li{padding:3px 0}
-.sv-rail a{color:var(--text-dim);text-decoration:none;line-height:1.35}
-.sv-rail a:hover{color:var(--gold-bright)}
-.sv-rail-empty{color:var(--text-faint);font-style:italic;font-size:13px}
-.sv-rail-ext{color:var(--gold-dim);font-size:0.85em}
-
-/* ════════ TOOLTIP ════════ */
-.sv-tip{
-  position:fixed;z-index:100;max-width:360px;
-  background:rgba(14,8,26,0.98);border:1px solid rgba(200,160,80,0.35);
-  padding:14px 18px;box-shadow:0 8px 32px rgba(0,0,0,0.75);
-  font-size:15px;line-height:1.55;color:var(--text);
-  opacity:0;transform:translateY(-4px);
-  transition:opacity 0.2s, transform 0.2s;pointer-events:none;visibility:hidden;
-}
-.sv-tip.is-open{opacity:1;transform:translateY(0)}
-.sv-tip-kind{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:3px}
-.sv-tip-name{font-family:'Cinzel',serif;font-size:15px;letter-spacing:0.08em;color:var(--gold-bright);margin-bottom:8px}
-.sv-tip-body{font-family:'Cormorant Garamond',serif;color:var(--text);font-size:15px;line-height:1.55}
-
-/* ════════ RESPONSIVE ════════ */
-@media(max-width:1200px){
-  :root{--toc-w:240px;--rail-w:0px}
-  .sv-rail{display:none}
-  .sv-layout{grid-template-columns:var(--toc-w) 1fr;gap:24px}
-}
-@media(max-width:900px){
-  :root{--head-h:56px}
-  .sv-toc-toggle{display:flex;align-items:center;justify-content:center}
-  .sv-search{width:160px}
-  .sv-archbar{height:auto;overflow-x:auto;overflow-y:hidden}
-  .sv-arch{padding:8px 10px;white-space:nowrap;min-width:80px;font-size:10px}
-  .sv-arch-name{display:none}
-  .sv-arch.is-active .sv-arch-name{display:inline}
-  .sv-layout{grid-template-columns:1fr;padding:0 16px 60px}
-  .sv-toc{
-    position:fixed;top:calc(var(--head-h) + var(--arch-h));left:0;bottom:0;
-    width:280px;background:rgba(12,6,22,0.98);padding:20px;z-index:45;
-    transform:translateX(-100%);transition:transform 0.3s;
-    max-height:none;border-right:1px solid var(--border);
-  }
-  .sv-toc.is-open{transform:translateX(0)}
-  .sv-pagehead{padding:calc(var(--head-h) + 72px) 20px 24px}
-  .sv-mark-sub{display:none}
-}
-
-/* ════════════════════════════════════════════════════════════════════════
-   NESTED-WIKI ADDITIONS (v2)
-   ════════════════════════════════════════════════════════════════════════ */
-
-/* ── Breadcrumbs ── */
+/* ─── 4. Breadcrumbs ─────────────────────────────────────────────────────── */
 .sv-breadcrumbs{
-  max-width:1400px;margin:0 auto;padding:14px 40px 0;
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;
-  text-transform:uppercase;color:var(--text-dim);
+  padding:18px 0 0;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-dim);
 }
 .sv-breadcrumbs a{color:var(--text-dim);text-decoration:none;transition:color 0.2s}
 .sv-breadcrumbs a:hover{color:var(--gold-bright)}
 .sv-breadcrumbs .sv-sep{color:var(--gold-dim);margin:0 4px}
 .sv-breadcrumbs span:last-child{color:var(--gold-bright)}
 
-/* ── Page hero image (soft-fade to bg on all sides) ── */
+/* ─── 5. Page hero + title block ─────────────────────────────────────────── */
+/* Hero uses a real <img> so a missing file collapses cleanly to zero height. */
 .sv-page-hero{
   max-width:1400px;margin:20px auto 0;
   height:clamp(180px,28vh,320px);
-  background-size:cover;background-position:center;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 25%,black 75%,transparent 100%),linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);
-  -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to bottom,transparent 0%,black 25%,black 75%,transparent 100%),linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);
-  mask-composite:intersect;
+  overflow:hidden;
   opacity:0.82;
+  -webkit-mask-image:
+    linear-gradient(to bottom,transparent 0%,black 25%,black 75%,transparent 100%),
+    linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:
+    linear-gradient(to bottom,transparent 0%,black 25%,black 75%,transparent 100%),
+    linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);
+  mask-composite:intersect;
+}
+.sv-page-hero img{
+  width:100%;height:100%;object-fit:cover;object-position:center;display:block;
 }
 
-/* ── Page head (title block) ── */
 .sv-page-head{
-  max-width:1100px;margin:0 auto;padding:8px 20px 24px;text-align:center;
+  max-width:1100px;margin:0 auto;padding:20px 20px 24px;text-align:center;
 }
 .sv-page-num{
   font-family:'UnifrakturCook',serif;font-size:clamp(28px,3vw,40px);
@@ -365,37 +200,296 @@ a{color:inherit}
 }
 .sv-page-sub{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(15px,1.5vw,18px);color:var(--text-dim);
-  letter-spacing:0.08em;
+  font-size:clamp(15px,1.5vw,18px);color:var(--text-dim);letter-spacing:0.08em;
 }
 .sv-page-rule{
   width:120px;height:1px;background:rgba(200,160,80,0.35);margin:16px auto 0;
 }
 
-/* ── Children grid (hub-page index cards) ── */
+/* ─── 6. Sidebars ────────────────────────────────────────────────────────── */
+/* TOC (left) and rail (right) stick below the sticky top using the measured var. */
+.sv-toc,
+.sv-rail{
+  position:sticky;
+  top:calc(var(--sticky-top-h) + var(--sticky-gap));
+  max-height:calc(100vh - var(--sticky-top-h) - var(--sticky-gap) * 2);
+  overflow-y:auto;
+  align-self:start;
+  min-width:0;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.sv-toc::-webkit-scrollbar,
+.sv-rail::-webkit-scrollbar{width:6px}
+.sv-toc::-webkit-scrollbar-thumb,
+.sv-rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+.sv-toc{padding-right:8px}
+.sv-rail{padding:16px 16px 16px 20px;border-left:1px dotted var(--border);font-size:15px}
+
+/* Rail: hide when JS leaves it empty (see app.js populateRail) */
+.sv-rail:empty{display:none}
+/* When the rail is absent (removed by JS, or empty in browsers supporting :has),
+   collapse the grid to 2 columns so there's no phantom right-hand track. */
+.sv-layout.sv-layout--no-rail,
+.sv-layout:has(.sv-rail:empty){
+  grid-template-columns:minmax(200px,240px) minmax(0,1fr);
+}
+
+.sv-rail h5{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold-dim);margin:0 0 8px;padding-bottom:4px;
+  border-bottom:1px solid rgba(180,140,70,0.1);
+}
+.sv-rail ul{margin:0;padding:0;list-style:none}
+.sv-rail li{padding:3px 0}
+.sv-rail a{color:var(--text-dim);text-decoration:none;line-height:1.35}
+.sv-rail a:hover{color:var(--gold-bright)}
+.sv-rail-ext{color:var(--gold-dim);font-size:0.85em}
+
+/* Hub-page sidebar: clickable list of children */
+.sv-hub-toc{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid rgba(180,140,70,0.15)}
+.sv-hub-toc h4{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold-dim);margin:0 0 10px;
+}
+.sv-hub-toc ul{list-style:none;padding:0;margin:0}
+.sv-hub-toc li{margin:0;padding:0}
+.sv-hub-toc a{
+  display:block;padding:5px 0;font-size:15px;color:var(--text-dim);
+  text-decoration:none;line-height:1.35;transition:color 0.2s,padding-left 0.2s;
+}
+.sv-hub-toc a:hover{color:var(--gold-bright);padding-left:4px}
+
+/* Peer nav: sibling pages under the same parent */
+.sv-peer-nav{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid rgba(180,140,70,0.15)}
+.sv-peer-nav h4{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold-dim);margin:0 0 8px;
+}
+.sv-peer-nav h4 a{color:inherit;text-decoration:none;transition:color 0.2s}
+.sv-peer-nav h4 a:hover{color:var(--gold-bright)}
+.sv-peer-nav ul{list-style:none;padding:0;margin:0}
+.sv-peer-nav li{margin:0;padding:0}
+.sv-peer-nav a{
+  display:block;padding:4px 0;font-size:15px;color:var(--text-dim);
+  text-decoration:none;transition:color 0.2s,padding-left 0.2s;
+}
+.sv-peer-nav a:hover{color:var(--gold-bright);padding-left:4px}
+.sv-peer-nav a.is-active{
+  color:var(--gold-bright);font-weight:500;
+  border-left:2px solid var(--gold-bright);padding-left:10px;margin-left:-12px;
+}
+
+/* On-page section TOC */
+.sv-toc-group{margin-bottom:22px}
+.sv-toc-group h4{
+  margin:0 0 8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--gold-dim);
+  padding-bottom:4px;border-bottom:1px solid rgba(180,140,70,0.12);
+}
+.sv-toc-flat a{
+  display:block;padding:4px 0;font-family:'Cormorant Garamond',serif;font-size:15px;
+  color:var(--text-dim);text-decoration:none;line-height:1.4;
+  transition:color 0.2s,padding-left 0.2s;
+}
+.sv-toc-flat a:hover{color:var(--gold-bright);padding-left:4px}
+.sv-toc-flat a.active{
+  color:var(--gold-bright);font-weight:500;
+  border-left:2px solid var(--gold-bright);padding-left:10px;margin-left:-12px;
+}
+
+/* ─── 7. Main content ────────────────────────────────────────────────────── */
+.sv-main{min-width:0;padding-top:8px}
+
+.sv-section{
+  padding:20px 0 40px;margin-bottom:8px;
+  /* Clears the sticky top when anchor-linking */
+  scroll-margin-top:calc(var(--sticky-top-h) + 20px);
+}
+.sv-section-group{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:8px;
+}
+.sv-section h1{
+  font-family:'UnifrakturCook',serif;font-weight:700;
+  font-size:clamp(28px,3.4vw,42px);color:var(--gold-bright);
+  margin:0 0 6px;letter-spacing:0.02em;line-height:1.15;
+  text-shadow:0 0 16px rgba(215,170,85,0.25);
+}
+.sv-subtitle{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;
+  color:var(--text-dim);margin:0 0 20px;letter-spacing:0.04em;
+}
+.sv-section-body{
+  font-style:italic;color:var(--text-dim);
+  border-left:2px solid rgba(200,160,80,0.3);
+  padding-left:14px;margin:12px 0 18px;
+}
+.sv-section h3{
+  font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gold);margin:28px 0 10px;padding-bottom:4px;
+  border-bottom:1px solid rgba(180,140,70,0.18);
+}
+.sv-section p{margin:0 0 14px}
+.sv-section ul{margin:0 0 16px;padding-left:22px}
+.sv-section li{margin-bottom:6px}
+.sv-section li::marker{color:var(--gold-dim)}
+
+/* Tables */
+.sv-table-wrap{overflow-x:auto;margin:14px 0 20px}
+.sv-table{
+  width:100%;border-collapse:collapse;font-size:15px;
+  background:rgba(15,8,24,0.5);border:1px solid var(--border);
+}
+.sv-table th,
+.sv-table td{
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid rgba(180,140,70,0.12);vertical-align:top;
+}
+.sv-table th{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gold-dim);background:rgba(12,6,22,0.5);
+  border-bottom-color:var(--border);
+}
+.sv-table tr:last-child td{border-bottom:none}
+
+/* Facts grid */
+.sv-facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px 22px;margin:14px 0 18px;padding:16px 20px;
+  background:rgba(15,8,24,0.5);border:1px solid var(--border);
+}
+.sv-fact-k{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:2px;
+}
+.sv-fact-v{font-size:15px;color:var(--text)}
+
+/* Definition list */
+.sv-defs{margin:12px 0 18px;padding:0}
+.sv-def{
+  display:grid;grid-template-columns:180px 1fr;gap:14px;padding:8px 0;
+  border-bottom:1px dotted rgba(180,140,70,0.15);
+}
+.sv-def:last-child{border-bottom:none}
+.sv-def dt{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gold-dim);padding-top:2px;
+}
+.sv-def dd{margin:0;color:var(--text)}
+
+/* House/org chip at top of section */
+.sv-chip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:10px 24px;margin:12px 0 22px;padding:14px 20px;
+  background:linear-gradient(180deg,rgba(30,18,42,0.5),rgba(15,8,24,0.5));
+  border:1px solid var(--border);border-left:2px solid var(--border-bright);
+}
+.sv-chip dt{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:2px;
+}
+.sv-chip dd{margin:0;font-style:italic;color:var(--text);font-size:15px}
+
+/* Inline body figures (image slots) */
+.sv-figure{margin:24px 0;text-align:center}
+.sv-figure img{
+  max-width:100%;height:auto;opacity:0.9;
+  -webkit-mask-image:
+    linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%),
+    linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:
+    linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%),
+    linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+  mask-composite:intersect;
+}
+.sv-figure.missing{display:none}
+.sv-figure figcaption{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;
+  color:var(--text-dim);margin-top:6px;
+}
+
+/* Section divider ornament */
+.sv-ornament{text-align:center;padding:14px 0 4px;color:var(--gold-dim);opacity:0.7}
+.sv-star{font-size:14px;letter-spacing:0.4em}
+
+/* ─── 8. Links & tooltips ────────────────────────────────────────────────── */
+.sv-link{
+  color:var(--gold);text-decoration:none;
+  border-bottom:1px dotted rgba(220,180,100,0.4);
+  transition:color 0.2s,border-color 0.2s;
+}
+.sv-link:hover{color:var(--gold-bright);border-bottom-color:var(--gold-bright)}
+.sv-link[data-sv-external="1"]::after{
+  content:"↗";font-size:0.75em;margin-left:2px;color:var(--gold-dim);
+}
+
+.sv-tip{
+  position:fixed;z-index:100;max-width:380px;
+  background:rgba(14,8,26,0.98);border:1px solid rgba(200,160,80,0.35);
+  padding:16px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.75);
+  font-size:16px;line-height:1.55;color:var(--text);
+  opacity:0;transform:translateY(-4px);visibility:hidden;pointer-events:none;
+  transition:opacity 0.2s,transform 0.2s;
+}
+.sv-tip.is-open{opacity:1;transform:translateY(0)}
+.sv-tip-kind{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:3px;
+}
+.sv-tip-name{
+  font-family:'Cinzel',serif;font-size:16px;letter-spacing:0.08em;color:var(--gold-bright);
+  margin-bottom:8px;
+}
+.sv-tip-body{font-family:'Cormorant Garamond',serif;color:var(--text);font-size:16px;line-height:1.55}
+
+/* ─── 9. Search results ──────────────────────────────────────────────────── */
+.sv-search-results{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;
+  background:rgba(10,5,18,0.98);border:1px solid var(--border);
+  max-height:400px;overflow-y:auto;z-index:200;
+  box-shadow:0 16px 40px rgba(0,0,0,0.6);
+}
+.sv-search-results[hidden]{display:none}
+.sv-search-results a{
+  display:block;padding:10px 14px;text-decoration:none;color:var(--text);
+  border-bottom:1px solid rgba(180,140,70,0.08);font-size:14px;
+}
+.sv-search-results a:last-child{border-bottom:none}
+.sv-search-results a:hover,
+.sv-search-results a.active{background:rgba(24,12,36,0.95);color:var(--gold-bright)}
+.sv-sr-kind{
+  display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;
+  color:var(--gold-dim);text-transform:uppercase;margin-bottom:2px;
+}
+.sv-sr-empty{padding:14px;font-style:italic;color:var(--text-faint);text-align:center}
+
+/* ─── 10. Child-card grid (hub page index) ───────────────────────────────── */
 .sv-children-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;
   margin:20px 0;
 }
 .sv-child-card{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 16px;
+  display:flex;align-items:center;gap:14px;padding:14px 16px;
   background:rgba(10,5,18,0.6);border:1px solid rgba(200,160,80,0.25);
   text-decoration:none;color:var(--text);
   transition:all 0.2s ease;
 }
 .sv-child-card:hover{
-  background:rgba(24,12,36,0.85);border-color:rgba(220,180,100,0.65);
+  background:rgba(24,12,36,0.85);border-color:var(--border-bright);
   transform:translateY(-1px);
   box-shadow:0 4px 18px rgba(0,0,0,0.5),0 0 16px rgba(220,180,100,0.15);
 }
 .sv-child-card-sigil{
   width:54px;height:54px;flex-shrink:0;
-  background-size:contain;background-position:center;background-repeat:no-repeat;
+  display:flex;align-items:center;justify-content:center;
   -webkit-mask-image:radial-gradient(ellipse at center,black 55%,transparent 95%);
   mask-image:radial-gradient(ellipse at center,black 55%,transparent 95%);
   opacity:0.85;
 }
+.sv-child-card-sigil img{width:100%;height:100%;object-fit:contain;display:block}
+/* Fallback when sigil is missing or fails to load — faint glow instead of blank square */
 .sv-child-card-sigil--empty{
   background:radial-gradient(circle,rgba(200,160,80,0.15),transparent 70%);
 }
@@ -409,317 +503,46 @@ a{color:inherit}
   color:var(--text-dim);line-height:1.3;
 }
 
-/* ── Peer nav in sidebar ── */
-.sv-peer-nav{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid rgba(180,140,70,0.15)}
-.sv-peer-nav h4{
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.22em;
-  text-transform:uppercase;color:var(--gold-dim);margin:0 0 8px;
-}
-.sv-peer-nav ul{list-style:none;padding:0;margin:0}
-.sv-peer-nav li{margin:0;padding:0}
-.sv-peer-nav a{
-  display:block;padding:4px 0;font-size:15px;color:var(--text-dim);
-  text-decoration:none;transition:color 0.2s,padding-left 0.2s;
-}
-.sv-peer-nav a:hover{color:var(--gold-bright);padding-left:4px}
-.sv-peer-nav a.is-active{color:var(--gold-bright);font-weight:500;border-left:2px solid var(--gold-bright);padding-left:10px;margin-left:-12px}
-
-/* ── Inline figures (body images with soft-fade) ── */
-.sv-figure{
-  margin:24px 0;text-align:center;
-}
-.sv-figure img{
-  max-width:100%;height:auto;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
-  mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
-  mask-composite:intersect;
-  opacity:0.9;
-}
-.sv-figure.missing{display:none}
-.sv-figure figcaption{
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;
-  color:var(--text-dim);margin-top:6px;
-}
-
-/* ── 8-arch top nav (tighter than 7) ── */
-.sv-archbar{
-  display:flex;max-width:1400px;margin:0 auto;
-  border-bottom:1px solid rgba(200,160,80,0.2);
-}
-.sv-arch{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:14px 4px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--text-dim);text-decoration:none;
-  border-right:1px solid rgba(200,160,80,0.1);
-  transition:all 0.2s ease;
-}
-.sv-arch:last-child{border-right:none}
-.sv-arch:hover{color:var(--gold-bright);background:rgba(24,12,36,0.5)}
-.sv-arch.is-active{color:var(--gold-bright);background:rgba(24,12,36,0.8);box-shadow:inset 0 -2px 0 rgba(220,180,100,0.8)}
-.sv-arch-num{font-family:'UnifrakturCook',serif;font-size:13px;color:var(--gold-dim);letter-spacing:0}
-.sv-arch.is-active .sv-arch-num{color:var(--gold-bright)}
-
-/* ── Section body (used when section has .body field) ── */
-.sv-section-body{
-  font-style:italic;color:var(--text-dim);border-left:2px solid rgba(200,160,80,0.3);
-  padding-left:14px;margin:12px 0 18px;
-}
-
-/* ── Responsive: 8 arches get crowded on mobile ── */
-@media(max-width:900px){
-  .sv-archbar{flex-wrap:wrap}
-  .sv-arch{flex:1 1 25%;padding:8px 2px;font-size:10px;letter-spacing:0.12em}
-  .sv-arch-name{display:none}
-  .sv-arch-num{font-size:16px}
-  .sv-page-hero{border-radius:0;margin-left:0;margin-right:0}
-  .sv-breadcrumbs{padding:10px 16px 0;font-size:10px}
-  .sv-children-grid{grid-template-columns:1fr;gap:8px}
-}
-
-/* ── Header layout fix for v2 ── */
-.sv-head{
-  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;
-  max-width:1400px;margin:0 auto;padding:14px 40px;
-}
-.sv-mark{
-  display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--gold-bright);
-}
-.sv-mark-sigil{width:32px;height:32px;filter:drop-shadow(0 0 8px rgba(215,170,85,0.4))}
-.sv-mark-text{
-  font-family:'UnifrakturCook',serif;font-size:20px;color:var(--gold-bright);
-  letter-spacing:0.01em;line-height:1;
-}
-.sv-head-search-wrap{position:relative;max-width:340px;width:100%;justify-self:end}
-.sv-search{
-  width:100%;padding:7px 12px;background:rgba(10,5,18,0.6);
-  border:1px solid rgba(200,160,80,0.25);color:var(--text);
-  font-family:'Cormorant Garamond',serif;font-size:15px;outline:none;
-}
-.sv-search:focus{border-color:rgba(220,180,100,0.6)}
-.sv-search::placeholder{color:var(--text-faint);font-style:italic}
-.sv-gm-link{
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;
-  color:var(--text-dim);padding:6px 14px;text-decoration:none;
-  border:1px solid rgba(200,160,80,0.25);transition:all 0.2s;
-}
-.sv-gm-link:hover{color:var(--gold-bright);border-color:rgba(220,180,100,0.6)}
-
-.sv-toc-toggle{display:none}
-
-.sv-search-results{
-  position:absolute;top:calc(100% + 4px);left:0;right:0;
-  background:rgba(10,5,18,0.98);border:1px solid rgba(200,160,80,0.3);
-  max-height:400px;overflow-y:auto;z-index:200;
-}
-.sv-search-results a{
-  display:block;padding:10px 14px;text-decoration:none;color:var(--text);
-  border-bottom:1px solid rgba(180,140,70,0.08);font-size:14px;
-}
-.sv-search-results a:hover,.sv-search-results a.active{background:rgba(24,12,36,0.95);color:var(--gold-bright)}
-.sv-search-results a .sv-sr-kind{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:2px}
-.sv-sr-empty{padding:14px;font-style:italic;color:var(--text-faint);text-align:center}
-
-/* Container & layout ── */
-.sv-container{max-width:1400px;margin:0 auto;padding:0 40px 60px}
-.sv-layout{
-  display:grid;grid-template-columns:260px 1fr 240px;gap:40px;
-  margin-top:32px;
-}
-.sv-toc{min-width:0}
-.sv-main{min-width:0}
-.sv-rail{min-width:0}
-
-/* Layout fallback on narrower viewports */
+/* ─── 11. Responsive ─────────────────────────────────────────────────────── */
+/* Narrow-desktop: drop the right rail */
 @media(max-width:1200px){
-  .sv-layout{grid-template-columns:240px 1fr}
+  .sv-layout{
+    grid-template-columns:minmax(200px,240px) minmax(0,1fr);
+    gap:clamp(20px,2.5vw,32px);
+  }
   .sv-rail{display:none}
 }
+
+/* Tablet/mobile: single column, drawer TOC, smaller bars */
 @media(max-width:900px){
-  .sv-layout{grid-template-columns:1fr;gap:0}
-  .sv-container{padding:0 16px 40px}
-  .sv-toc{display:none}
-  .sv-toc.is-open{display:block;margin-bottom:20px;padding:20px;background:rgba(10,5,18,0.85);border:1px solid rgba(200,160,80,0.2)}
-  .sv-toc-toggle{display:inline-flex;background:rgba(10,5,18,0.6);border:1px solid rgba(200,160,80,0.3);color:var(--text);width:36px;height:36px;cursor:pointer;font-size:18px;align-items:center;justify-content:center}
-}
-
-/* Keep section content readable */
-.sv-section{margin-bottom:48px}
-.sv-section h1{font-family:'UnifrakturCook',serif;font-size:clamp(28px,3.4vw,40px);color:var(--gold-bright);margin:0 0 8px;letter-spacing:0.02em}
-.sv-section-group{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px}
-.sv-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--text-dim);margin-bottom:16px}
-
-.sv-toc-group{margin-bottom:22px}
-.sv-toc-group h4{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-dim);margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(180,140,70,0.15)}
-.sv-toc-flat a{display:block;padding:4px 0;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--text-dim);text-decoration:none;transition:color 0.2s,padding-left 0.2s}
-.sv-toc-flat a:hover{color:var(--gold-bright);padding-left:4px}
-.sv-toc-flat a.active{color:var(--gold-bright);font-weight:500;border-left:2px solid var(--gold-bright);padding-left:10px;margin-left:-12px}
-
-/* ════════════════════════════════════════════════════════════════════════
-   FINAL PATCH — restore sticky bars, fit viewport, bigger tooltips
-   ════════════════════════════════════════════════════════════════════════ */
-
-/* ── Sticky top header + archbar ── */
-.sv-head{
-  position:sticky;top:0;z-index:50;
-  background:linear-gradient(180deg, rgba(12,6,22,0.96), rgba(12,6,22,0.92));
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(200,160,80,0.2);
-}
-.sv-archbar{
-  position:sticky;top:62px;z-index:45;
-  background:linear-gradient(180deg, rgba(15,8,24,0.96), rgba(10,5,18,0.92));
-  backdrop-filter:blur(6px);
-}
-
-/* ── Search results — override v1 display:none rule ── */
-.sv-search-results[hidden]{display:none !important}
-.sv-search-results:not([hidden]){display:block !important}
-
-/* ── Viewport-fitting container ── */
-.sv-container{
-  max-width:1500px;margin:0 auto;padding:0 clamp(16px, 3vw, 40px) 60px;
-  width:100%;
-}
-.sv-layout{
-  display:grid;
-  grid-template-columns:minmax(200px, 240px) 1fr minmax(180px, 220px);
-  gap:clamp(16px, 2.5vw, 36px);
-  margin-top:24px;
-}
-
-/* ── Bigger tooltips ── */
-.sv-tip{
-  font-size:16px;line-height:1.55;
-  padding:16px 20px;max-width:380px;
-}
-.sv-tip-name{font-size:16px;margin-bottom:8px}
-.sv-tip-body{font-size:16px;line-height:1.55}
-
-/* ── Sticky sidebars with proper offsets for the sticky bars ── */
-.sv-toc{
-  position:sticky;top:110px;
-  max-height:calc(100vh - 130px);
-  overflow-y:auto;
-  padding-right:8px;
-  align-self:start;
-}
-.sv-rail{
-  position:sticky;top:110px;
-  max-height:calc(100vh - 130px);
-  overflow-y:auto;
-  align-self:start;
-}
-
-/* ── Hub-page index sidebar: list the children clickably ── */
-.sv-hub-toc{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid rgba(180,140,70,0.15)}
-.sv-hub-toc h4{
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.22em;
-  text-transform:uppercase;color:var(--gold-dim);margin:0 0 10px;
-}
-.sv-hub-toc ul{list-style:none;padding:0;margin:0}
-.sv-hub-toc li{margin:0;padding:0}
-.sv-hub-toc a{
-  display:block;padding:5px 0;font-size:15px;color:var(--text-dim);
-  text-decoration:none;transition:color 0.2s,padding-left 0.2s;
-  line-height:1.35;
-}
-.sv-hub-toc a:hover{color:var(--gold-bright);padding-left:4px}
-
-/* ── Make arch bar tighter so 8 tabs fit ── */
-.sv-archbar{padding:8px 0}
-.sv-arch{padding:10px 4px;font-size:10px;letter-spacing:0.16em}
-.sv-arch-num{font-size:12px}
-
-/* ── Responsive improvements ── */
-@media(max-width:1400px){
-  .sv-arch{font-size:10px;letter-spacing:0.12em;gap:3px}
-  .sv-arch-name{font-size:9.5px}
-}
-@media(max-width:1100px){
-  .sv-layout{grid-template-columns:minmax(200px, 240px) 1fr;gap:28px}
-  .sv-rail{display:none}
-}
-@media(max-width:800px){
-  .sv-layout{grid-template-columns:1fr;gap:0}
-  .sv-toc{position:static;max-height:none;margin-bottom:24px}
-  .sv-archbar{top:58px}
-}
-
-/* ════════════════════════════════════════════════════════════════════════
-   VIEWPORT & HEADER FINAL OVERRIDES (these win; placed last)
-   ════════════════════════════════════════════════════════════════════════ */
-
-/* Let the page actually fill wide screens */
-.sv-container{
-  max-width:none !important;
-  padding:0 clamp(20px, 4vw, 60px) 60px !important;
-  width:100% !important;
-}
-.sv-layout{
-  max-width:1600px;margin:0 auto;
-  grid-template-columns:minmax(200px, 240px) minmax(0, 1fr) minmax(200px, 240px) !important;
-  gap:clamp(24px, 3vw, 48px) !important;
-}
-
-/* Header: single row, compact, never wraps */
-.sv-head{
-  display:flex !important;
-  align-items:center;
-  gap:16px !important;
-  padding:12px clamp(16px, 3vw, 28px) !important;
-  max-width:none !important;
-  min-height:56px;
-  flex-wrap:nowrap !important;
-}
-.sv-mark{flex-shrink:0}
-.sv-head-search-wrap{flex:1;max-width:none !important;margin:0 auto;min-width:0}
-.sv-search{max-width:360px !important;margin-left:auto !important;display:block}
-.sv-gm-link{flex-shrink:0;margin-left:auto}
-
-/* Hide mobile toc toggle on desktop entirely */
-@media(min-width:801px){ .sv-toc-toggle{display:none !important} }
-
-/* Archbar: single-row always, scrolls horizontally on narrow viewports instead of wrapping */
-.sv-archbar{
-  display:flex !important;
-  flex-wrap:nowrap !important;
-  overflow-x:auto !important;
-  overflow-y:hidden !important;
-  padding:0 !important;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  max-width:none !important;
-}
-.sv-archbar::-webkit-scrollbar{display:none}
-.sv-arch{
-  flex:1 0 auto !important;
-  min-width:0;
-  white-space:nowrap;
-  padding:12px 14px !important;
-  font-size:11px !important;
-  letter-spacing:0.18em !important;
-  gap:8px !important;
-}
-.sv-arch-name{display:inline !important;font-size:11px !important;letter-spacing:0.18em !important}
-.sv-arch-num{font-size:13px !important}
-
-/* Hide empty hero slots so they don't leave a gap */
-.sv-page-hero:empty{display:block}
-
-/* When there's no hero image at all, give a small breathing space instead of ~320px of nothing */
-.sv-page-head{margin-top:8px}
-
-/* Narrow viewport: keep arches on one line with smaller spacing */
-@media(max-width:900px){
-  .sv-head{padding:10px 14px !important}
+  .sv-head{padding:10px 14px;gap:10px}
   .sv-mark-text{font-size:16px}
-  .sv-search{max-width:200px !important}
-  .sv-arch{padding:10px 12px !important;font-size:10px !important;letter-spacing:0.12em !important;gap:5px !important}
-  .sv-arch-name{font-size:10px !important}
-  .sv-gm-link{padding:5px 10px}
+  .sv-search{font-size:14px}
+  .sv-head-search-wrap{max-width:none}
+  .sv-gm-link{padding:5px 10px;font-size:10px;letter-spacing:0.2em}
+  .sv-toc-toggle{display:inline-flex}
+
+  .sv-arch{padding:10px 12px;font-size:10px;letter-spacing:0.12em;gap:5px}
+  .sv-arch-num{font-size:14px}
+  .sv-arch-name{display:none}
+  .sv-arch.is-active .sv-arch-name{display:inline}
+
+  .sv-layout{grid-template-columns:1fr;gap:0;margin-top:16px}
+  .sv-toc{
+    display:none;position:static;max-height:none;
+    margin-bottom:20px;padding:20px;
+    background:rgba(10,5,18,0.85);border:1px solid var(--border);
+  }
+  .sv-toc.is-open{display:block}
+
+  .sv-breadcrumbs{padding:12px 0 0;font-size:10px}
+  .sv-page-head{padding:16px 8px 20px}
+
+  .sv-children-grid{grid-template-columns:1fr;gap:8px}
+  .sv-def{grid-template-columns:1fr;gap:2px}
 }
 
-/* Hide hero entirely on narrow if it was going to be tall-empty */
+/* Very narrow: hero gets shorter so it's not visually dominant */
 @media(max-width:700px){
   .sv-page-hero{height:140px}
 }

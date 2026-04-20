@@ -7,13 +7,18 @@
   <link rel="icon" type="image/png" href="assets/sigil.png" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;z-index:1}
+    /* GM-specific styles. The shared header/archbar classes come from style.css. */
+    .gate{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:24px}
     .gate-card{
       width:100%;max-width:460px;
       border:1px solid var(--border);background:rgba(18,10,29,0.95);
       padding:36px 34px 30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.6);
     }
-    .gate-card img{width:64px;height:64px;filter:drop-shadow(0 0 8px rgba(215,170,85,0.45));margin-bottom:12px;mix-blend-mode:screen;opacity:0.9}
+    .gate-card img{
+      width:64px;height:64px;
+      filter:drop-shadow(0 0 8px rgba(215,170,85,0.45));
+      margin-bottom:12px;mix-blend-mode:screen;opacity:0.9;
+    }
     .gate-card h1{
       font-family:'UnifrakturCook',serif;font-size:30px;
       margin:0 0 4px;color:var(--gold-bright);letter-spacing:0.04em;
@@ -28,11 +33,10 @@
     .gate-input:focus{border-color:var(--border-bright)}
     .gate-btn{
       margin-top:14px;width:100%;
-      font-family:'Cinzel',serif;letter-spacing:0.3em;font-size:12px;
-      text-transform:uppercase;padding:12px 0;
-      background:transparent;color:var(--gold-bright);
+      font-family:'Cinzel',serif;letter-spacing:0.3em;font-size:12px;text-transform:uppercase;
+      padding:12px 0;background:transparent;color:var(--gold-bright);
       border:1px solid var(--border-bright);cursor:pointer;
-      transition:background 0.2s, color 0.2s;
+      transition:background 0.2s,color 0.2s;
     }
     .gate-btn:hover{background:rgba(220,180,100,0.15)}
     .gate-error{margin-top:12px;color:#c86464;font-style:italic;font-size:14px;min-height:18px}
@@ -40,18 +44,42 @@
       margin-top:18px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
       color:var(--text-faint);font-family:'Cinzel',serif;
     }
+
     .gm-content{display:none}
     .gm-content.unlocked{display:block}
-    .gm-empty{
-      border:1px dashed var(--border);padding:24px;text-align:center;
-      color:var(--text-faint);font-style:italic;margin:14px 0;
-    }
+
     .gm-banner{
-      background:linear-gradient(180deg, rgba(80,30,30,0.35), rgba(50,20,20,0.2));
+      background:linear-gradient(180deg,rgba(80,30,30,0.35),rgba(50,20,20,0.2));
       border:1px solid rgba(180,70,70,0.35);border-left:3px solid rgba(200,80,80,0.6);
-      padding:14px 18px;margin:0 0 24px;
+      padding:14px 18px;margin:0 0 20px;
       color:#e9c6a0;font-style:italic;font-size:15px;
     }
+    .gm-storage-warn{
+      background:rgba(40,30,15,0.4);border:1px solid var(--border);
+      border-left:3px solid var(--gold-dim);
+      padding:12px 16px;margin:0 0 20px;font-size:14px;color:var(--text-dim);
+    }
+    .gm-storage-warn strong{color:var(--gold-bright);font-style:normal}
+
+    .gm-toolbar{
+      display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;
+      padding:12px 16px;background:rgba(10,5,18,0.5);
+      border:1px solid var(--border);
+    }
+    .gm-tool-btn{
+      font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
+      padding:8px 14px;background:rgba(10,5,18,0.7);color:var(--text-dim);
+      border:1px solid var(--border);cursor:pointer;
+      transition:all 0.2s;text-decoration:none;
+    }
+    .gm-tool-btn:hover{border-color:var(--border-bright);color:var(--gold-bright)}
+    .gm-tool-btn.danger:hover{border-color:rgba(200,80,80,0.6);color:#e9a0a0}
+    .gm-tool-spacer{flex:1 1 auto}
+    .gm-tool-status{
+      align-self:center;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;
+      color:var(--text-faint);text-transform:uppercase;
+    }
+
     .gm-edit{margin-top:8px}
     .gm-textarea{
       width:100%;min-height:160px;padding:16px;
@@ -72,262 +100,425 @@
   </style>
 </head>
 <body>
-  <header class="sv-header">
+
+<noscript>
+  <div class="sv-noscript">
+    <h1>JavaScript required</h1>
+    <p>This page needs JavaScript to work. Please enable it and reload.</p>
+  </div>
+</noscript>
+
+<!-- Same top bars as the rest of the site. -->
+<div class="sv-sticky-top">
+  <header class="sv-head">
     <a class="sv-mark" href="index.html">
-      <img src="assets/sigil.png" alt="" />
+      <img src="assets/sigil.png" alt="" class="sv-mark-sigil"/>
       <span class="sv-mark-text">The Sacred Veil</span>
       <span class="sv-mark-sub">GM Archive</span>
     </a>
-    <nav class="sv-nav">
-      <a class="sv-btn" href="index.html">Return to Sanctum</a>
-    </nav>
+    <div class="sv-head-search-wrap" style="visibility:hidden"></div>
+    <a class="sv-gm-link" href="index.html">Return to Sanctum</a>
   </header>
+  <nav class="sv-archbar" aria-label="Main sections">
+    <a class="sv-arch" href="campaign.html"><span class="sv-arch-num">I</span><span class="sv-arch-name">Campaign</span></a>
+    <a class="sv-arch" href="kingdom/index.html"><span class="sv-arch-num">II</span><span class="sv-arch-name">Kingdom</span></a>
+    <a class="sv-arch" href="faith/index.html"><span class="sv-arch-num">III</span><span class="sv-arch-name">Faith</span></a>
+    <a class="sv-arch" href="magic/index.html"><span class="sv-arch-num">IV</span><span class="sv-arch-name">Magic</span></a>
+    <a class="sv-arch" href="houses/index.html"><span class="sv-arch-num">V</span><span class="sv-arch-name">Houses</span></a>
+    <a class="sv-arch" href="guilds/index.html"><span class="sv-arch-num">VI</span><span class="sv-arch-name">Guilds</span></a>
+    <a class="sv-arch" href="rules.html"><span class="sv-arch-num">VII</span><span class="sv-arch-name">Rules</span></a>
+    <a class="sv-arch" href="glossary.html"><span class="sv-arch-num">VIII</span><span class="sv-arch-name">Glossary</span></a>
+  </nav>
+</div>
 
-  <!-- Gate -->
-  <div class="gate" id="gate">
-    <form class="gate-card" id="gate-form" autocomplete="off">
-      <img src="assets/sigil.png" alt="" />
-      <h1>Restricted</h1>
-      <p>For the Game Master only.</p>
-      <input type="password" id="gate-pw" class="gate-input" placeholder="· · · · · ·" autofocus />
-      <button type="submit" class="gate-btn">Unseal</button>
-      <div class="gate-error" id="gate-error"></div>
-      <div class="gate-hint">Contains spoilers for players</div>
-    </form>
+<!-- Gate -->
+<div class="gate" id="gate">
+  <form class="gate-card" id="gate-form" autocomplete="off">
+    <img src="assets/sigil.png" alt="" />
+    <h1>Restricted</h1>
+    <p>For the Game Master only.</p>
+    <input type="password" id="gate-pw" class="gate-input" placeholder="· · · · · ·" autofocus />
+    <button type="submit" class="gate-btn">Unseal</button>
+    <div class="gate-error" id="gate-error"></div>
+    <div class="gate-hint">Contains spoilers for players</div>
+  </form>
+</div>
+
+<!-- GM content -->
+<main class="gm-content sv-container" id="gm-content">
+  <nav class="sv-breadcrumbs">
+    <a href="index.html">Home</a>
+    <span class="sv-sep">›</span>
+    <span>GM Archive</span>
+  </nav>
+
+  <div class="sv-page-head">
+    <div class="sv-page-num">GM</div>
+    <h1 class="sv-page-title">The GM Archive</h1>
+    <div class="sv-page-sub">Secrets, arcs, and running tools</div>
+    <div class="sv-page-rule"></div>
   </div>
 
-  <!-- GM content -->
-  <main class="gm-content" id="gm-content" style="padding-top:calc(var(--head-h) + 40px)">
-    <div class="sv-layout" style="padding-top:0">
-      <aside class="sv-toc">
-        <div class="sv-toc-group">
-          <h4>Secrets</h4>
-          <div class="sv-toc-flat">
-            <a href="#secrets">Secrets &amp; Truths</a>
-            <a href="#naviel">Naviel &mdash; what really happened</a>
-            <a href="#fidarel-death">Death of Fidarel</a>
-            <a href="#pendant">The Lavender Pendant</a>
-            <a href="#council-factions">Council &mdash; real allegiances</a>
-            <a href="#heralds-deep">Heralds of the Ash &mdash; deep</a>
-            <a href="#silt-eaters-deep">Silt-Eaters &mdash; real nature</a>
-          </div>
+  <div class="sv-layout">
+    <aside class="sv-toc">
+      <div class="sv-toc-group">
+        <h4>Secrets</h4>
+        <div class="sv-toc-flat">
+          <a href="#secrets">Secrets &amp; Truths</a>
+          <a href="#naviel">Naviel &mdash; what really happened</a>
+          <a href="#fidarel-death">Death of Fidarel</a>
+          <a href="#pendant">The Lavender Pendant</a>
+          <a href="#council-factions">Council &mdash; real allegiances</a>
+          <a href="#heralds-deep">Heralds of the Ash &mdash; deep</a>
+          <a href="#silt-eaters-deep">Silt-Eaters &mdash; real nature</a>
         </div>
-        <div class="sv-toc-group">
-          <h4>Campaign</h4>
-          <div class="sv-toc-flat">
-            <a href="#arc-1">Arc 1 &mdash; The Burning Keep</a>
-            <a href="#arc-2">Arc 2 &mdash; Following the Transport</a>
-            <a href="#arc-3">Arc 3 &mdash; TBD</a>
-          </div>
+      </div>
+      <div class="sv-toc-group">
+        <h4>Campaign</h4>
+        <div class="sv-toc-flat">
+          <a href="#arc-1">Arc 1 &mdash; The Burning Keep</a>
+          <a href="#arc-2">Arc 2 &mdash; Following the Transport</a>
+          <a href="#arc-3">Arc 3 &mdash; TBD</a>
         </div>
-        <div class="sv-toc-group">
-          <h4>Tools</h4>
-          <div class="sv-toc-flat">
-            <a href="#encounters">Encounter library</a>
-            <a href="#npc-stats">NPC statblocks</a>
-            <a href="#loot">Loot &amp; relics</a>
-            <a href="#session-log">Session log</a>
-          </div>
+      </div>
+      <div class="sv-toc-group">
+        <h4>Tools</h4>
+        <div class="sv-toc-flat">
+          <a href="#encounters">Encounter library</a>
+          <a href="#npc-stats">NPC statblocks</a>
+          <a href="#loot">Loot &amp; relics</a>
+          <a href="#session-log">Session log</a>
         </div>
-      </aside>
+      </div>
+    </aside>
 
-      <article class="sv-main">
-        <div class="gm-banner">
-          Everything below is GM-only. If you are a player, close this tab.
+    <article class="sv-main">
+      <div class="gm-banner">
+        Everything below is GM-only. If you are a player, close this tab.
+      </div>
+
+      <div class="gm-storage-warn">
+        <strong>Heads-up on where these notes live:</strong>
+        Anything you type here is stored only in this browser (this machine).
+        It isn't synced, isn't in the repo, and clearing site data will wipe it.
+        Use <em>Export</em> below to save a backup JSON file, and <em>Import</em>
+        on another device to bring it over.
+      </div>
+
+      <div class="gm-toolbar">
+        <button class="gm-tool-btn" id="gm-export">Export notes</button>
+        <button class="gm-tool-btn" id="gm-import">Import notes</button>
+        <input type="file" id="gm-import-file" accept="application/json,.json" style="display:none"/>
+        <div class="gm-tool-spacer"></div>
+        <span class="gm-tool-status" id="gm-tool-status"></span>
+        <button class="gm-tool-btn danger" id="gm-lock">Lock</button>
+      </div>
+
+      <section class="sv-section" id="secrets">
+        <div class="sv-section-group">Secrets</div>
+        <h1>Secrets &amp; Truths</h1>
+        <p class="sv-subtitle">Everything the players should not know &mdash; yet.</p>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="secrets" placeholder="Empty. Fill with canonical truths as they get locked in."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-secrets">not saved</span></div>
         </div>
+      </section>
 
-        <section class="sv-section" id="secrets">
-          <div class="sv-section-group">Secrets</div>
-          <h1>Secrets &amp; Truths</h1>
-          <p class="sv-subtitle">Everything the players should not know &mdash; yet.</p>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="secrets" placeholder="Empty. Fill with canonical truths as they get locked in."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-secrets">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="naviel">
+        <div class="sv-section-group">Secrets</div>
+        <h1>Naviel &mdash; what really happened</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="naviel" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-naviel">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="naviel">
-          <div class="sv-section-group">Secrets</div>
-          <h1>Naviel &mdash; what really happened</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="naviel" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-naviel">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="fidarel-death">
+        <div class="sv-section-group">Secrets</div>
+        <h1>Death of Sovereign Fidarel</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="fidarel-death" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-fidarel-death">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="fidarel-death">
-          <div class="sv-section-group">Secrets</div>
-          <h1>Death of Sovereign Fidarel</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="fidarel-death" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-fidarel-death">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="pendant">
+        <div class="sv-section-group">Secrets</div>
+        <h1>The Lavender Pendant</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="pendant" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-pendant">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="pendant">
-          <div class="sv-section-group">Secrets</div>
-          <h1>The Lavender Pendant</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="pendant" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-pendant">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="council-factions">
+        <div class="sv-section-group">Secrets</div>
+        <h1>High Council &mdash; real allegiances</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="council-factions" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-council-factions">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="council-factions">
-          <div class="sv-section-group">Secrets</div>
-          <h1>High Council &mdash; real allegiances</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="council-factions" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-council-factions">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="heralds-deep">
+        <div class="sv-section-group">Secrets</div>
+        <h1>Heralds of the Ash &mdash; deep</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="heralds-deep" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-heralds-deep">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="heralds-deep">
-          <div class="sv-section-group">Secrets</div>
-          <h1>Heralds of the Ash &mdash; deep lore</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="heralds-deep" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-heralds-deep">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="silt-eaters-deep">
+        <div class="sv-section-group">Secrets</div>
+        <h1>Silt-Eaters &mdash; real nature</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="silt-eaters-deep" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-silt-eaters-deep">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="silt-eaters-deep">
-          <div class="sv-section-group">Secrets</div>
-          <h1>Silt-Eaters &mdash; real nature</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="silt-eaters-deep" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-silt-eaters-deep">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="arc-1">
+        <div class="sv-section-group">Campaign</div>
+        <h1>Arc 1 &mdash; The Burning Keep</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="arc-1" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-arc-1">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="arc-1">
-          <div class="sv-section-group">Campaign</div>
-          <h1>Arc 1 &mdash; The Burning Keep</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="arc-1" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-arc-1">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="arc-2">
+        <div class="sv-section-group">Campaign</div>
+        <h1>Arc 2 &mdash; Following the Transport</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="arc-2" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-arc-2">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="arc-2">
-          <div class="sv-section-group">Campaign</div>
-          <h1>Arc 2 &mdash; Following the Transport</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="arc-2" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-arc-2">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="arc-3">
+        <div class="sv-section-group">Campaign</div>
+        <h1>Arc 3 &mdash; TBD</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="arc-3" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-arc-3">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="arc-3">
-          <div class="sv-section-group">Campaign</div>
-          <h1>Arc 3 &mdash; TBD</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="arc-3" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-arc-3">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="encounters">
+        <div class="sv-section-group">Tools</div>
+        <h1>Encounter library</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="encounters" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-encounters">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="encounters">
-          <div class="sv-section-group">Tools</div>
-          <h1>Encounter library</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="encounters" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-encounters">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="npc-stats">
+        <div class="sv-section-group">Tools</div>
+        <h1>NPC statblocks</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="npc-stats" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-npc-stats">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="npc-stats">
-          <div class="sv-section-group">Tools</div>
-          <h1>NPC statblocks</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="npc-stats" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-npc-stats">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="loot">
+        <div class="sv-section-group">Tools</div>
+        <h1>Loot &amp; relics</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="loot" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-loot">not saved</span></div>
+        </div>
+      </section>
 
-        <section class="sv-section" id="loot">
-          <div class="sv-section-group">Tools</div>
-          <h1>Loot &amp; relics</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="loot" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-loot">not saved</span></div>
-          </div>
-        </section>
+      <section class="sv-section" id="session-log">
+        <div class="sv-section-group">Tools</div>
+        <h1>Session log</h1>
+        <div class="gm-edit">
+          <textarea class="gm-textarea" data-gm-key="session-log" placeholder="Empty."></textarea>
+          <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-session-log">not saved</span></div>
+        </div>
+      </section>
+    </article>
 
-        <section class="sv-section" id="session-log">
-          <div class="sv-section-group">Tools</div>
-          <h1>Session log</h1>
-          <div class="gm-edit">
-            <textarea class="gm-textarea" data-gm-key="session-log" placeholder="Empty."></textarea>
-            <div class="gm-edit-meta"><span class="gm-edit-status" id="gm-status-session-log">not saved</span></div>
-          </div>
-        </section>
-      </article>
+    <aside class="sv-rail">
+      <h5>Session</h5>
+      <p style="font-size:14px;color:var(--text-dim);font-style:italic;line-height:1.45">
+        Unlocked locally in this browser only. Close the tab to re-lock, or use the Lock button above.
+      </p>
+    </aside>
+  </div>
+</main>
 
-      <aside class="sv-rail">
-        <h5>Session</h5>
-        <p style="font-size:14px;color:var(--text-dim);font-style:italic;line-height:1.45">
-          Unlocked locally in this browser only. Close the tab to re-lock, or use the button below.
-        </p>
-        <button class="sv-btn" id="gm-lock" style="width:100%;margin-top:10px">Lock</button>
-      </aside>
-    </div>
-  </main>
-
-  <script>
-    // Light client-side gate. NOT secure. For real protection use server auth.
-    const GM_PW = "change-me";  // ← GM: replace with your chosen password
-
-    const gate = document.getElementById('gate');
-    const form = document.getElementById('gate-form');
-    const input = document.getElementById('gate-pw');
-    const err = document.getElementById('gate-error');
-    const content = document.getElementById('gm-content');
-    const KEY = 'sv-gm-unlocked';
-
-    function unlock() { gate.style.display = 'none'; content.classList.add('unlocked'); }
-    if (sessionStorage.getItem(KEY) === '1') unlock();
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (input.value === GM_PW) {
-        sessionStorage.setItem(KEY, '1');
-        err.textContent = '';
-        unlock();
-      } else {
-        err.textContent = 'The seal holds.';
-        input.value = '';
-        input.focus();
-      }
-    });
-
-    document.getElementById('gm-lock')?.addEventListener('click', () => {
-      sessionStorage.removeItem(KEY);
-      location.reload();
-    });
-  </script>
 <script>
-// GM notes — save/load each textarea to localStorage
+// =============================================================================
+//  GATE — password hashing
+//
+//  The password is never stored in plain text in this file. Instead we store
+//  the SHA-256 hash of it and hash the user's input at submit time.
+//
+//  >>> TO CHANGE THE PASSWORD <<<
+//  1. Open your deployed site, open the browser console (F12 or ⌥⌘J).
+//  2. Paste this one-liner and press enter, replacing YOUR-NEW-PASSWORD:
+//
+//     (async p=>{const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));return[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('')})('YOUR-NEW-PASSWORD').then(console.log)
+//
+//  3. Copy the hash it prints.
+//  4. Paste it into the GM_PW_HASH constant below, replacing the current value.
+//  5. Commit & push.
+//
+//  Note: this is casual protection only. Anyone technically minded can bypass
+//  a client-side gate. Don't commit sensitive content into this HTML file —
+//  keep it in the textareas (localStorage), which never leaves your browser.
+// =============================================================================
+
+// Hash of the default password "change-me". REPLACE THIS.
+const GM_PW_HASH = 'e2186dbdb1bb4193608605e84f33208765b5693b55edd4f730a719a100eeea6f';
+const KEY = 'sv-gm-unlocked';
+
+async function sha256(text){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+const gate = document.getElementById('gate');
+const form = document.getElementById('gate-form');
+const input = document.getElementById('gate-pw');
+const err = document.getElementById('gate-error');
+const content = document.getElementById('gm-content');
+
+function unlock(){ gate.style.display = 'none'; content.classList.add('unlocked'); }
+if (sessionStorage.getItem(KEY) === '1') unlock();
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const hash = await sha256(input.value);
+  if (hash === GM_PW_HASH) {
+    sessionStorage.setItem(KEY, '1');
+    err.textContent = '';
+    unlock();
+  } else {
+    err.textContent = 'The seal holds.';
+    input.value = '';
+    input.focus();
+  }
+});
+
+document.getElementById('gm-lock')?.addEventListener('click', () => {
+  sessionStorage.removeItem(KEY);
+  location.reload();
+});
+</script>
+
+<script>
+// =============================================================================
+//  NOTES — autosave + export/import
+//  All notes save to localStorage keyed as `sv-gm-notes:<section-id>`.
+// =============================================================================
 (function(){
+  const NOTE_PREFIX = 'sv-gm-notes:';
   const textareas = document.querySelectorAll('.gm-textarea');
+  const status = document.getElementById('gm-tool-status');
+
+  function flash(msg, cls){
+    status.textContent = msg;
+    status.className = 'gm-tool-status' + (cls ? ' '+cls : '');
+    clearTimeout(flash._t);
+    flash._t = setTimeout(() => { status.textContent = ''; status.className = 'gm-tool-status'; }, 3000);
+  }
+
+  // ── Per-textarea load + autosave ──
   textareas.forEach(ta => {
-    const key = 'sv-gm-notes:' + ta.dataset.gmKey;
-    // Load
+    const key = NOTE_PREFIX + ta.dataset.gmKey;
     const saved = localStorage.getItem(key);
     if (saved) ta.value = saved;
     const statusEl = document.getElementById('gm-status-' + ta.dataset.gmKey);
     if (saved && statusEl) statusEl.textContent = 'saved';
-    // Save on input (debounced)
     let timer;
     ta.addEventListener('input', () => {
       if (statusEl) { statusEl.textContent = 'saving…'; statusEl.className = 'gm-edit-status saving'; }
       clearTimeout(timer);
       timer = setTimeout(() => {
-        localStorage.setItem(key, ta.value);
-        if (statusEl) { statusEl.textContent = 'saved'; statusEl.className = 'gm-edit-status saved'; }
+        try {
+          localStorage.setItem(key, ta.value);
+          if (statusEl) { statusEl.textContent = 'saved'; statusEl.className = 'gm-edit-status saved'; }
+        } catch (e) {
+          if (statusEl) { statusEl.textContent = 'error'; statusEl.className = 'gm-edit-status'; }
+        }
       }, 400);
     });
   });
+
+  // ── Export: download JSON of all notes ──
+  document.getElementById('gm-export').addEventListener('click', () => {
+    const out = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(NOTE_PREFIX)) out[k] = localStorage.getItem(k);
+    }
+    if (!Object.keys(out).length) { flash('Nothing to export'); return; }
+    const payload = { exportedAt: new Date().toISOString(), notes: out };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = 'sacred-veil-gm-notes-' + stamp + '.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    flash('Exported ✓');
+  });
+
+  // ── Import: read JSON, merge into localStorage, refresh textareas ──
+  const fileInput = document.getElementById('gm-import-file');
+  document.getElementById('gm-import').addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const obj = JSON.parse(reader.result);
+        const notes = obj.notes || obj;   // accept either {notes:{…}} or the bare object
+        if (typeof notes !== 'object' || !notes) throw new Error('Bad file format');
+        let count = 0;
+        Object.keys(notes).forEach(k => {
+          if (k.startsWith(NOTE_PREFIX) && typeof notes[k] === 'string') {
+            localStorage.setItem(k, notes[k]);
+            count++;
+          }
+        });
+        // Reload all textareas from storage
+        textareas.forEach(ta => {
+          const key = NOTE_PREFIX + ta.dataset.gmKey;
+          ta.value = localStorage.getItem(key) || '';
+          const statusEl = document.getElementById('gm-status-' + ta.dataset.gmKey);
+          if (statusEl) statusEl.textContent = ta.value ? 'saved' : 'not saved';
+        });
+        flash(`Imported ${count} note${count===1?'':'s'} ✓`);
+      } catch (e) {
+        flash('Import failed: ' + e.message);
+      }
+      fileInput.value = '';
+    };
+    reader.readAsText(file);
+  });
+})();
+</script>
+
+<!-- Measure sticky-top height so sidebars / scroll-margin stay exact -->
+<script>
+(function(){
+  const top = document.querySelector('.sv-sticky-top');
+  if (!top) return;
+  const apply = () => {
+    const h = Math.round(top.getBoundingClientRect().height);
+    if (h > 0) document.documentElement.style.setProperty('--sticky-top-h', h + 'px');
+  };
+  apply();
+  window.addEventListener('resize', apply);
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(apply).observe(top);
 })();
 </script>
 </body>
