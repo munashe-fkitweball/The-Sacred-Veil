@@ -146,8 +146,10 @@
     const cards = childKeys.map(k => {
       const c = window.SV_PAGES[k];
       if (!c) return '';
+      // Use a real <img> with onerror so a missing file falls back to the --empty glow
+      // instead of leaving a blank disc.
       const sigilImg = c.sigil
-        ? `<div class="sv-child-card-sigil" style="background-image:url('${rel('assets/art/'+c.sigil)}')"></div>`
+        ? `<div class="sv-child-card-sigil"><img src="${rel('assets/art/'+c.sigil)}" alt="" onerror="this.parentElement.classList.add('sv-child-card-sigil--empty');this.remove();"/></div>`
         : `<div class="sv-child-card-sigil sv-child-card-sigil--empty"></div>`;
       const sub = c.subtitle ? `<div class="sv-child-card-sub">${c.subtitle}</div>` : '';
       return `<a class="sv-child-card" href="${rel(c.href)}">
@@ -211,7 +213,7 @@
       const active = k === PAGE_KEY ? ' class="is-active"' : '';
       return `<li><a href="${rel(c.href)}"${active}>${c.title}</a></li>`;
     }).join('');
-    return `<div class="sv-peer-nav"><h4>${parent.title}</h4><ul>${items}</ul></div>`;
+    return `<div class="sv-peer-nav"><h4><a href="${rel(parent.href)}">${parent.title}</a></h4><ul>${items}</ul></div>`;
   }
 
   // ── In-page ToC (sections within current page) ──
@@ -252,21 +254,11 @@
   function renderPageHeader() {
     const numeral = PAGE.numeral ? `<div class="sv-page-num">${PAGE.numeral}</div>` : '';
     const sub = PAGE.subtitle ? `<div class="sv-page-sub">${PAGE.subtitle}</div>` : '';
+    // Use a real <img> with onerror. If the file is missing, the parent figure
+    // removes itself entirely — no empty reserved space on the page.
     const hero = PAGE.hero
-      ? `<div class="sv-page-hero" style="background-image:url('${rel('assets/art/'+PAGE.hero)}')" onerror="this.style.display='none'"></div>`
+      ? `<figure class="sv-page-hero"><img src="${rel('assets/art/'+PAGE.hero)}" alt="" onerror="this.parentElement.remove();"/></figure>`
       : '';
-    // Detect and hide hero if image is missing
-    setTimeout(() => {
-      const heroEl = document.querySelector('.sv-page-hero');
-      if (heroEl) {
-        const url = heroEl.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
-        if (url) {
-          const img = new Image();
-          img.onerror = () => heroEl.remove();
-          img.src = url[1];
-        }
-      }
-    }, 0);
     return `
       ${hero}
       <div class="sv-page-head">
@@ -282,20 +274,22 @@
   function render() {
     const sigilImg = rel('assets/sigil.png');
     document.body.innerHTML = `
-      <header class="sv-head">
-        <a class="sv-mark" href="${rel('index.html')}">
-          <img src="${sigilImg}" alt="" class="sv-mark-sigil"/>
-          <span class="sv-mark-text">The Sacred Veil</span>
-        </a>
-        <button class="sv-toc-toggle" id="sv-toc-toggle" aria-label="Menu">☰</button>
-        <div class="sv-head-search-wrap">
-          <input class="sv-search" id="sv-search" placeholder="Search the archive…" autocomplete="off"/>
-          <div class="sv-search-results" id="sv-search-results" hidden></div>
-        </div>
-        <a class="sv-gm-link" href="${rel('gm.html')}">GM</a>
-      </header>
+      <div class="sv-sticky-top">
+        <header class="sv-head">
+          <a class="sv-mark" href="${rel('index.html')}">
+            <img src="${sigilImg}" alt="" class="sv-mark-sigil"/>
+            <span class="sv-mark-text">The Sacred Veil</span>
+          </a>
+          <button class="sv-toc-toggle" id="sv-toc-toggle" aria-label="Menu">☰</button>
+          <div class="sv-head-search-wrap">
+            <input class="sv-search" id="sv-search" placeholder="Search the archive…" autocomplete="off"/>
+            <div class="sv-search-results" id="sv-search-results" hidden></div>
+          </div>
+          <a class="sv-gm-link" href="${rel('gm.html')}">GM</a>
+        </header>
 
-      <nav class="sv-archbar">${renderArchBar()}</nav>
+        <nav class="sv-archbar" aria-label="Main sections">${renderArchBar()}</nav>
+      </div>
 
       <div class="sv-container">
         ${renderBreadcrumbs()}
@@ -326,6 +320,23 @@
 
   render();
 
+  // ── Measure the sticky top (header + archbar) and expose its height as a
+  //    CSS variable so sidebar offsets and section scroll-margins stay exact.
+  //    Re-measures on resize and whenever its contents reflow.
+  (function trackStickyHeight() {
+    const top = document.querySelector('.sv-sticky-top');
+    if (!top) return;
+    const apply = () => {
+      const h = Math.round(top.getBoundingClientRect().height);
+      if (h > 0) document.documentElement.style.setProperty('--sticky-top-h', h + 'px');
+    };
+    apply();
+    window.addEventListener('resize', apply);
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(apply).observe(top);
+    }
+  })();
+
   // ── Populate right rail with cross-page mentions ──
   (function populateRail() {
     const rail = document.getElementById('sv-rail');
@@ -342,7 +353,11 @@
       items.push({ ref, text: a.textContent.trim(), href: a.href });
     });
     if (!items.length) {
-      rail.innerHTML = '';
+      // No mentions — remove the rail entirely so the grid collapses cleanly.
+      rail.remove();
+      // Switch the layout grid to a 2-column template when the rail is gone.
+      const layout = document.querySelector('.sv-layout');
+      if (layout) layout.classList.add('sv-layout--no-rail');
       return;
     }
     // Group by target hub if possible
@@ -459,7 +474,8 @@
   }
   function updateActive() {
     if (suppressIO) return;
-    const readLine = 150;
+    const stickyH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sticky-top-h')) || 108;
+    const readLine = stickyH + 30;
     let active = sectionEls[0]?.id;
     for (const el of sectionEls) {
       const top = el.getBoundingClientRect().top;
