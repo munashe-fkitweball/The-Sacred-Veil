@@ -25,6 +25,8 @@ window.SV_SECTIONS = [
       `<b>Refined Corruption:</b> One major change is how [[corruption:Corruption]] works — made into a more interesting, long-term mechanical and narrative threat rather than a quick "game over" stat.`,
       `<b>Lore & Names:</b> Most terminology and names are kept the same where appropriate, but do not rely on the sourcebooks as gospel truth. If you have a query about whether a piece of lore, a specific ability, or a world-rule is being retained, just ask — better to be on the same page than to build a character around a book rule that does not exist in this version of the world.`,
     ]},
+    { type: "p", text: `Below is an outline of the world as a whole, but before that…` },
+    { type: "cta-link", to: "campaign/hook", kicker: "Continue to", label: "The Hook", subtitle: "The night the keep falls" },
   ],
 },
 
@@ -32,7 +34,6 @@ window.SV_SECTIONS = [
   id: "the-hook",
   group: "Opening",
   title: "The Hook",
-  headless: true,
   blocks: [
     { type: "p", text: `Long before the events you experienced in Helligvarld, there existed the equally ancient world of Averium. Here, in the kingdom of [[ash-kadesh:K'naan]], noble houses play a dangerous game of succession.` },
     { type: "p", text: `You are household guards for [[house-jannin:House Jannin]], a minor but affluent family whose fortune flows from a silver mine and vast herds of sheep, cattle, and goats. The Jannin seat is [[amarsgate:Amarsgate]], a small fortified town at the foot of the [[eastern-massif:Eastern Massif]], built around the mouth of the silver mine. On the ridge above the mine stands Keep Amar, where you have served for years — and by a custom older than House Jannin itself, the lord who holds the keep takes its name. Your master is not the man after whom the keep was named: the keep named the man. He is [[amar-jannin:Lord Amar, 13th of that name]]; his father bore the title before him, and his father's father before that, further back than most in K'naan can follow.` },
