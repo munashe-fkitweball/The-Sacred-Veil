@@ -18,7 +18,7 @@ window.SV_HUBS = [
   { key: 'houses',   numeral: 'V',    short: 'Houses',   homeLabel: 'Houses',          href: 'houses/index.html' },
   { key: 'guilds',   numeral: 'VI',   short: 'Guilds',   homeLabel: 'Guilds &amp; Crime', href: 'guilds/index.html' },
   { key: 'rules',    numeral: 'VII',  short: 'Rules',    homeLabel: 'Homebrew Rules',  href: 'rules.html' },
-  { key: 'party',    numeral: 'VIII', short: 'The Party', homeLabel: 'The Party',      href: 'party.html' },
+  { key: 'party',    numeral: 'VIII', short: 'The Party', homeLabel: 'The Party',      href: 'party/index.html' },
 ];
 
 window.SV_PAGES = {
@@ -310,15 +310,15 @@ window.SV_PAGES = {
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // VIII · THE PARTY (placeholder — under construction)
+  // VIII · THE PARTY — standalone cinematic page (not a wiki hub)
   // ═══════════════════════════════════════════════════════════════════════
   'party': {
     hub: 'party',
-    href: 'party.html',
+    href: 'party/index.html',
     numeral: 'VIII',
     title: 'The Party',
     subtitle: 'The survivors of Keep Amar',
-    sections: ['party-placeholder'],
+    standalone: true,
   },
 
   // GLOSSARY — still available via a small link next to GM, just not in the archbar
