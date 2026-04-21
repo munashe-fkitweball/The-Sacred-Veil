@@ -11,14 +11,14 @@
 // ============================================================================
 
 window.SV_HUBS = [
-  { key: 'campaign', numeral: 'I',    short: 'Campaign', href: 'campaign/index.html' },
-  { key: 'kingdom',  numeral: 'II',   short: 'Kingdom',  href: 'kingdom/index.html' },
-  { key: 'faith',    numeral: 'III',  short: 'Faith',    href: 'faith/index.html' },
-  { key: 'magic',    numeral: 'IV',   short: 'Magic',    href: 'magic/index.html' },
-  { key: 'houses',   numeral: 'V',    short: 'Houses',   href: 'houses/index.html' },
-  { key: 'guilds',   numeral: 'VI',   short: 'Guilds',   href: 'guilds/index.html' },
-  { key: 'rules',    numeral: 'VII',  short: 'Rules',    href: 'rules.html' },
-  { key: 'party',    numeral: 'VIII', short: 'The Party', href: 'party.html' },
+  { key: 'campaign', numeral: 'I',    short: 'Campaign', homeLabel: 'The Campaign',    href: 'campaign/index.html' },
+  { key: 'kingdom',  numeral: 'II',   short: 'Kingdom',  homeLabel: 'The Kingdom',     href: 'kingdom/index.html' },
+  { key: 'faith',    numeral: 'III',  short: 'Faith',    homeLabel: 'The Faith',       href: 'faith/index.html' },
+  { key: 'magic',    numeral: 'IV',   short: 'Magic',    homeLabel: 'Magic',           href: 'magic/index.html' },
+  { key: 'houses',   numeral: 'V',    short: 'Houses',   homeLabel: 'Houses',          href: 'houses/index.html' },
+  { key: 'guilds',   numeral: 'VI',   short: 'Guilds',   homeLabel: 'Guilds &amp; Crime', href: 'guilds/index.html' },
+  { key: 'rules',    numeral: 'VII',  short: 'Rules',    homeLabel: 'Homebrew Rules',  href: 'rules.html' },
+  { key: 'party',    numeral: 'VIII', short: 'The Party', homeLabel: 'The Party',      href: 'party.html' },
 ];
 
 window.SV_PAGES = {
