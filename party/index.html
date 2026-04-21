@@ -61,6 +61,59 @@ a:hover{color:#f2d98c}
   border-color:rgba(220,180,100,0.5);
 }
 
+/* ─── SIDE CHAPTER NAV ─── */
+.chapters{
+  position:fixed;
+  top:50%; right:24px;
+  transform:translateY(-50%);
+  z-index:100;
+  display:flex; flex-direction:column; gap:18px;
+  padding:14px 10px;
+  background:rgba(0,0,0,0.35);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(180,140,70,0.15);
+}
+.chapter{
+  position:relative;
+  display:flex; align-items:center; gap:12px;
+  cursor:pointer;
+  font-family:'Cinzel',serif;
+  font-size:10px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:rgba(240,228,188,0.4);
+  transition:color 0.25s ease;
+  padding:4px 0;
+  background:none; border:none;
+}
+.chapter:hover{ color:rgba(240,228,188,0.9); }
+.chapter.active{ color:#f2d98c; }
+.chapter-label{
+  opacity:0;
+  transform:translateX(8px);
+  transition:opacity 0.25s ease, transform 0.25s ease;
+  pointer-events:none;
+  white-space:nowrap;
+  order:-1;
+}
+.chapter:hover .chapter-label,
+.chapter.active .chapter-label{
+  opacity:1;
+  transform:translateX(0);
+}
+.chapter-dot{
+  width:8px; height:8px;
+  border-radius:50%;
+  background:currentColor;
+  flex-shrink:0;
+  transition:transform 0.25s ease;
+}
+.chapter.active .chapter-dot{
+  transform:scale(1.6);
+  box-shadow:0 0 12px rgba(220,180,100,0.7);
+}
+
 /* ─── SHORT OPENING RUNWAY ─── */
 .opening{
   height:10vh;
@@ -197,6 +250,7 @@ a:hover{color:#f2d98c}
   .blurb h1{ font-size:38px; text-align:center; }
   .blurb .epithet{ text-align:center; }
   .blurb .body{ font-size:17px; }
+  .chapters{ display:none; }
 }
 </style>
 </head>
@@ -208,6 +262,21 @@ a:hover{color:#f2d98c}
 
 <nav class="nav">
   <a href="../index.html">← Back to The Sacred Veil</a>
+</nav>
+
+<nav class="chapters" id="chapters">
+  <button class="chapter" data-stage="0" type="button">
+    <span class="chapter-label">Arthur</span>
+    <span class="chapter-dot"></span>
+  </button>
+  <button class="chapter" data-stage="1" type="button">
+    <span class="chapter-label">Brandon</span>
+    <span class="chapter-dot"></span>
+  </button>
+  <button class="chapter" data-stage="2" type="button">
+    <span class="chapter-label">Gawain</span>
+    <span class="chapter-dot"></span>
+  </button>
 </nav>
 
 <div class="opening"></div>
@@ -284,6 +353,7 @@ a:hover{color:#f2d98c}
 
   const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
   const stages = Array.from(document.querySelectorAll('.stage'));
+  const chapterBtns = Array.from(document.querySelectorAll('.chapter'));
 
   function easeInOut(t){
     return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
@@ -299,17 +369,17 @@ a:hover{color:#f2d98c}
 
     const vh = window.innerHeight;
 
-    stages.forEach(stage => {
+    // Track which stage is most visible, for the chapter-nav active state
+    let mostVisibleIdx = 0;
+    let mostVisibleVis = -1;
+
+    stages.forEach((stage, i) => {
       const rect = stage.getBoundingClientRect();
       const stageH = stage.offsetHeight;
 
-      // 0 when stage top hits viewport top; 1 when stage bottom hits viewport bottom.
       const raw = (-rect.top) / (stageH - vh);
       const p = Math.max(0, Math.min(1, raw));
 
-      // 0–0.30: fade in
-      // 0.30–0.70: hold
-      // 0.70–1.00: fade out
       let vis;
       if(p <= 0.30){
         vis = easeInOut(p / 0.30);
@@ -319,6 +389,11 @@ a:hover{color:#f2d98c}
         vis = 1 - easeInOut((p - 0.70) / 0.30);
       }
 
+      if(vis > mostVisibleVis){
+        mostVisibleVis = vis;
+        mostVisibleIdx = i;
+      }
+
       const portrait = stage.querySelector('.portrait');
       const blurb = stage.querySelector('.blurb');
       const reverse = stage.classList.contains('reverse');
@@ -326,7 +401,6 @@ a:hover{color:#f2d98c}
       portrait.style.opacity = vis.toFixed(3);
       blurb.style.opacity = vis.toFixed(3);
 
-      // Subtle slide on blurb — in from opposite side of portrait, out same side
       const dir = reverse ? -1 : 1;
       let x = 0;
       if(p <= 0.30){
@@ -335,6 +409,11 @@ a:hover{color:#f2d98c}
         x = dir * -50 * easeInOut((p - 0.70) / 0.30);
       }
       blurb.style.transform = `translate3d(${x.toFixed(1)}px, 0, 0)`;
+    });
+
+    // Sync chapter-nav active dot
+    chapterBtns.forEach((btn, i) => {
+      btn.classList.toggle('active', i === mostVisibleIdx);
     });
   }
 
@@ -348,6 +427,19 @@ a:hover{color:#f2d98c}
   window.addEventListener('scroll', onScroll, { passive:true });
   window.addEventListener('resize', onScroll);
   update();
+
+  // Chapter nav clicks — scroll to middle of hold phase for each stage
+  chapterBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const stage = stages[i];
+      if(!stage) return;
+      const vh = window.innerHeight;
+      const stageH = stage.offsetHeight;
+      // Target scroll position: stage top offset + 50% of sticky scroll range
+      const target = stage.offsetTop + (stageH - vh) * 0.5;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    });
+  });
 
   // Fade-to-black on nav away
   const fader = document.getElementById('fader');
