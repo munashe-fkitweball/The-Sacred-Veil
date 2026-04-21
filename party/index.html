@@ -40,6 +40,7 @@ a:hover{color:var(--gold-bright)}
 
 /* ═══════════════════════════════════════════════════════════════════════
    FOG — three drifting layers, always behind everything
+   Darker, less purple. Black/brown dominant with purple only as accent.
    ═══════════════════════════════════════════════════════════════════════ */
 .pa-fog-layer{
   position:fixed; inset:-30% -30%;
@@ -48,23 +49,26 @@ a:hover{color:var(--gold-bright)}
   will-change:transform;
 }
 .pa-fog-1{
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='4' seed='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.09  0 0 0 0 0.14  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  /* Large, slow — dark warm brown-black */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='4' seed='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.06  0 0 0 0 0.06  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
   background-size: 140% 140%;
-  opacity:0.55;
+  opacity:0.6;
   mix-blend-mode:screen;
   animation: pa-drift-a 180s linear infinite;
 }
 .pa-fog-2{
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.06  0 0 0 0 0.17  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  /* Medium — near-black with faint purple */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.03  0 0 0 0 0.08  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
   background-size: 120% 120%;
-  opacity:0.45;
+  opacity:0.5;
   mix-blend-mode:screen;
   animation: pa-drift-b 240s linear infinite;
 }
 .pa-fog-3{
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.04  0 0 0 0 0.10  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  /* Wispy highlights — dim gray so they read as mist not color */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.07  0 0 0 0 0.05  0 0 0 0 0.06  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
   background-size: 100% 100%;
-  opacity:0.35;
+  opacity:0.3;
   mix-blend-mode:overlay;
   animation: pa-drift-c 90s linear infinite;
 }
@@ -85,27 +89,10 @@ a:hover{color:var(--gold-bright)}
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   FOG CLEARING — radial dim zone around the active portrait
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-fog-clearing{
-  position:fixed; inset:0;
-  pointer-events:none;
-  z-index:1;
-  background:radial-gradient(
-    ellipse 32% 48% at var(--clearing-x, 30%) 50%,
-    rgba(3,1,6,0.82) 0%,
-    rgba(3,1,6,0.5)  35%,
-    transparent 70%
-  );
-  opacity: var(--clearing-opacity, 0);
-  transition: opacity 0.4s ease, background 0.6s ease;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   OPENING — short fog runway, no text, first scroll begins Arthur
+   OPENING — tiny fog runway so first scroll immediately triggers Arthur
    ═══════════════════════════════════════════════════════════════════════ */
 .pa-opening{
-  height:30vh;
+  height:10vh;
   position:relative;
 }
 
@@ -150,17 +137,36 @@ a:hover{color:var(--gold-bright)}
   display:flex; align-items:center; justify-content:center;
   will-change:opacity;
 }
+/* The image itself: solid, no blend mode. We'll cover its edges with a murk overlay. */
 .pa-portrait-img{
   width:100%; height:100%;
   object-fit:cover; object-position:center 20%;
-  mix-blend-mode:lighten;
-  /* Very aggressive feather — portrait solid only in center, rest dissolves into fog */
+  filter:brightness(1.0) contrast(1.05) saturate(0.9);
+  will-change:filter;
+}
+/* Murk overlay sits ON TOP of the image. It's a dark cloud texture with a
+   splattery radial mask: opaque at the edges/corners, transparent in the
+   center. So the center of the portrait reads clean and solid, and the
+   edges dissolve into the ambient fog via the murky texture. */
+.pa-portrait-murk{
+  position:absolute; inset:0;
+  pointer-events:none;
+  /* The murk texture itself: dark cloudy noise tinted to match the fog */
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='800'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='4' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.03  0 0 0 0 0.04  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background-size: cover;
+  /* The splattery hole-in-the-middle mask: opaque at edges, transparent in center.
+     Using an SVG mask with turbulence for organic roughness at the transition. */
   -webkit-mask-image:
-    radial-gradient(ellipse 65% 75% at 50% 45%, black 5%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    radial-gradient(ellipse 55% 62% at 50% 48%, transparent 0%, transparent 30%, rgba(0,0,0,0.6) 65%, black 95%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='800'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2 -0.5'/></filter><rect width='100%' height='100%' filter='url(%23r)'/></svg>");
+  -webkit-mask-composite: source-over;
           mask-image:
-    radial-gradient(ellipse 65% 75% at 50% 45%, black 5%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.3) 60%, transparent 100%);
-  filter:brightness(1.08) contrast(1.1);
-  will-change:opacity,filter;
+    radial-gradient(ellipse 55% 62% at 50% 48%, transparent 0%, transparent 30%, rgba(0,0,0,0.6) 65%, black 95%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='800'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2 -0.5'/></filter><rect width='100%' height='100%' filter='url(%23r)'/></svg>");
+  mask-composite: add;
+  mix-blend-mode: multiply;
+  opacity: 0.95;
 }
 
 /* ── Blurb column ── */
@@ -177,18 +183,6 @@ a:hover{color:var(--gold-bright)}
   padding:clamp(24px, 3.5vw, 48px) clamp(24px, 3.5vw, 44px);
   will-change:opacity,transform;
 }
-.pa-blurb::before{
-  content:"";
-  position:absolute; inset:-20px;
-  background:radial-gradient(
-    ellipse 100% 95% at 50% 50%,
-    rgba(3,1,6,0.76) 20%,
-    rgba(3,1,6,0.5)  55%,
-    transparent 100%
-  );
-  z-index:-1;
-  pointer-events:none;
-}
 .pa-name{
   font-family:'UnifrakturCook', serif;
   font-size:clamp(38px, 5.2vw, 62px);
@@ -196,7 +190,10 @@ a:hover{color:var(--gold-bright)}
   letter-spacing:0.02em;
   line-height:1;
   margin-bottom:8px;
-  text-shadow:0 0 18px rgba(220,180,100,0.2), 0 2px 10px rgba(0,0,0,0.85);
+  text-shadow:
+    0 0 18px rgba(220,180,100,0.2),
+    0 2px 12px rgba(0,0,0,0.95),
+    0 0 28px rgba(0,0,0,0.85);
 }
 .pa-epithet{
   font-family:'Cinzel',serif;
@@ -205,12 +202,16 @@ a:hover{color:var(--gold-bright)}
   text-transform:uppercase;
   color:var(--text-faint);
   margin-bottom:28px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.95);
 }
 .pa-body{
   font-size:clamp(16px, 1.25vw, 19px);
   line-height:1.75;
   color:var(--text);
-  text-shadow:0 1px 6px rgba(0,0,0,0.9);
+  text-shadow:
+    0 1px 6px rgba(0,0,0,0.95),
+    0 0 16px rgba(0,0,0,0.85),
+    0 0 28px rgba(0,0,0,0.7);
 }
 .pa-body p{ margin-bottom:1em; }
 .pa-body p:last-child{ margin-bottom:0; }
@@ -302,7 +303,6 @@ a:hover{color:var(--gold-bright)}
   .pa-name{ font-size:40px; text-align:center; }
   .pa-epithet{ text-align:center; }
   .pa-body{ font-size:17px; }
-  .pa-fog-clearing{ display:none; }
   .pa-topnav a{ font-size:9px; padding:6px 10px; }
 }
 </style>
@@ -314,14 +314,11 @@ a:hover{color:var(--gold-bright)}
 <div class="pa-fog-layer pa-fog-2"></div>
 <div class="pa-fog-layer pa-fog-3"></div>
 
-<!-- Fog-clearing zone around the active portrait -->
-<div class="pa-fog-clearing" id="pa-clearing"></div>
-
 <div class="pa-grain"></div>
 <div class="pa-fader" id="pa-fader"></div>
 
 <nav class="pa-topnav">
-  <a href="../index.html">← The Sanctum</a>
+  <a href="../index.html">← Back to The Sacred Veil</a>
 </nav>
 
 <!-- Opening mire mist: pure fog, no text. First scroll triggers Arthur -->
@@ -333,6 +330,7 @@ a:hover{color:var(--gold-bright)}
     <div class="pa-portrait-wrap">
       <div class="pa-portrait">
         <img class="pa-portrait-img" src="../assets/art/party/arthur.webp" alt="Arthur Cunabri"/>
+        <div class="pa-portrait-murk"></div>
       </div>
     </div>
     <div class="pa-blurb-wrap">
@@ -355,6 +353,7 @@ a:hover{color:var(--gold-bright)}
     <div class="pa-portrait-wrap">
       <div class="pa-portrait">
         <img class="pa-portrait-img" src="../assets/art/party/brandon.webp" alt="Brandon Glursk"/>
+        <div class="pa-portrait-murk"></div>
       </div>
     </div>
     <div class="pa-blurb-wrap">
@@ -377,6 +376,7 @@ a:hover{color:var(--gold-bright)}
     <div class="pa-portrait-wrap">
       <div class="pa-portrait">
         <img class="pa-portrait-img" src="../assets/art/party/gawain.webp" alt="Gawain Mireblood"/>
+        <div class="pa-portrait-murk"></div>
       </div>
     </div>
     <div class="pa-blurb-wrap">
@@ -399,8 +399,7 @@ a:hover{color:var(--gold-bright)}
 
   const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
-  const stages   = Array.from(document.querySelectorAll('.pa-stage'));
-  const clearing = document.getElementById('pa-clearing');
+  const stages = Array.from(document.querySelectorAll('.pa-stage'));
 
   function easeInOut(t) {
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
@@ -409,15 +408,12 @@ a:hover{color:var(--gold-bright)}
   function updateStages() {
     if (isMobile()) {
       stages.forEach(st => {
-        st.querySelectorAll('.pa-portrait, .pa-portrait-img, .pa-blurb').forEach(el => el.style.cssText = '');
+        st.querySelectorAll('.pa-portrait, .pa-portrait-img, .pa-portrait-murk, .pa-blurb').forEach(el => el.style.cssText = '');
       });
-      clearing.style.opacity = 0;
       return;
     }
 
     const vh = window.innerHeight;
-    let strongestStage = null;
-    let strongestVisibility = 0;
 
     stages.forEach(stage => {
       const rect = stage.getBoundingClientRect();
@@ -426,8 +422,7 @@ a:hover{color:var(--gold-bright)}
       const raw = (-rect.top) / (stageHeight - vh);
       const progress = Math.max(0, Math.min(1, raw));
 
-      // Tightened phases — quick in, long hold, quick out. Back-to-back with
-      // adjacent stages: when one is at phaseOut end, the next is at phaseIn start.
+      // Tight phases — quick in, long hold, quick out, back-to-back
       let phaseIn, phaseOut;
       if (progress <= 0.18) {
         phaseIn  = progress / 0.18;
@@ -444,19 +439,12 @@ a:hover{color:var(--gold-bright)}
       const eOut = easeInOut(phaseOut);
       const visibility = eIn * (1 - eOut);
 
-      if (visibility > strongestVisibility) {
-        strongestVisibility = visibility;
-        strongestStage = stage;
-      }
-
       const portrait = stage.querySelector('.pa-portrait');
-      const img      = stage.querySelector('.pa-portrait-img');
       const blurb    = stage.querySelector('.pa-blurb');
       const isReverse = stage.classList.contains('reverse');
 
-      // Portrait: pure fade, no positional drift
+      // Portrait: pure opacity fade, no positional drift
       portrait.style.opacity = visibility.toFixed(3);
-      img.style.filter = `brightness(${(0.85 + 0.2 * eIn * (1 - eOut)).toFixed(2)}) contrast(${(0.95 + 0.1 * eIn).toFixed(2)})`;
 
       // Blurb: slide in from opposite side of portrait, fade, exit opposite direction
       const slideDir = isReverse ? -1 : 1;
@@ -467,16 +455,6 @@ a:hover{color:var(--gold-bright)}
       blurb.style.opacity = visibility.toFixed(3);
       blurb.style.transform = `translate3d(${slideX.toFixed(1)}px, 0, 0)`;
     });
-
-    // Fog-clearing follows whichever stage is most visible
-    if (strongestStage && strongestVisibility > 0.05) {
-      const side = strongestStage.dataset.clearingSide;
-      const xPct = side === 'left' ? '28%' : '72%';
-      clearing.style.setProperty('--clearing-x', xPct);
-      clearing.style.setProperty('--clearing-opacity', strongestVisibility.toFixed(3));
-    } else {
-      clearing.style.setProperty('--clearing-opacity', '0');
-    }
   }
 
   let ticking = false;
@@ -508,7 +486,6 @@ a:hover{color:var(--gold-bright)}
     }, 1500);
   });
 
-  // bfcache reload on back/forward
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) window.location.reload();
   });
