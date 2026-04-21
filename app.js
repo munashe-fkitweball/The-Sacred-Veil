@@ -352,6 +352,7 @@
             <input class="sv-search" id="sv-search" placeholder="Search the archive…" autocomplete="off"/>
             <div class="sv-search-results" id="sv-search-results" hidden></div>
           </div>
+          <a class="sv-glossary-link" href="${rel('glossary.html')}">Glossary</a>
           <a class="sv-gm-link" href="${rel('gm.html')}">GM</a>
         </header>
 
