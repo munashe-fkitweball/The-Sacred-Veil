@@ -28,9 +28,9 @@
   --bg-deep:       #05030a;
   --bg-elev:       #120a1d;
   --purple:        rgba(130,80,160,0.30);
-  --text:          #e3d4a6;
-  --text-dim:      rgba(227,212,166,0.75);
-  --text-faint:    rgba(227,212,166,0.45);
+  --text:          #f0e4bc;                      /* was #e3d4a6 — lifted for readability on dark bg */
+  --text-dim:      rgba(240,228,188,0.85);       /* was 0.75 — lifted */
+  --text-faint:    rgba(240,228,188,0.60);       /* was 0.45 — lifted */
   --border:        rgba(180,140,70,0.25);
   --border-bright: rgba(220,180,100,0.5);
 
@@ -117,6 +117,14 @@ noscript .sv-noscript h1{
   border:1px solid var(--border);transition:all 0.2s;flex-shrink:0;
 }
 .sv-gm-link:hover{color:var(--gold-bright);border-color:var(--border-bright)}
+
+/* Glossary: smaller secondary link next to GM. No border, lighter weight. */
+.sv-glossary-link{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;
+  color:var(--text-faint);padding:7px 10px;text-decoration:none;
+  transition:color 0.2s;flex-shrink:0;
+}
+.sv-glossary-link:hover{color:var(--gold)}
 
 /* Archbar: 8 roman-numeral hub links */
 .sv-archbar{
@@ -628,6 +636,7 @@ noscript .sv-noscript h1{
   .sv-search{font-size:14px}
   .sv-head-search-wrap{max-width:none}
   .sv-gm-link{padding:5px 10px;font-size:10px;letter-spacing:0.2em}
+  .sv-glossary-link{display:none}  /* too cramped on mobile; glossary still accessible via URL */
   .sv-toc-toggle{display:inline-flex}
 
   .sv-arch{padding:10px 12px;font-size:10px;letter-spacing:0.12em;gap:5px}

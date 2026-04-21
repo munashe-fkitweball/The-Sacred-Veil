@@ -18,7 +18,7 @@ window.SV_HUBS = [
   { key: 'houses',   numeral: 'V',    short: 'Houses',   href: 'houses/index.html' },
   { key: 'guilds',   numeral: 'VI',   short: 'Guilds',   href: 'guilds/index.html' },
   { key: 'rules',    numeral: 'VII',  short: 'Rules',    href: 'rules.html' },
-  { key: 'glossary', numeral: 'VIII', short: 'Glossary', href: 'glossary.html' },
+  { key: 'party',    numeral: 'VIII', short: 'The Party', href: 'party.html' },
 ];
 
 window.SV_PAGES = {
@@ -310,15 +310,24 @@ window.SV_PAGES = {
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // VIII · GLOSSARY
+  // VIII · THE PARTY (placeholder — under construction)
   // ═══════════════════════════════════════════════════════════════════════
+  'party': {
+    hub: 'party',
+    href: 'party.html',
+    numeral: 'VIII',
+    title: 'The Party',
+    subtitle: 'The survivors of Keep Amar',
+    sections: ['party-placeholder'],
+  },
+
+  // GLOSSARY — still available via a small link next to GM, just not in the archbar
   'glossary': {
     hub: 'glossary',
     href: 'glossary.html',
-    numeral: 'VIII',
+    numeral: '',
     title: 'Glossary',
     subtitle: 'Terms without their own section',
-    sigil: 'glossary-sigil.png',
     sections: ['glossary'],
   },
 

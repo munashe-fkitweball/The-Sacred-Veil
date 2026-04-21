@@ -561,13 +561,13 @@
 
   let muted = false;
   let musicHasPlayedOnce = false;
-  let musicGapTimer = null;
-  // `musicReadyTime` is when the music is next allowed to play (as a
-  // performance.now() timestamp). If the tab is unfocused when the 2-min gap
-  // elapses, we don't play — we hold this timestamp and check it again when
-  // the tab regains focus. Null = not waiting on a gap (music currently
-  // playing, or never scheduled).
-  let musicReadyTime = null;
+  // `musicEndedAt` = performance.now() timestamp of when the music last ended.
+  // While music is playing or before it ever played, this is null.
+  // The poll uses this to decide when the 2-minute gap has elapsed.
+  let musicEndedAt = null;
+  // A one-shot "play as soon as possible" flag, set only at the very start
+  // (so first play happens 1s after ambience fade-in, not after a 2-min gap).
+  let musicReadyForFirstPlay = false;
 
   function fadeVolume(el, target, s) {
     return new Promise(resolve => {
@@ -585,29 +585,50 @@
   }
   const effVol = v => muted ? 0 : v;
 
-  // Called when a music track ends naturally. Sets up the 2-minute wait.
-  function onMusicEnded() {
-    musicHasPlayedOnce = true;
-    // Schedule the "ready to play" time 2 minutes from now. When that moment
-    // arrives, maybePlayMusic() checks if the tab is focused — if yes, it
-    // plays; if no, it does nothing, and visibilitychange will call
-    // maybePlayMusic() again when focus returns.
-    musicReadyTime = performance.now() + CFG.MUSIC_GAP_S * 1000;
-    clearTimeout(musicGapTimer);
-    musicGapTimer = setTimeout(maybePlayMusic, CFG.MUSIC_GAP_S * 1000);
-  }
+  // ── Audio state machine (poll-based) ──────────────────────────────────
+  // Every POLL_INTERVAL_MS, check whether music SHOULD be playing right now.
+  // Self-correcting: if anything gets into a weird state, the next tick fixes it.
+  // Rules:
+  //   - Music is already playing         → do nothing
+  //   - Music was playing but `ended`    → record musicEndedAt, start countdown
+  //   - Gap not yet elapsed               → do nothing
+  //   - Tab hidden                        → do nothing (wait for focus)
+  //   - Gap elapsed + focused + not playing + ready → play from start
+  const POLL_INTERVAL_MS = 3000;
+  let wasPlayingLastTick = false;
 
-  // Check if music can play NOW and start it if so. Safe to call any time.
-  function maybePlayMusic() {
-    // Already playing? Never interrupt.
-    if (!music.paused) return;
-    // Not time yet?
-    if (musicReadyTime === null) return;
-    if (performance.now() < musicReadyTime) return;
-    // Tab unfocused? Hold until focus returns.
+  function tick() {
+    const playing = !music.paused && !music.ended && music.currentTime > 0 && music.currentTime < music.duration;
+
+    // Edge detection: music transitioned from playing → not playing.
+    // This is our substitute for the `ended` event, which isn't always
+    // reliable on Safari when playback is interrupted.
+    if (wasPlayingLastTick && !playing) {
+      musicHasPlayedOnce = true;
+      musicEndedAt = performance.now();
+    }
+    wasPlayingLastTick = playing;
+
+    // If music is playing, nothing to decide.
+    if (playing) return;
+
+    // If tab is hidden, don't start anything new.
     if (document.hidden) return;
-    // All clear — play from the start.
-    musicReadyTime = null;
+
+    // First play: 1 second after ambience has faded in.
+    if (musicReadyForFirstPlay) {
+      musicReadyForFirstPlay = false;
+      playMusicFromStart();
+      return;
+    }
+
+    // Subsequent plays: only after 2 min have passed since last end.
+    if (musicEndedAt === null) return;
+    const msSinceEnded = performance.now() - musicEndedAt;
+    if (msSinceEnded < CFG.MUSIC_GAP_S * 1000) return;
+
+    // All clear — start from the top.
+    musicEndedAt = null;
     playMusicFromStart();
   }
 
@@ -624,17 +645,13 @@
   }
 
   async function startAudioFlow() {
-    music.addEventListener('ended', onMusicEnded);
     try {
       ambience.volume = 0;
       await ambience.play();
       await fadeVolume(ambience, effVol(CFG.AMBIENCE_VOL), CFG.AMBIENCE_FADE_IN_S);
     } catch (e) { console.warn('ambience.play failed:', e); }
-    setTimeout(() => {
-      // First play (happens while gate has just been dismissed — tab is
-      // definitionally focused right now)
-      playMusicFromStart();
-    }, CFG.MUSIC_DELAY_AFTER_AMB_S * 1000);
+    // 1 second after ambience is at full volume, let the poll start the music.
+    setTimeout(() => { musicReadyForFirstPlay = true; }, CFG.MUSIC_DELAY_AFTER_AMB_S * 1000);
   }
 
   // ── MUTE TOGGLE ───────────────────────────────────────────────────────
@@ -656,6 +673,8 @@
     cancelAnimationFrame(flickerRAF);
     muteBtn.classList.add('visible');
     startAudioFlow();
+    // Kick off the poll
+    setInterval(tick, POLL_INTERVAL_MS);
     setTimeout(() => gate.remove(), 2100);
   }
   gate.addEventListener('click', dismissGate, { once: true });
@@ -693,13 +712,10 @@
     });
   });
 
-  // ── VISIBILITY: simply check when focus returns whether the music should
-  // now start. Music never rewinds or interrupts itself. If the 2-min gap
-  // elapsed while the tab was unfocused, maybePlayMusic() will start the
-  // track as soon as the user comes back. If the user is still focused when
-  // the gap ends, the timer fires maybePlayMusic() directly.
+  // ── VISIBILITY: nudge the poll when focus returns, so music starts
+  // immediately instead of waiting up to POLL_INTERVAL_MS.
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) maybePlayMusic();
+    if (!document.hidden) tick();
   });
 
   // ── SCROLL: dim + embers + parallax ───────────────────────────────────
