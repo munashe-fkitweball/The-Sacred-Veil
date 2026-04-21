@@ -46,7 +46,10 @@ html,body{
   margin:0;padding:0;background:var(--bg);color:var(--text);
   font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  /* `clip` instead of `hidden`: stops horizontal scrollbars without
+     creating a scroll container. `hidden` on html/body breaks
+     position:sticky for every descendant. */
+  overflow-x:clip;
 }
 body{min-height:100vh}
 a{color:inherit}

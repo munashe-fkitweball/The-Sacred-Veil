@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>The Hook · The Sacred Veil</title>
 <link rel="icon" type="image/png" href="../assets/sigil.png"/>
-<link rel="stylesheet" href="../style.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
 <!-- OG_START -->
 <meta name="description" content="A kingdom in succession crisis, a sun-god bleeding in the dark, and a company of household guards trying to catch a falling knife. A Symbaroum homebrew campaign."/>
 <meta property="og:type" content="website"/>
@@ -21,23 +24,688 @@
 <meta name="twitter:title" content="The Hook — The Sacred Veil"/>
 <meta name="twitter:description" content="A kingdom in succession crisis, a sun-god bleeding in the dark, and a company of household guards trying to catch a falling knife. A Symbaroum homebrew campaign."/>
 <meta name="twitter:image" content="https://munashe-fkitweball.github.io/The-Sacred-Veil/assets/social-hook.png"/>
-<meta name="theme-color" content="#d8c99b"/>
+<meta name="theme-color" content="#050308"/>
 <!-- OG_END -->
+
+<style>
+  /* This page is a cinematic standalone — it deliberately does NOT use the
+     wiki's layout (no sticky bars, no sidebars). All styles live inline so
+     they don't leak into other pages via style.css. */
+  :root {
+    --bg: #050308;
+    --bg-deep: #020104;
+    --text: #d8c99b;
+    --text-dim: #8c7a52;
+    --gold: #d7aa55;
+    --gold-bright: #f0c870;
+    --gold-dim: #a07835;
+    --border: #2a1f12;
+    --border-bright: #4a3820;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:var(--bg-deep);color:var(--text);
+    font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+    min-height:100vh;min-height:100dvh;
+  }
+
+  /* BACKGROUND — locked behind scrolling content */
+  .bg-layer { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #000; }
+  .bg-parallax {
+    position: absolute; left: 0; right: 0;
+    top: -12%; bottom: -12%;
+    will-change: transform;
+  }
+  .bg-image {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+  }
+  @media (orientation: portrait) and (max-width: 900px) {
+    .bg-image { object-position: center top; }
+  }
+  .bg-feather {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 30vh; pointer-events: none;
+    background: linear-gradient(to bottom,
+      rgba(5,3,8,0) 0%,
+      rgba(5,3,8,0.3) 40%,
+      rgba(5,3,8,0.85) 85%,
+      rgba(5,3,8,1) 100%);
+  }
+  @media (orientation: portrait) and (max-width: 900px) {
+    .bg-feather {
+      height: 40vh;
+      background: linear-gradient(to bottom,
+        rgba(5,3,8,0) 0%,
+        rgba(5,3,8,0.15) 25%,
+        rgba(5,3,8,0.6) 65%,
+        rgba(5,3,8,0.95) 92%,
+        rgba(5,3,8,1) 100%);
+    }
+  }
+  .bg-dim {
+    position: absolute; inset: 0;
+    background: rgba(5,3,8, var(--scroll-dim, 0));
+    transition: background 0.25s ease-out;
+  }
+
+  /* DRIFTING SMOKE — two layers at different speeds for depth */
+  .smoke {
+    position: fixed;
+    top: 0; left: -50%; width: 200%;
+    height: 35vh;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: screen;
+  }
+  .smoke-layer {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 40% 60% at 20% 40%, rgba(80,70,60,0.55), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 55% 20%, rgba(110,95,75,0.45), transparent 65%),
+      radial-gradient(ellipse 35% 70% at 80% 50%, rgba(70,60,50,0.55), transparent 70%),
+      radial-gradient(ellipse 25% 40% at 35% 70%, rgba(100,80,65,0.4), transparent 70%);
+    filter: blur(16px);
+    animation: smoke-drift 90s linear infinite;
+  }
+  .smoke-layer.b {
+    opacity: 0.55;
+    filter: blur(22px);
+    animation: smoke-drift 140s linear infinite reverse;
+    animation-delay: -40s;
+  }
+  @keyframes smoke-drift {
+    0%   { transform: translateX(0)   translateY(0); }
+    50%  { transform: translateX(15%) translateY(-8px); }
+    100% { transform: translateX(30%) translateY(0); }
+  }
+
+  /* HEAT SHIMMER — subtle bottom-edge distortion */
+  .shimmer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 28vh;
+    z-index: 1;
+    pointer-events: none;
+    backdrop-filter: url(#heatShimmer);
+    -webkit-backdrop-filter: url(#heatShimmer);
+    -webkit-mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
+            mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
+  }
+
+  /* FILM GRAIN */
+  .grain {
+    position: fixed; inset: -5%;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0 0.7  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    animation: grain-jitter 1.2s steps(8) infinite;
+  }
+  @keyframes grain-jitter {
+    0%   { transform: translate(0,0); }
+    10%  { transform: translate(-3%, 2%); }
+    20%  { transform: translate(2%, -1%); }
+    30%  { transform: translate(-1%, 3%); }
+    40%  { transform: translate(3%, 1%); }
+    50%  { transform: translate(-2%, -2%); }
+    60%  { transform: translate(1%, 2%); }
+    70%  { transform: translate(-3%, -1%); }
+    80%  { transform: translate(2%, 1%); }
+    90%  { transform: translate(-1%, -3%); }
+    100% { transform: translate(0,0); }
+  }
+
+  /* EMBERS */
+  .embers {
+    position: fixed; inset: 0; z-index: 2;
+    pointer-events: none; overflow: hidden;
+    transform: translateZ(0);
+    opacity: var(--ember-opacity, 1);
+    transition: opacity 0.25s ease-out;
+  }
+  .ember {
+    position: absolute;
+    bottom: -40px;
+    width: var(--size, 8px);
+    height: var(--size, 8px);
+    opacity: 0;
+    will-change: transform, opacity;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 50%,
+        rgba(255,240,210,0.95) 0%,
+        rgba(255,180,80,0.85) 22%,
+        rgba(255,110,30,0.55) 48%,
+        rgba(180,60,20,0.25) 72%,
+        rgba(180,60,20,0) 100%);
+    border-radius: 50%;
+    filter: blur(0.4px);
+    mix-blend-mode: screen;
+    animation:
+      rise var(--rise-dur, 14s) linear infinite,
+      flicker var(--flick-dur, 1.3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s), var(--flick-delay, 0s);
+  }
+  .ember.dim {
+    background: radial-gradient(circle at 50% 50%,
+      rgba(255,140,70,0.75) 0%,
+      rgba(220,70,20,0.55) 35%,
+      rgba(140,30,10,0.2) 70%,
+      rgba(140,30,10,0) 100%);
+  }
+  .ember.bright {
+    background: radial-gradient(circle at 50% 50%,
+      rgba(255,255,240,1) 0%,
+      rgba(255,230,180,0.95) 18%,
+      rgba(255,160,70,0.75) 38%,
+      rgba(255,90,30,0.35) 65%,
+      rgba(255,60,20,0) 100%);
+  }
+  .ember.surge {
+    animation-iteration-count: 1;
+    animation-duration: 8s, 0.9s;
+  }
+  @keyframes rise {
+    0%   { transform: translate(0, 0) scale(var(--scale, 1)); opacity: 0; }
+    6%   { opacity: var(--peak-opacity, 0.9); }
+    25%  { transform: translate(calc(var(--drift) * 0.25), -28vh) scale(calc(var(--scale) * 1.05)); }
+    55%  { transform: translate(calc(var(--drift) * 0.65), -60vh) scale(var(--scale)); }
+    85%  { opacity: var(--peak-opacity, 0.9); }
+    100% { transform: translate(var(--drift), -115vh) scale(calc(var(--scale) * 0.35)); opacity: 0; }
+  }
+  @keyframes flicker {
+    0%   { filter: blur(0.4px) brightness(1); }
+    20%  { filter: blur(0.4px) brightness(1.4); }
+    33%  { filter: blur(0.6px) brightness(0.75); }
+    55%  { filter: blur(0.3px) brightness(1.25); }
+    78%  { filter: blur(0.5px) brightness(0.9); }
+    100% { filter: blur(0.4px) brightness(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ember, .smoke-layer, .grain { animation: none !important; }
+    .ember { opacity: 0 !important; }
+  }
+
+  /* CONTENT */
+  .content { position: relative; z-index: 4; }
+  .first-screen {
+    height: 100vh; height: 100dvh;
+    width: 100%;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 40px;
+  }
+  .scroll-hint {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(215, 170, 85, 0.55);
+    animation: pulse 2.5s ease-in-out infinite;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 0.4; transform: translateY(0); }
+    50%     { opacity: 0.85; transform: translateY(4px); }
+  }
+
+  .prose-section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 28px 120px;
+  }
+  .hook-title-block { text-align: center; padding: 60px 0 80px; }
+  .hook-kicker {
+    font-family: 'Cinzel', serif; font-size: 13px;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold-dim); margin-bottom: 18px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.9);
+  }
+  .hook-title {
+    font-family: 'UnifrakturCook', serif;
+    font-size: clamp(56px, 10vw, 108px);
+    color: var(--gold-bright);
+    line-height: 1.0; letter-spacing: 0.02em;
+    text-shadow:
+      0 0 34px rgba(215,170,85,0.42),
+      0 0 70px rgba(0,0,0,0.85),
+      0 4px 28px rgba(0,0,0,1);
+  }
+  .hook-subtitle {
+    margin-top: 22px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(17px, 2vw, 22px);
+    color: var(--gold); letter-spacing: 0.08em;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.95);
+  }
+  .prose-section p {
+    margin: 0 0 26px;
+    color: #ebdeb4;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.85), 0 0 28px rgba(0,0,0,0.6);
+  }
+  .prose-section p:first-of-type::first-line {
+    font-family: 'Cinzel', serif;
+    font-size: 15px; letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .prose-section b, .prose-section strong {
+    color: var(--gold-bright); font-weight: 600;
+  }
+  .prose-section a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(215,170,85,0.4);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .prose-section a:hover {
+    color: var(--gold-bright); border-bottom-color: var(--gold-bright);
+  }
+  .closing-mark {
+    text-align: center; padding: 72px 0 0;
+    font-family: 'UnifrakturCook', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    color: var(--gold-bright); letter-spacing: 0.03em;
+    text-shadow:
+      0 0 28px rgba(215,170,85,0.4),
+      0 0 60px rgba(180,60,20,0.35),
+      0 4px 20px rgba(0,0,0,0.95);
+  }
+  .return-link {
+    display: block; text-align: center;
+    margin: 80px auto 0;
+    font-family: 'Cinzel', serif; font-size: 12px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none;
+    padding: 14px 22px;
+    border: 1px solid var(--border);
+    max-width: fit-content;
+    transition: all 0.3s;
+    background: rgba(5,3,8,0.6);
+    backdrop-filter: blur(2px);
+  }
+  .return-link:hover {
+    color: var(--gold-bright); border-color: var(--border-bright);
+  }
+
+  /* ENTER GATE */
+  .enter-gate {
+    position: fixed; inset: 0; z-index: 100;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: opacity 2s ease-out, visibility 2s;
+  }
+  .enter-gate.dismissed { opacity: 0; visibility: hidden; }
+  .enter-mark {
+    font-family: 'UnifrakturCook', serif;
+    font-size: 54px;
+    color: var(--gold-bright);
+    margin-bottom: 28px;
+    will-change: opacity, transform, text-shadow;
+  }
+  .enter-line {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 22px;
+    color: var(--gold); margin-bottom: 44px;
+    letter-spacing: 0.05em;
+  }
+  .enter-cta {
+    font-family: 'Cinzel', serif; font-size: 12px;
+    letter-spacing: 0.45em; text-transform: uppercase;
+    color: var(--text);
+    animation: pulse-cta 2s ease-in-out infinite;
+  }
+  @keyframes pulse-cta {
+    0%,100% { opacity: 0.55; }
+    50%     { opacity: 1; }
+  }
+
+  /* MUTE TOGGLE */
+  .mute-btn {
+    position: fixed;
+    bottom: 18px; right: 18px;
+    z-index: 50;
+    width: 42px; height: 42px;
+    background: rgba(5,3,8,0.7);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--gold);
+    transition: opacity 0.6s, color 0.2s, border-color 0.2s, background 0.2s;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .mute-btn.visible { opacity: 0.75; pointer-events: auto; }
+  .mute-btn:hover {
+    opacity: 1;
+    color: var(--gold-bright);
+    border-color: var(--border-bright);
+    background: rgba(5,3,8,0.9);
+  }
+  .mute-btn svg { width: 18px; height: 18px; display: block; }
+  .mute-btn .icon-muted { display: none; }
+  .mute-btn.is-muted .icon-on    { display: none; }
+  .mute-btn.is-muted .icon-muted { display: block; }
+</style>
 </head>
 <body>
-<noscript>
-  <div class="sv-noscript">
-    <h1>JavaScript required</h1>
-    <p>This page needs JavaScript to work. Please enable it and reload.</p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="heatShimmer">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.025" numOctaves="2" seed="2">
+      <animate attributeName="baseFrequency" dur="12s" values="0.012 0.025;0.014 0.03;0.012 0.025" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" scale="3"/>
+  </filter>
+</svg>
+
+<div class="enter-gate" id="enter-gate" role="button" tabindex="0" aria-label="Press to enter">
+  <div class="enter-mark" id="enter-mark">&#x2726;</div>
+  <div class="enter-line">The keep burns.</div>
+  <div class="enter-cta">Press to enter</div>
+</div>
+
+<div class="bg-layer">
+  <div class="bg-parallax" id="bg-parallax">
+    <img class="bg-image" src="../assets/art/hook-scene-the-fall.jpg" alt=""/>
   </div>
-</noscript>
-<script>window.SV_CURRENT_PAGE = 'campaign/hook';</script>
-<script src="../data.js"></script>
-<script src="../data_sections_1.js"></script>
-<script src="../data_sections_2.js"></script>
-<script src="../data_sections_3.js"></script>
-<script src="../tooltips.js"></script>
-<script src="../page_configs.js"></script>
-<script src="../app.js"></script>
+  <div class="bg-feather"></div>
+  <div class="bg-dim" id="bg-dim"></div>
+</div>
+
+<div class="smoke" aria-hidden="true">
+  <div class="smoke-layer"></div>
+  <div class="smoke-layer b"></div>
+</div>
+
+<div class="shimmer" aria-hidden="true"></div>
+
+<div class="embers" id="embers" aria-hidden="true"></div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<div class="content">
+  <div class="first-screen">
+    <div class="scroll-hint">Scroll</div>
+  </div>
+
+  <div class="prose-section">
+    <div class="hook-title-block">
+      <div class="hook-kicker">The Sacred Veil &mdash; I</div>
+      <h1 class="hook-title">The Hook</h1>
+      <div class="hook-subtitle">The night the keep falls</div>
+    </div>
+
+    <p>Long before the events you experienced in Helligvarld, there existed the equally ancient world of Averium. Here, in the kingdom of <a href="../kingdom/places.html#ash-kadesh">K'naan</a>, noble houses play a dangerous game of succession.</p>
+
+    <p>You are household guards for <a href="../houses/jannin.html">House Jannin</a>, a minor but affluent family whose fortune flows from a silver mine and vast herds of sheep, cattle, and goats. The Jannin seat is <a href="../kingdom/places.html#amarsgate">Amarsgate</a>, a small fortified town at the foot of the <a href="../kingdom/geography.html#eastern-massif">Eastern Massif</a>, built around the mouth of the silver mine. On the ridge above the mine stands Keep Amar, where you have served for years &mdash; and by a custom older than House Jannin itself, the lord who holds the keep takes its name. Your master is not the man after whom the keep was named: the keep named the man. He is <a href="../kingdom/people.html#amar-jannin">Lord Amar, 13th of that name</a>; his father bore the title before him, and his father's father before that, further back than most in K'naan can follow.</p>
+
+    <p>You serve <a href="../kingdom/people.html#amar-jannin">Lord Amar</a> &mdash; a man as wise as he is wealthy, deeply respected, and the patriarch of a large family. Among all his children, the people's favourite is <a href="../kingdom/people.html#naviel-jannin">Naviel</a>.</p>
+
+    <p>Despite being one of many potential candidates for the throne, Naviel has never been one for courtly politics. While he partook of the <a href="../magic/seraphs-marrow.html">Seraph's Marrow</a>, a dangerous chemical reserved for nobles and those with unendingly deep pockets that transforms the user physically, he cared little for these politics and rarely for combat &mdash; he spent his time in a library, or on long walks, or with the poor and destitute. But, as the son of one of the few quietly respected lords in the region, he commanded an unexpectedly large and diverse base of support, and was rumoured to be well liked and well received even within some of the greatest houses and their heirs.</p>
+
+    <p>Then, one night, a deafening roar shook the halls of the Jannin keep. Hoards of mercenaries descended upon your home, shattering your keep's ancient walls, then the overwhelming swarm of armored mercenaries. Through the ringing in your ears and the smoke choking the courtyard, you heard them shouting: <b>"FIND NAVIEL! FIND NAVIEL!"</b> You were helpless to stop what happened next. You watched Lord Amar and his wife fall mercilessly to mercenary blades. You watched Naviel dragged unconscious across the bloody stone courtyard toward a transport. You even saw one of the attackers try to rip the lavender pendant from Naviel's neck, only to recoil with a confused yelp. As the transport makes haste you hear their commander snarl, <b>"Leave it! We'll cut it off him later!"</b></p>
+
+    <p>When we roll our first dice, the keep is lost. The roof is collapsing, your employers are dead, and your ward is gone. Amarsgate below is burning. Your immediate goal is simple: fight your way out of the burning ruins alive. Your long-term goal? Track down the men who took Naviel, and figure out why.</p>
+
+    <div class="closing-mark">The keep burns.</div>
+
+    <a href="index.html" class="return-link">&larr; Return to The Campaign</a>
+  </div>
+</div>
+
+<button class="mute-btn" id="mute-btn" aria-label="Mute audio" title="Mute">
+  <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 5 6 9H2v6h4l5 4z"/>
+    <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+    <path d="M19 5a9 9 0 0 1 0 14"/>
+  </svg>
+  <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 5 6 9H2v6h4l5 4z"/>
+    <line x1="22" y1="9" x2="16" y2="15"/>
+    <line x1="16" y1="9" x2="22" y2="15"/>
+  </svg>
+</button>
+
+<audio id="audio-ambience" src="../assets/audio/hook-ambience.mp3" preload="auto" loop></audio>
+<audio id="audio-music"    src="../assets/audio/hook-music.mp3"    preload="auto"></audio>
+
+<script>
+(() => {
+  'use strict';
+  const CFG = {
+    AMBIENCE_VOL: 0.55,
+    MUSIC_VOL_FIRST: 0.75,
+    MUSIC_VOL_RETURN: 0.65,
+    AMBIENCE_FADE_IN_S: 2,
+    MUSIC_DELAY_AFTER_AMB_S: 1,
+    MUSIC_GAP_S: 120,
+    MUSIC_RETURN_FADE_S: 1.5,
+    NAV_FADE_S: 2,
+    DIM_MAX: 0.68,
+    DIM_SCROLLSPAN: 0.4,
+    EMBER_COUNT: 36,
+    EMBER_MIN_OPACITY: 0.25,
+    EMBER_SURGE_MIN_S: 25,
+    EMBER_SURGE_MAX_S: 45,
+    EMBER_SURGE_COUNT_MIN: 4,
+    EMBER_SURGE_COUNT_MAX: 7,
+    PARALLAX_FACTOR: 0.2,
+  };
+  const rand = (a, b) => a + Math.random() * (b - a);
+
+  // ── ENTER GATE + CANDLE FLICKER ───────────────────────────────────────
+  const gate = document.getElementById('enter-gate');
+  const mark = document.getElementById('enter-mark');
+  let flickerRAF = null;
+  const flickerBaseTime = performance.now();
+  function flicker() {
+    const t = (performance.now() - flickerBaseTime) / 1000;
+    const o = 0.78
+      + 0.14 * Math.sin(t * 3.1)
+      + 0.06 * Math.sin(t * 7.7 + 1.3)
+      + 0.04 * Math.sin(t * 13.2 + 0.4)
+      + (Math.random() - 0.5) * 0.04;
+    const s = 1
+      + 0.015 * Math.sin(t * 2.7)
+      + 0.01  * Math.sin(t * 6.1 + 0.9)
+      + (Math.random() - 0.5) * 0.006;
+    const glow = 22
+      + 10 * Math.sin(t * 3.5 + 0.2)
+      + 4  * Math.sin(t * 9.0);
+    mark.style.opacity = Math.max(0.45, Math.min(1, o)).toFixed(3);
+    mark.style.transform = `scale(${s.toFixed(4)})`;
+    mark.style.textShadow = `0 0 ${glow.toFixed(1)}px rgba(215,170,85,0.55)`;
+    flickerRAF = requestAnimationFrame(flicker);
+  }
+  flicker();
+
+  // ── AUDIO ─────────────────────────────────────────────────────────────
+  const ambience = document.getElementById('audio-ambience');
+  const music    = document.getElementById('audio-music');
+  ambience.volume = 0;
+  music.volume = 0;
+
+  let muted = false;
+  let musicHasPlayedOnce = false;
+  let musicGapTimer = null;
+
+  function fadeVolume(el, target, s) {
+    return new Promise(resolve => {
+      const start = el.volume;
+      const startT = performance.now();
+      const durMs = Math.max(1, s * 1000);
+      function step() {
+        const p = Math.min((performance.now() - startT) / durMs, 1);
+        el.volume = Math.max(0, Math.min(1, start + (target - start) * p));
+        if (p < 1) requestAnimationFrame(step);
+        else resolve();
+      }
+      step();
+    });
+  }
+  const effVol = v => muted ? 0 : v;
+
+  function scheduleMusicCycle() {
+    clearTimeout(musicGapTimer);
+    music.onended = () => {
+      musicHasPlayedOnce = true;
+      musicGapTimer = setTimeout(playMusicFromStart, CFG.MUSIC_GAP_S * 1000);
+    };
+  }
+  async function playMusicFromStart() {
+    try {
+      music.currentTime = 0;
+      const target = musicHasPlayedOnce
+        ? effVol(CFG.MUSIC_VOL_RETURN)
+        : effVol(CFG.MUSIC_VOL_FIRST);
+      music.volume = 0;
+      await music.play();
+      await fadeVolume(music, target, CFG.MUSIC_RETURN_FADE_S);
+    } catch (e) { console.warn('music.play failed:', e); }
+  }
+  async function startAudioFlow() {
+    try {
+      ambience.volume = 0;
+      await ambience.play();
+      await fadeVolume(ambience, effVol(CFG.AMBIENCE_VOL), CFG.AMBIENCE_FADE_IN_S);
+    } catch (e) { console.warn('ambience.play failed:', e); }
+    setTimeout(() => {
+      scheduleMusicCycle();
+      playMusicFromStart();
+    }, CFG.MUSIC_DELAY_AFTER_AMB_S * 1000);
+  }
+
+  // ── MUTE TOGGLE ───────────────────────────────────────────────────────
+  const muteBtn = document.getElementById('mute-btn');
+  muteBtn.addEventListener('click', () => {
+    muted = !muted;
+    muteBtn.classList.toggle('is-muted', muted);
+    muteBtn.setAttribute('aria-label', muted ? 'Unmute audio' : 'Mute audio');
+    fadeVolume(ambience, muted ? 0 : CFG.AMBIENCE_VOL, 0.4);
+    if (!music.paused) {
+      const t = musicHasPlayedOnce ? CFG.MUSIC_VOL_RETURN : CFG.MUSIC_VOL_FIRST;
+      fadeVolume(music, muted ? 0 : t, 0.4);
+    }
+  });
+
+  // ── GATE DISMISS ──────────────────────────────────────────────────────
+  function dismissGate() {
+    gate.classList.add('dismissed');
+    cancelAnimationFrame(flickerRAF);
+    muteBtn.classList.add('visible');
+    startAudioFlow();
+    setTimeout(() => gate.remove(), 2100);
+  }
+  gate.addEventListener('click', dismissGate, { once: true });
+  gate.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissGate(); }
+  });
+
+  // ── FADE-OUT ON NAVIGATION ────────────────────────────────────────────
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('#') || href.startsWith('javascript:')) return;
+    if (ambience.paused && music.paused) return;
+
+    e.preventDefault();
+    Promise.all([
+      fadeVolume(ambience, 0, CFG.NAV_FADE_S),
+      fadeVolume(music,    0, CFG.NAV_FADE_S),
+    ]).then(() => {
+      if (a.target && a.target !== '_self') window.open(href, a.target);
+      else window.location.href = href;
+    });
+  });
+
+  // ── SCROLL: dim + embers + parallax ───────────────────────────────────
+  const dim = document.getElementById('bg-dim');
+  const embersEl = document.getElementById('embers');
+  const parallaxEl = document.getElementById('bg-parallax');
+  let scrollTicking = false;
+  function updateScroll() {
+    const vh = window.innerHeight;
+    const y  = window.scrollY;
+    const r = Math.min(y / (vh * CFG.DIM_SCROLLSPAN), 1);
+    const eased = r * r * (3 - 2 * r);
+    dim.style.setProperty('--scroll-dim', (eased * CFG.DIM_MAX).toFixed(3));
+    const emberOp = 1 - eased * (1 - CFG.EMBER_MIN_OPACITY);
+    embersEl.style.setProperty('--ember-opacity', emberOp.toFixed(3));
+    const shift = -y * CFG.PARALLAX_FACTOR;
+    parallaxEl.style.transform = `translate3d(0, ${shift.toFixed(1)}px, 0)`;
+    scrollTicking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) { requestAnimationFrame(updateScroll); scrollTicking = true; }
+  }, { passive: true });
+  updateScroll();
+
+  // ── EMBERS ────────────────────────────────────────────────────────────
+  function makeEmber({ surge = false } = {}) {
+    const ember = document.createElement('div');
+    ember.className = 'ember';
+    const r = Math.random();
+    let variant = 'normal';
+    if (r < 0.35)      { ember.classList.add('dim');    variant = 'dim'; }
+    else if (r > 0.85) { ember.classList.add('bright'); variant = 'bright'; }
+    if (surge) ember.classList.add('surge');
+
+    let size;
+    if (variant === 'bright') size = rand(8, 14);
+    else if (variant === 'dim') size = rand(2, 4);
+    else                        size = rand(3, 7);
+
+    const xPct       = rand(-3, 103);
+    const riseDur    = surge ? 8 : rand(10, 22);
+    const riseDelay  = surge ? 0 : -rand(0, riseDur);
+    const flickDur   = rand(0.8, 2.2);
+    const flickDelay = -rand(0, flickDur);
+    const drift      = rand(-90, 90);
+    const scale      = rand(0.7, 1.3);
+    const peakOp     = variant === 'bright' ? rand(0.85, 1.0)
+                    :  variant === 'dim'    ? rand(0.35, 0.55)
+                    :                         rand(0.55, 0.8);
+
+    ember.style.setProperty('--size', size + 'px');
+    ember.style.setProperty('--rise-dur', riseDur + 's');
+    ember.style.setProperty('--flick-dur', flickDur + 's');
+    ember.style.setProperty('--delay', riseDelay + 's');
+    ember.style.setProperty('--flick-delay', flickDelay + 's');
+    ember.style.setProperty('--drift', drift + 'px');
+    ember.style.setProperty('--scale', scale);
+    ember.style.setProperty('--peak-opacity', peakOp);
+    ember.style.left = xPct + '%';
+    embersEl.appendChild(ember);
+    if (surge) setTimeout(() => ember.remove(), riseDur * 1000 + 500);
+    return ember;
+  }
+  for (let i = 0; i < CFG.EMBER_COUNT; i++) makeEmber();
+
+  function scheduleSurge() {
+    const delayS = rand(CFG.EMBER_SURGE_MIN_S, CFG.EMBER_SURGE_MAX_S);
+    setTimeout(() => {
+      const n = Math.floor(rand(CFG.EMBER_SURGE_COUNT_MIN, CFG.EMBER_SURGE_COUNT_MAX + 1));
+      const centerX = rand(15, 85);
+      for (let i = 0; i < n; i++) {
+        const e = makeEmber({ surge: true });
+        e.style.left = (centerX + rand(-10, 10)) + '%';
+      }
+      scheduleSurge();
+    }, delayS * 1000);
+  }
+  scheduleSurge();
+})();
+</script>
 </body>
 </html>
