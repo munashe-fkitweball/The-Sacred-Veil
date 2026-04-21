@@ -521,7 +521,7 @@ window.SV_SECTIONS_2 = [
   title: "Raven-Garron",
   subtitle: "House Morbray's fortress-town",
   blocks: [
-    { type: "p", text: `Black-walled keep guarding the only reliably traversable [[gorse-barrens:Gorse-Barrens]] pass. Town below exists to service the cavalry.` },
+    { type: "p", text: `Black-walled keep guarding the most reliably traversable [[gorse-barrens:Gorse-Barrens]] pass. Town below exists to service the cavalry.` },
     { type: "p", text: `The courtyard contains a single ancient <b>Dead Rowan Tree</b> — never cut down. Said to have grown from the grave of the first Morbray to hold the pass. Every new recruit is walked past it on day one with no explanation; they are expected to ask.` },
   ],
 },
