@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Sacred Veil</title>
   <link rel="icon" type="image/png" href="assets/sigil.png" />
-  <link rel="stylesheet" href="style.css?v=15" />
+  <link rel="stylesheet" href="style.css?v=17" />
   <style>
     /* GM-specific styles. The shared header/archbar classes come from style.css. */
     .gate{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:24px}
     .gate-card{
       width:100%;max-width:460px;
-      border:1px solid var(--border);background:rgba(18,10,29,0.95);
+      border:1px solid var(--border);background:rgba(12,6,20,0.95);
       padding:36px 34px 30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.6);
     }
     .gate-card img{
@@ -25,7 +25,7 @@
     }
     .gate-card p{color:var(--text-dim);font-style:italic;font-size:15px;margin:0 0 22px}
     .gate-input{
-      width:100%;background:rgba(10,5,18,0.8);
+      width:100%;background:rgba(7,3,12,0.8);
       border:1px solid var(--border);color:var(--text);
       font-family:'Cinzel',serif;font-size:18px;letter-spacing:0.2em;
       padding:12px 14px;text-align:center;outline:none;
@@ -63,12 +63,12 @@
 
     .gm-toolbar{
       display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;
-      padding:12px 16px;background:rgba(10,5,18,0.5);
+      padding:12px 16px;background:rgba(7,3,12,0.5);
       border:1px solid var(--border);
     }
     .gm-tool-btn{
       font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
-      padding:8px 14px;background:rgba(10,5,18,0.7);color:var(--text-dim);
+      padding:8px 14px;background:rgba(7,3,12,0.7);color:var(--text-dim);
       border:1px solid var(--border);cursor:pointer;
       transition:all 0.2s;text-decoration:none;
     }
@@ -88,7 +88,7 @@
       line-height:1.55;outline:none;resize:vertical;
       transition:border-color 0.2s,background 0.2s;
     }
-    .gm-textarea:focus{border-color:rgba(220,180,100,0.7);background:rgba(12,6,22,0.85)}
+    .gm-textarea:focus{border-color:rgba(220,180,100,0.7);background:rgba(8,4,14,0.85)}
     .gm-textarea::placeholder{color:rgba(216,201,155,0.35);font-style:italic}
     .gm-edit-meta{
       display:flex;justify-content:flex-end;margin-top:6px;font-size:12px;
@@ -139,7 +139,7 @@
   </header>
   <nav class="sv-archbar" id="sv-archbar-gm" aria-label="Main sections"></nav>
 </div>
-<script src="page_configs.js?v=15"></script>
+<script src="page_configs.js?v=17"></script>
 <script>
   // Populate the archbar from page_configs SV_HUBS so gm.html stays in sync
   // with the rest of the site. Do this synchronously before the page reveals.

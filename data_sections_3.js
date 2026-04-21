@@ -277,13 +277,4 @@ window.SV_SECTIONS_3 = [
     { type: "p", text: `The house rules below adjust Symbaroum to match Sacred Veil's tone. They are the starting point for the campaign and may be tuned as we play. A [[glossary:glossary]] of mechanical terms sits at the end of the wiki.` },
   ],
 },
-{
-  id: "party-placeholder",
-  title: "The Party",
-  subtitle: "The survivors of Keep Amar",
-  blocks: [
-    { type: "p", text: `<i>Under construction.</i>` },
-    { type: "p", text: `The profiles of those who served Lord Amar, and who now find themselves the last of his personal guard, will be added here in due course. Portraits, bearings, and the measure of each.` },
-  ],
-},
 ];
