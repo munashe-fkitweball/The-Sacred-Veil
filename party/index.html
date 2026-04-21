@@ -5,324 +5,222 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>The Party · The Sacred Veil</title>
 <link rel="icon" type="image/png" href="../assets/sigil.png"/>
-<meta name="description" content="A kingdom in succession crisis, a sun-god bleeding in the dark, and a company of household guards trying to catch a falling knife. A Symbaroum homebrew campaign."/>
+<meta name="description" content="Misfits chosen by Lord Amar himself. A hammer. A hunter. A stranger."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="The Sacred Veil"/>
 <meta property="og:title" content="The Party — The Sacred Veil"/>
 <meta property="og:description" content="Misfits chosen by Lord Amar himself. A hammer. A hunter. A stranger."/>
-<meta property="og:url" content="https://munashe-fkitweball.github.io/The-Sacred-Veil/party/index.html"/>
-<meta property="og:image" content="https://munashe-fkitweball.github.io/The-Sacred-Veil/assets/social-preview.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="theme-color" content="#d8c99b"/>
+<meta name="theme-color" content="#000000"/>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=UnifrakturCook:wght@700&display=swap');
 
 *{box-sizing:border-box;margin:0;padding:0}
+
+/* NO overflow rules on html/body. NO negative insets. Nothing to break sticky. */
 html,body{
-  background:#030106;
+  background:#000;
   color:#f0e4bc;
   font-family:'Cormorant Garamond',serif;
-  overflow-x:clip;
-}
-html{scroll-behavior:auto}
-
-:root{
-  --gold:          #d8c99b;
-  --gold-bright:   #f2d98c;
-  --text:          #f0e4bc;
-  --text-dim:      rgba(240,228,188,0.85);
-  --text-faint:    rgba(240,228,188,0.60);
 }
 
-a{color:var(--gold);text-decoration:none}
-a:hover{color:var(--gold-bright)}
+a{color:#d8c99b;text-decoration:none}
+a:hover{color:#f2d98c}
 
-/* ═══════════════════════════════════════════════════════════════════════
-   FOG — three layers drifting via background-position. No transforms,
-   no negative insets, no edge artifacts. Dark charcoal/brown dominant.
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-fog-layer{
-  position:fixed; inset:0;
-  pointer-events:none;
-  z-index:0;
-  will-change:background-position;
+/* ─── TOP NAV ─── */
+.nav{
+  position:fixed;
+  top:20px; left:24px;
+  z-index:100;
 }
-.pa-fog-1{
-  /* Slow large warm brown-black — the base fog layer */
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='4' seed='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
-  background-size: 200% 200%;
-  opacity:0.75;
-  mix-blend-mode:screen;
-  animation: pa-drift-a 180s linear infinite;
-}
-.pa-fog-2{
-  /* Medium charcoal — a whisper of purple in this layer only */
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.07  0 0 0 0 0.05  0 0 0 0 0.09  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
-  background-size: 170% 170%;
-  opacity:0.55;
-  mix-blend-mode:screen;
-  animation: pa-drift-b 240s linear infinite;
-}
-.pa-fog-3{
-  /* Wispy neutral highlights — no color tint */
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0 0.07  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
-  background-size: 130% 130%;
-  opacity:0.4;
-  mix-blend-mode:overlay;
-  animation: pa-drift-c 90s linear infinite;
-}
-@keyframes pa-drift-a {
-  0%   { background-position: 0% 0%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 0%; }
-}
-@keyframes pa-drift-b {
-  0%   { background-position: 100% 0%; }
-  50%  { background-position: 0% 100%; }
-  100% { background-position: 100% 0%; }
-}
-@keyframes pa-drift-c {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   OPENING — tiny fog runway; first scroll begins Arthur's reveal
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-opening{
-  height:10vh;
-  position:relative;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   CHARACTER STAGES
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-stage{
-  height:280vh;
-  position:relative;
-}
-.pa-stage-pin{
-  position:sticky; top:0;
-  height:100vh;
-  width:100%;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  align-items:center;
-  padding:0 clamp(24px, 5vw, 80px);
-  overflow:hidden;
-  z-index:2;
-}
-.pa-stage.reverse .pa-stage-pin{
-  direction:rtl;
-}
-.pa-stage.reverse .pa-stage-pin > *{
-  direction:ltr;
-}
-
-/* ── Portrait column ── */
-.pa-portrait-wrap{
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:4vh 2vw;
-}
-.pa-portrait{
-  position:relative;
-  width:100%; height:100%;
-  max-width:min(620px, 100%);
-  max-height:92vh;
-  display:flex; align-items:center; justify-content:center;
-  will-change:opacity;
-}
-/* Splatter mask applied directly to the image. Single mask-image URL —
-   works identically across Safari, Chrome, Firefox. No overlay div, no
-   blend modes, no compositing quirks. */
-.pa-portrait-img{
-  width:100%; height:100%;
-  object-fit:cover; object-position:center 20%;
-  -webkit-mask-image: url('../assets/art/party/mask.png');
-          mask-image: url('../assets/art/party/mask.png');
-  -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-          mask-position: center;
-  filter:brightness(1.0) contrast(1.05) saturate(0.92);
-  will-change:opacity;
-}
-
-/* ── Blurb column ── */
-.pa-blurb-wrap{
-  height:100vh;
-  display:flex;
-  align-items:center;
-  padding:4vh 2vw;
-}
-.pa-blurb{
-  position:relative;
-  width:100%;
-  max-width:560px;
-  padding:clamp(24px, 3.5vw, 48px) clamp(24px, 3.5vw, 44px);
-  will-change:opacity,transform;
-}
-.pa-name{
-  font-family:'UnifrakturCook', serif;
-  font-size:clamp(38px, 5.2vw, 62px);
-  color:var(--gold-bright);
-  letter-spacing:0.02em;
-  line-height:1;
-  margin-bottom:8px;
-  text-shadow:
-    0 0 18px rgba(220,180,100,0.2),
-    0 2px 12px rgba(0,0,0,0.95),
-    0 0 28px rgba(0,0,0,0.85);
-}
-.pa-epithet{
-  font-family:'Cinzel',serif;
-  font-size:clamp(10px, 1vw, 12px);
-  letter-spacing:0.4em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-  margin-bottom:28px;
-  text-shadow:0 2px 8px rgba(0,0,0,0.95);
-}
-.pa-body{
-  font-size:clamp(16px, 1.25vw, 19px);
-  line-height:1.75;
-  color:var(--text);
-  text-shadow:
-    0 1px 6px rgba(0,0,0,0.95),
-    0 0 16px rgba(0,0,0,0.85),
-    0 0 28px rgba(0,0,0,0.7);
-}
-.pa-body p{ margin-bottom:1em; }
-.pa-body p:last-child{ margin-bottom:0; }
-
-/* ═══════════════════════════════════════════════════════════════════════
-   GRAIN
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-grain{
-  position:fixed; inset:0; pointer-events:none; z-index:4; opacity:0.05;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
-  mix-blend-mode:overlay;
-  animation:pa-grain-jitter 0.5s steps(3) infinite;
-}
-@keyframes pa-grain-jitter{
-  0%  {transform:translate(0,0)}
-  33% {transform:translate(-2%, 1%)}
-  66% {transform:translate(1%, -1%)}
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   TOP NAV
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-topnav{
-  position:fixed; top:0; left:0; right:0; z-index:20;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:16px 24px;
-  pointer-events:none;
-}
-.pa-topnav a{
-  pointer-events:auto;
+.nav a{
   font-family:'Cinzel',serif;
   font-size:11px;
   letter-spacing:0.3em;
   text-transform:uppercase;
-  color:var(--text-faint);
+  color:rgba(240,228,188,0.65);
   padding:8px 14px;
-  background:rgba(3,1,6,0.5);
+  background:rgba(0,0,0,0.5);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
-  border:1px solid rgba(180,140,70,0.2);
-  transition:all 0.2s;
+  border:1px solid rgba(180,140,70,0.22);
+  transition:all 0.2s ease;
 }
-.pa-topnav a:hover{
-  color:var(--gold-bright);
+.nav a:hover{
+  color:#f2d98c;
   border-color:rgba(220,180,100,0.5);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   FADE-OUT ON NAV AWAY
-   ═══════════════════════════════════════════════════════════════════════ */
-.pa-fader{
+/* ─── SHORT OPENING RUNWAY ─── */
+.opening{
+  height:10vh;
+}
+
+/* ─── STAGES ───
+   Each stage: 400vh tall, sticky pin inside.
+   Stages 2+ have margin-top: -120vh so they overlap the previous one's
+   last 30%. That 30% is where the crossfade happens — previous stage
+   fades out, next stage fades in, on the same scroll range. No gap.
+*/
+.stage{
+  height:400vh;
+  position:relative;
+}
+.stage + .stage{
+  margin-top:-120vh;
+}
+
+/* z-index: later characters on top during crossfade */
+.stage:nth-of-type(1){ z-index:3; }
+.stage:nth-of-type(2){ z-index:4; }
+.stage:nth-of-type(3){ z-index:5; }
+
+.pin{
+  position:sticky;
+  top:0;
+  height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:0 clamp(24px, 5vw, 80px);
+}
+
+.stage.reverse .pin{ direction:rtl; }
+.stage.reverse .pin > *{ direction:ltr; }
+
+/* ─── PORTRAIT ─── */
+.portrait-wrap{
+  height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  padding:4vh 2vw;
+}
+.portrait{
+  position:relative;
+  width:100%; height:100%;
+  max-width:min(600px, 100%);
+  max-height:90vh;
+  display:flex; align-items:center; justify-content:center;
+  will-change:opacity;
+}
+.portrait img{
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center 20%;
+  -webkit-mask-image:url('../assets/art/party/mask.png');
+          mask-image:url('../assets/art/party/mask.png');
+  -webkit-mask-size:100% 100%;
+          mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;
+          mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+          mask-position:center;
+}
+
+/* ─── BLURB ─── */
+.blurb-wrap{
+  height:100vh;
+  display:flex; align-items:center;
+  padding:4vh 2vw;
+}
+.blurb{
+  position:relative;
+  width:100%;
+  max-width:540px;
+  padding:clamp(24px, 3.5vw, 44px);
+  will-change:opacity,transform;
+}
+.blurb h1{
+  font-family:'UnifrakturCook', serif;
+  font-weight:700;
+  font-size:clamp(38px, 5vw, 58px);
+  color:#f2d98c;
+  letter-spacing:0.02em;
+  line-height:1;
+  margin-bottom:10px;
+}
+.blurb .epithet{
+  font-family:'Cinzel',serif;
+  font-size:clamp(10px, 1vw, 12px);
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:rgba(240,228,188,0.65);
+  margin-bottom:26px;
+}
+.blurb .body{
+  font-size:clamp(16px, 1.2vw, 19px);
+  line-height:1.7;
+  color:#f0e4bc;
+}
+.blurb .body p{ margin-bottom:1em; }
+.blurb .body p:last-child{ margin-bottom:0; }
+
+/* ─── FADER ─── */
+.fader{
   position:fixed; inset:0; z-index:1000;
   background:#000;
   opacity:0;
   pointer-events:none;
-  transition:opacity 1.5s ease-in-out;
+  transition:opacity 1.2s ease-in-out;
 }
-.pa-fader.active{
+.fader.active{
   opacity:1;
   pointer-events:auto;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   MOBILE FALLBACK
-   ═══════════════════════════════════════════════════════════════════════ */
+/* ─── MOBILE ─── */
 @media (max-width: 900px){
-  .pa-opening{ height:10vh; }
-  .pa-stage{ height:auto; padding:50px 20px 70px; }
-  .pa-stage-pin{
+  .opening{ height:6vh; }
+  .stage{ height:auto; padding:40px 20px 60px; z-index:auto !important; }
+  .stage + .stage{ margin-top:0; }
+  .pin{
     position:static;
     height:auto;
     display:flex; flex-direction:column;
     gap:20px;
     padding:0;
   }
-  .pa-stage.reverse .pa-stage-pin{ direction:ltr; }
-  .pa-portrait-wrap, .pa-blurb-wrap{
+  .stage.reverse .pin{ direction:ltr; }
+  .portrait-wrap, .blurb-wrap{
     height:auto;
     width:100%;
     padding:0;
   }
-  .pa-portrait{
-    max-width:380px;
+  .portrait{
+    max-width:360px;
     margin:0 auto;
-    aspect-ratio: 3/4;
+    aspect-ratio:3/4;
     max-height:none;
   }
-  .pa-blurb{ max-width:none; padding:28px 20px; }
-  .pa-name{ font-size:40px; text-align:center; }
-  .pa-epithet{ text-align:center; }
-  .pa-body{ font-size:17px; }
-  .pa-topnav a{ font-size:9px; padding:6px 10px; }
+  .blurb{ max-width:none; padding:24px 16px; }
+  .blurb h1{ font-size:38px; text-align:center; }
+  .blurb .epithet{ text-align:center; }
+  .blurb .body{ font-size:17px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Persistent drifting fog -->
-<div class="pa-fog-layer pa-fog-1"></div>
-<div class="pa-fog-layer pa-fog-2"></div>
-<div class="pa-fog-layer pa-fog-3"></div>
+<div class="fader" id="fader"></div>
 
-<div class="pa-grain"></div>
-<div class="pa-fader" id="pa-fader"></div>
-
-<nav class="pa-topnav">
+<nav class="nav">
   <a href="../index.html">← Back to The Sacred Veil</a>
 </nav>
 
-<!-- Opening mire mist: 10vh of pure fog, no text -->
-<div class="pa-opening"></div>
+<div class="opening"></div>
 
-<!-- ARTHUR — portrait LEFT, blurb RIGHT -->
-<section class="pa-stage" data-character="arthur">
-  <div class="pa-stage-pin">
-    <div class="pa-portrait-wrap">
-      <div class="pa-portrait">
-        <img class="pa-portrait-img" src="../assets/art/party/arthur.webp" alt="Arthur Cunabri"/>
+<!-- ARTHUR -->
+<section class="stage">
+  <div class="pin">
+    <div class="portrait-wrap">
+      <div class="portrait">
+        <img src="../assets/art/party/arthur.webp" alt="Arthur Cunabri"/>
       </div>
     </div>
-    <div class="pa-blurb-wrap">
-      <div class="pa-blurb">
-        <h1 class="pa-name">Arthur Cunabri</h1>
-        <div class="pa-epithet">The Hammer</div>
-        <div class="pa-body">
+    <div class="blurb-wrap">
+      <div class="blurb">
+        <h1>Arthur Cunabri</h1>
+        <div class="epithet">The Hammer</div>
+        <div class="body">
           <p>The youngest of a long line of millers &mdash; raised on stubbornness and the certainty that wrongs ought to be made right. Too big for the farm, too bull-headed for soft work. When his father turned him out at sixteen, he took a blacksmith's hammer with him, and a year later put it through a man's shoulder to stop a murder across an inn floor. His town made him their Ward.</p>
           <p>It turned out to be less fairy tale, more blood sport. Three years of duels fought over bruised egos and bets &mdash; boys who had never held anything but a pitchfork. Then a visor came off and the face beneath was his brother's. He knelt in the dust after that, and offered his neck instead of his hammer. Lord Amar stayed the blade, and offered him a place.</p>
           <p>He has served in Amar's house since, and by his own reckoning, been the happiest he has ever been. He still believes the stories his father told him about wards and heroes &mdash; which is not na&iuml;vety, but the thing that lets him do the work.</p>
@@ -332,19 +230,19 @@ a:hover{color:var(--gold-bright)}
   </div>
 </section>
 
-<!-- BRANDON — portrait RIGHT, blurb LEFT -->
-<section class="pa-stage reverse" data-character="brandon">
-  <div class="pa-stage-pin">
-    <div class="pa-portrait-wrap">
-      <div class="pa-portrait">
-        <img class="pa-portrait-img" src="../assets/art/party/brandon.webp" alt="Brandon Glursk"/>
+<!-- BRANDON -->
+<section class="stage reverse">
+  <div class="pin">
+    <div class="portrait-wrap">
+      <div class="portrait">
+        <img src="../assets/art/party/brandon.webp" alt="Brandon Glursk"/>
       </div>
     </div>
-    <div class="pa-blurb-wrap">
-      <div class="pa-blurb">
-        <h1 class="pa-name">Brandon Glursk</h1>
-        <div class="pa-epithet">The Hunter</div>
-        <div class="pa-body">
+    <div class="blurb-wrap">
+      <div class="blurb">
+        <h1>Brandon Glursk</h1>
+        <div class="epithet">The Hunter</div>
+        <div class="body">
           <p>The son of the estate's huntsman and a maid who walked its halls. He grew up on Jannin grounds beside Naviel himself, the two as close as courtly custom would allow.</p>
           <p>In time his father's role became his own &mdash; groundskeeper, Master of the Hunt. He has spent his whole life in the service of this house, and his whole life is what has just burned. They took the boy he grew up with. He means to get him back.</p>
           <p>Steady, observant, slower to speak than to act. He carried Gawain home from a hunt once. That debt, like the one he owes Naviel, is not something he intends to put down.</p>
@@ -354,19 +252,19 @@ a:hover{color:var(--gold-bright)}
   </div>
 </section>
 
-<!-- GAWAIN — portrait LEFT, blurb RIGHT -->
-<section class="pa-stage" data-character="gawain">
-  <div class="pa-stage-pin">
-    <div class="pa-portrait-wrap">
-      <div class="pa-portrait">
-        <img class="pa-portrait-img" src="../assets/art/party/gawain.webp" alt="Gawain Mireblood"/>
+<!-- GAWAIN -->
+<section class="stage">
+  <div class="pin">
+    <div class="portrait-wrap">
+      <div class="portrait">
+        <img src="../assets/art/party/gawain.webp" alt="Gawain Mireblood"/>
       </div>
     </div>
-    <div class="pa-blurb-wrap">
-      <div class="pa-blurb">
-        <h1 class="pa-name">Gawain Mireblood</h1>
-        <div class="pa-epithet">The Stranger</div>
-        <div class="pa-body">
+    <div class="blurb-wrap">
+      <div class="blurb">
+        <h1>Gawain Mireblood</h1>
+        <div class="epithet">The Stranger</div>
+        <div class="body">
           <p>Brandon Glursk found him on a hunt, half-dead in a forest far from here, and brought him home. What he was before that, he keeps to himself. Lord Amar saw a battered fighter with much craft to him, and offered a houseguard's place if Gawain would prove his loyalty. Eager to &mdash; shall we say &mdash; survive, and grateful for his salvation, Gawain took it.</p>
           <p>He has been in the house a year, but his wounds have been slow to mend, and he was kept from the walls until he was fit for them. The night of the siege was the first he had felt whole enough to take post. He stood it.</p>
           <p>Reserved, watchful &mdash; wounds that never fully closed. Whatever his past was, he left it at the gate. He has not gone back for it. But having noticed a sigil on the back of the wagon that took Naviel, and looking to pass back out through those gates again, he may now have to confront it.</p>
@@ -381,16 +279,16 @@ a:hover{color:var(--gold-bright)}
   'use strict';
 
   const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
-  const stages = Array.from(document.querySelectorAll('.pa-stage'));
+  const stages = Array.from(document.querySelectorAll('.stage'));
 
-  function easeInOut(t) {
-    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  function easeInOut(t){
+    return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
   }
 
-  function updateStages() {
-    if (isMobile()) {
-      stages.forEach(st => {
-        st.querySelectorAll('.pa-portrait, .pa-portrait-img, .pa-blurb').forEach(el => el.style.cssText = '');
+  function update(){
+    if(isMobile()){
+      stages.forEach(s => {
+        s.querySelectorAll('.portrait, .blurb').forEach(el => el.style.cssText = '');
       });
       return;
     }
@@ -399,79 +297,75 @@ a:hover{color:var(--gold-bright)}
 
     stages.forEach(stage => {
       const rect = stage.getBoundingClientRect();
-      const stageHeight = stage.offsetHeight;
+      const stageH = stage.offsetHeight;
 
-      // Progress 0 → 1 across the sticky-pin window
-      const raw = (-rect.top) / (stageHeight - vh);
-      const progress = Math.max(0, Math.min(1, raw));
+      // 0 when stage top hits viewport top; 1 when stage bottom hits viewport bottom.
+      const raw = (-rect.top) / (stageH - vh);
+      const p = Math.max(0, Math.min(1, raw));
 
-      // Phases: 0-25% enter, 25-75% hold, 75-100% exit
-      // Sequential (not crossfade) — character is completely gone before the next starts.
-      let phaseIn, phaseOut;
-      if (progress <= 0.25) {
-        phaseIn  = progress / 0.25;
-        phaseOut = 0;
-      } else if (progress <= 0.75) {
-        phaseIn  = 1;
-        phaseOut = 0;
+      // 0–0.30: fade in
+      // 0.30–0.70: hold
+      // 0.70–1.00: fade out
+      let vis;
+      if(p <= 0.30){
+        vis = easeInOut(p / 0.30);
+      } else if(p <= 0.70){
+        vis = 1;
       } else {
-        phaseIn  = 1;
-        phaseOut = (progress - 0.75) / 0.25;
+        vis = 1 - easeInOut((p - 0.70) / 0.30);
       }
 
-      const eIn  = easeInOut(phaseIn);
-      const eOut = easeInOut(phaseOut);
-      const visibility = eIn * (1 - eOut);
+      const portrait = stage.querySelector('.portrait');
+      const blurb = stage.querySelector('.blurb');
+      const reverse = stage.classList.contains('reverse');
 
-      const portrait = stage.querySelector('.pa-portrait');
-      const blurb    = stage.querySelector('.pa-blurb');
-      const isReverse = stage.classList.contains('reverse');
+      portrait.style.opacity = vis.toFixed(3);
+      blurb.style.opacity = vis.toFixed(3);
 
-      portrait.style.opacity = visibility.toFixed(3);
-
-      // Blurb slides in from opposite side of portrait, exits opposite direction
-      const slideDir = isReverse ? -1 : 1;
-      const slideInX  = slideDir *  50 * (1 - eIn);
-      const slideOutX = slideDir * -60 * eOut;
-      const slideX = eOut > 0 ? slideOutX : slideInX;
-
-      blurb.style.opacity = visibility.toFixed(3);
-      blurb.style.transform = `translate3d(${slideX.toFixed(1)}px, 0, 0)`;
+      // Subtle slide on blurb — in from opposite side of portrait, out same side
+      const dir = reverse ? -1 : 1;
+      let x = 0;
+      if(p <= 0.30){
+        x = dir * 40 * (1 - easeInOut(p / 0.30));
+      } else if(p > 0.70){
+        x = dir * -50 * easeInOut((p - 0.70) / 0.30);
+      }
+      blurb.style.transform = `translate3d(${x.toFixed(1)}px, 0, 0)`;
     });
   }
 
   let ticking = false;
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(() => { updateStages(); ticking = false; });
+  function onScroll(){
+    if(!ticking){
+      requestAnimationFrame(() => { update(); ticking = false; });
       ticking = true;
     }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive:true });
   window.addEventListener('resize', onScroll);
-  updateStages();
+  update();
 
-  // Nav fade-out
-  const fader = document.getElementById('pa-fader');
+  // Fade-to-black on nav away
+  const fader = document.getElementById('fader');
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a');
-    if (!a) return;
+    if(!a) return;
     const href = a.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+    if(!href || href.startsWith('#') || href.startsWith('javascript:')) return;
     e.preventDefault();
     fader.classList.add('active');
     setTimeout(() => {
-      if (a.target && a.target !== '_self') window.open(href, a.target);
+      if(a.target && a.target !== '_self') window.open(href, a.target);
       else window.location.href = href;
-    }, 1500);
+    }, 1200);
   });
 
   // bfcache reload
   window.addEventListener('pageshow', (e) => {
-    if (e.persisted) window.location.reload();
+    if(e.persisted) window.location.reload();
   });
-
 })();
 </script>
+
 </body>
 </html>
