@@ -19,8 +19,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=UnifrakturCook:wght@700&display=swap');
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#030106;color:#f0e4bc;font-family:'Cormorant Garamond',serif;overflow-x:clip}
-html{scroll-behavior:auto}  /* we do our own */
+html,body{
+  background:#030106;
+  color:#f0e4bc;
+  font-family:'Cormorant Garamond',serif;
+  overflow-x:clip;
+}
+html{scroll-behavior:auto}
 
 :root{
   --gold:          #d8c99b;
@@ -28,131 +33,161 @@ html{scroll-behavior:auto}  /* we do our own */
   --text:          #f0e4bc;
   --text-dim:      rgba(240,228,188,0.85);
   --text-faint:    rgba(240,228,188,0.60);
-  --bg-deep:       #030106;
 }
 
 a{color:var(--gold);text-decoration:none}
 a:hover{color:var(--gold-bright)}
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HERO — shows the Sacred Veil card, dissolves into intro
+   FOG — three drifting layers, always behind everything
    ═══════════════════════════════════════════════════════════════════════ */
-.pa-hero{
-  height:100vh;
-  position:relative;
-  overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
-  padding:40px 20px;
-  background:#030106;
+.pa-fog-layer{
+  position:fixed; inset:-30% -30%;
+  pointer-events:none;
+  z-index:0;
+  will-change:transform;
 }
-.pa-hero-img{
-  max-width:min(1100px, 92%);
-  max-height:80%;
-  width:auto; height:auto;
-  object-fit:contain;
-  /* Gentle feather on all sides so card doesn't read as a pasted rectangle */
-  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%);
-          mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%);
-  will-change:transform,opacity;
+.pa-fog-1{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='4' seed='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.09  0 0 0 0 0.14  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background-size: 140% 140%;
+  opacity:0.55;
+  mix-blend-mode:screen;
+  animation: pa-drift-a 180s linear infinite;
 }
-.pa-hero-grain{
-  position:absolute; inset:0; pointer-events:none; opacity:0.06;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
+.pa-fog-2{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.06  0 0 0 0 0.17  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background-size: 120% 120%;
+  opacity:0.45;
+  mix-blend-mode:screen;
+  animation: pa-drift-b 240s linear infinite;
+}
+.pa-fog-3{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.04  0 0 0 0 0.10  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background-size: 100% 100%;
+  opacity:0.35;
   mix-blend-mode:overlay;
+  animation: pa-drift-c 90s linear infinite;
+}
+@keyframes pa-drift-a {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(-4%, 2%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes pa-drift-b {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(3%, -2%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes pa-drift-c {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%  { transform: translate3d(-2%, -1%, 0) rotate(0.5deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   INTRO (short, normal scroll)
+   FOG CLEARING — radial dim zone around the active portrait
    ═══════════════════════════════════════════════════════════════════════ */
-.pa-intro{
-  min-height:70vh;
-  display:flex; align-items:center; justify-content:center;
-  padding:60px 32px;
-}
-.pa-intro-text{
-  max-width:780px;
-  text-align:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(22px, 3.2vw, 32px);
-  font-style:italic;
-  line-height:1.6;
-  color:var(--text-dim);
-  letter-spacing:0.01em;
-}
-.pa-intro-text strong{
-  color:var(--gold-bright);
-  font-style:normal; font-weight:500;
-  letter-spacing:0.04em;
+.pa-fog-clearing{
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:radial-gradient(
+    ellipse 32% 48% at var(--clearing-x, 30%) 50%,
+    rgba(3,1,6,0.82) 0%,
+    rgba(3,1,6,0.5)  35%,
+    transparent 70%
+  );
+  opacity: var(--clearing-opacity, 0);
+  transition: opacity 0.4s ease, background 0.6s ease;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   CHARACTER STAGES — sticky pin scroll-hijack
+   OPENING — short fog runway, no text, first scroll begins Arthur
+   ═══════════════════════════════════════════════════════════════════════ */
+.pa-opening{
+  height:30vh;
+  position:relative;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CHARACTER STAGES — sticky-pinned, tight back-to-back timing
    ═══════════════════════════════════════════════════════════════════════ */
 .pa-stage{
-  /* Total scroll distance per character. Tall wrapper, sticky inner. */
-  height:300vh;
+  height:280vh;
   position:relative;
 }
 .pa-stage-pin{
   position:sticky; top:0;
   height:100vh;
-  display:flex; align-items:center; justify-content:center;
-  padding:0 60px;
-  overflow:hidden;
-}
-.pa-stage-row{
-  width:100%; max-width:1400px;
+  width:100%;
   display:grid;
   grid-template-columns: 1fr 1fr;
-  gap:clamp(32px, 5vw, 80px);
   align-items:center;
+  padding:0 clamp(24px, 5vw, 80px);
+  overflow:hidden;
+  z-index:2;
 }
-.pa-stage.reverse .pa-stage-row{
-  /* swap sides for alternating characters */
-  direction:rtl;  /* reverse the grid column order */
+.pa-stage.reverse .pa-stage-pin{
+  direction:rtl;
 }
-.pa-stage.reverse .pa-stage-row > *{
-  direction:ltr;  /* reset text direction inside each cell */
+.pa-stage.reverse .pa-stage-pin > *{
+  direction:ltr;
 }
 
-/* ── Portrait ── */
+/* ── Portrait column ── */
+.pa-portrait-wrap{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:4vh 2vw;
+}
 .pa-portrait{
   position:relative;
-  aspect-ratio: 3 / 4;
-  width:100%;
-  max-height:80vh;
+  width:100%; height:100%;
+  max-width:min(560px, 100%);
+  max-height:90vh;
   display:flex; align-items:center; justify-content:center;
-  will-change:transform,opacity,filter;
+  will-change:opacity;
 }
 .pa-portrait-img{
   width:100%; height:100%;
-  object-fit:cover; object-position:center top;
-  /* CSS blend into dark background — softens edges, unifies with page */
+  object-fit:cover; object-position:center 20%;
   mix-blend-mode:lighten;
-  /* Softly feather all edges so portrait dissolves into background */
+  /* Very aggressive feather — portrait solid only in center, rest dissolves into fog */
   -webkit-mask-image:
-    radial-gradient(ellipse 88% 95% at 50% 45%, black 40%, transparent 100%);
+    radial-gradient(ellipse 65% 75% at 50% 45%, black 5%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.3) 60%, transparent 100%);
           mask-image:
-    radial-gradient(ellipse 88% 95% at 50% 45%, black 40%, transparent 100%);
-  filter:brightness(1.05) contrast(1.05);
-}
-/* The "murk" overlay — character climbs out of it */
-.pa-portrait-murk{
-  position:absolute; inset:0;
-  background-image:
-    radial-gradient(ellipse 70% 80% at 50% 60%, transparent 0%, rgba(5,3,10,0.3) 45%, rgba(5,3,10,0.92) 100%),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.02  0 0 0 0 0.01  0 0 0 0 0.04  0 0 0 0.85 0'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
-  background-blend-mode:multiply;
-  mix-blend-mode:multiply;
-  pointer-events:none;
-  will-change:opacity,transform;
+    radial-gradient(ellipse 65% 75% at 50% 45%, black 5%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  filter:brightness(1.08) contrast(1.1);
+  will-change:opacity,filter;
 }
 
-/* ── Blurb ── */
+/* ── Blurb column ── */
+.pa-blurb-wrap{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  padding:4vh 2vw;
+}
 .pa-blurb{
-  font-family:'Cormorant Garamond',serif;
-  color:var(--text);
-  will-change:transform,opacity;
+  position:relative;
+  width:100%;
+  max-width:560px;
+  padding:clamp(24px, 3.5vw, 48px) clamp(24px, 3.5vw, 44px);
+  will-change:opacity,transform;
+}
+.pa-blurb::before{
+  content:"";
+  position:absolute; inset:-20px;
+  background:radial-gradient(
+    ellipse 100% 95% at 50% 50%,
+    rgba(3,1,6,0.76) 20%,
+    rgba(3,1,6,0.5)  55%,
+    transparent 100%
+  );
+  z-index:-1;
+  pointer-events:none;
 }
 .pa-name{
   font-family:'UnifrakturCook', serif;
@@ -161,7 +196,7 @@ a:hover{color:var(--gold-bright)}
   letter-spacing:0.02em;
   line-height:1;
   margin-bottom:8px;
-  text-shadow:0 0 18px rgba(220,180,100,0.15);
+  text-shadow:0 0 18px rgba(220,180,100,0.2), 0 2px 10px rgba(0,0,0,0.85);
 }
 .pa-epithet{
   font-family:'Cinzel',serif;
@@ -172,24 +207,19 @@ a:hover{color:var(--gold-bright)}
   margin-bottom:28px;
 }
 .pa-body{
-  font-size:clamp(16px, 1.3vw, 19px);
+  font-size:clamp(16px, 1.25vw, 19px);
   line-height:1.75;
-  color:var(--text-dim);
+  color:var(--text);
+  text-shadow:0 1px 6px rgba(0,0,0,0.9);
 }
-.pa-body p{
-  margin-bottom:1em;
-}
-.pa-body p:last-child{ margin-bottom:0 }
+.pa-body p{ margin-bottom:1em; }
+.pa-body p:last-child{ margin-bottom:0; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   AMBIENT EFFECTS (subtle, throughout)
+   GRAIN — subtle film texture
    ═══════════════════════════════════════════════════════════════════════ */
-.pa-vignette{
-  position:fixed; inset:0; pointer-events:none; z-index:2;
-  background:radial-gradient(ellipse at center, transparent 55%, rgba(5,3,10,0.45) 100%);
-}
 .pa-grain{
-  position:fixed; inset:0; pointer-events:none; z-index:3; opacity:0.06;
+  position:fixed; inset:0; pointer-events:none; z-index:4; opacity:0.05;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
   mix-blend-mode:overlay;
   animation:pa-grain-jitter 0.5s steps(3) infinite;
@@ -201,10 +231,10 @@ a:hover{color:var(--gold-bright)}
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   TOP BAR (minimal — just a return home)
+   TOP NAV
    ═══════════════════════════════════════════════════════════════════════ */
 .pa-topnav{
-  position:fixed; top:0; left:0; right:0; z-index:10;
+  position:fixed; top:0; left:0; right:0; z-index:20;
   display:flex; justify-content:space-between; align-items:center;
   padding:16px 24px;
   pointer-events:none;
@@ -217,7 +247,7 @@ a:hover{color:var(--gold-bright)}
   text-transform:uppercase;
   color:var(--text-faint);
   padding:8px 14px;
-  background:rgba(7,3,12,0.4);
+  background:rgba(3,1,6,0.5);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
   border:1px solid rgba(180,140,70,0.2);
@@ -229,7 +259,7 @@ a:hover{color:var(--gold-bright)}
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   NAV FADE OUT (matches hook page)
+   FADE-OUT ON NAV AWAY
    ═══════════════════════════════════════════════════════════════════════ */
 .pa-fader{
   position:fixed; inset:0; z-index:1000;
@@ -247,70 +277,65 @@ a:hover{color:var(--gold-bright)}
    MOBILE FALLBACK
    ═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px){
-  .pa-hero{ height:80vh; }
-  .pa-intro{ min-height:auto; padding:80px 24px; }
-  .pa-intro-text{ font-size:22px; }
-
-  /* Kill the scroll-hijack on mobile — stages become normal stacked sections */
-  .pa-stage{
-    height:auto;
-    padding:60px 20px 80px;
-  }
+  .pa-opening{ height:15vh; }
+  .pa-stage{ height:auto; padding:50px 20px 70px; }
   .pa-stage-pin{
     position:static;
     height:auto;
+    display:flex; flex-direction:column;
+    gap:20px;
     padding:0;
   }
-  .pa-stage-row{
-    display:flex; flex-direction:column;
-    gap:32px;
+  .pa-stage.reverse .pa-stage-pin{ direction:ltr; }
+  .pa-portrait-wrap, .pa-blurb-wrap{
+    height:auto;
+    width:100%;
+    padding:0;
   }
-  .pa-stage.reverse .pa-stage-row{ direction:ltr; }
   .pa-portrait{
-    max-height:70vh;
     max-width:380px;
     margin:0 auto;
+    aspect-ratio: 3/4;
+    max-height:none;
   }
+  .pa-blurb{ max-width:none; padding:28px 20px; }
   .pa-name{ font-size:40px; text-align:center; }
   .pa-epithet{ text-align:center; }
   .pa-body{ font-size:17px; }
+  .pa-fog-clearing{ display:none; }
   .pa-topnav a{ font-size:9px; padding:6px 10px; }
 }
 </style>
 </head>
 <body>
 
-<div class="pa-vignette"></div>
+<!-- Persistent drifting fog -->
+<div class="pa-fog-layer pa-fog-1"></div>
+<div class="pa-fog-layer pa-fog-2"></div>
+<div class="pa-fog-layer pa-fog-3"></div>
+
+<!-- Fog-clearing zone around the active portrait -->
+<div class="pa-fog-clearing" id="pa-clearing"></div>
+
 <div class="pa-grain"></div>
 <div class="pa-fader" id="pa-fader"></div>
 
 <nav class="pa-topnav">
-  <a href="../index.html" class="pa-nav-link">← The Sanctum</a>
+  <a href="../index.html">← The Sanctum</a>
 </nav>
 
-<!-- HERO -->
-<section class="pa-hero" id="pa-hero">
-  <img class="pa-hero-img" id="pa-hero-img" src="../assets/art/party/hero.webp" alt="The Sacred Veil"/>
-  <div class="pa-hero-grain"></div>
-</section>
+<!-- Opening mire mist: pure fog, no text. First scroll triggers Arthur -->
+<div class="pa-opening"></div>
 
-<!-- INTRO -->
-<section class="pa-intro">
-  <p class="pa-intro-text">
-    Misfits chosen by <strong>Lord Amar</strong> himself.<br/>
-    A hammer. A hunter. A stranger.<br/>
-    When the walls fell, these three plotted revenge.
-  </p>
-</section>
-
-<!-- ARTHUR STAGE — portrait LEFT, blurb RIGHT -->
-<section class="pa-stage" id="stage-arthur" data-character="arthur">
+<!-- ARTHUR — portrait LEFT, blurb RIGHT -->
+<section class="pa-stage" data-character="arthur" data-clearing-side="left">
   <div class="pa-stage-pin">
-    <div class="pa-stage-row">
+    <div class="pa-portrait-wrap">
       <div class="pa-portrait">
         <img class="pa-portrait-img" src="../assets/art/party/arthur.webp" alt="Arthur Cunabri"/>
-        <div class="pa-portrait-murk"></div>
       </div>
+    </div>
+    <div class="pa-blurb-wrap">
       <div class="pa-blurb">
         <h1 class="pa-name">Arthur Cunabri</h1>
         <div class="pa-epithet">The Hammer</div>
@@ -324,14 +349,15 @@ a:hover{color:var(--gold-bright)}
   </div>
 </section>
 
-<!-- BRANDON STAGE — portrait RIGHT, blurb LEFT -->
-<section class="pa-stage reverse" id="stage-brandon" data-character="brandon">
+<!-- BRANDON — portrait RIGHT, blurb LEFT -->
+<section class="pa-stage reverse" data-character="brandon" data-clearing-side="right">
   <div class="pa-stage-pin">
-    <div class="pa-stage-row">
+    <div class="pa-portrait-wrap">
       <div class="pa-portrait">
         <img class="pa-portrait-img" src="../assets/art/party/brandon.webp" alt="Brandon Glursk"/>
-        <div class="pa-portrait-murk"></div>
       </div>
+    </div>
+    <div class="pa-blurb-wrap">
       <div class="pa-blurb">
         <h1 class="pa-name">Brandon Glursk</h1>
         <div class="pa-epithet">The Hunter</div>
@@ -345,14 +371,15 @@ a:hover{color:var(--gold-bright)}
   </div>
 </section>
 
-<!-- GAWAIN STAGE — portrait LEFT, blurb RIGHT -->
-<section class="pa-stage" id="stage-gawain" data-character="gawain">
+<!-- GAWAIN — portrait LEFT, blurb RIGHT -->
+<section class="pa-stage" data-character="gawain" data-clearing-side="left">
   <div class="pa-stage-pin">
-    <div class="pa-stage-row">
+    <div class="pa-portrait-wrap">
       <div class="pa-portrait">
         <img class="pa-portrait-img" src="../assets/art/party/gawain.webp" alt="Gawain Mireblood"/>
-        <div class="pa-portrait-murk"></div>
       </div>
+    </div>
+    <div class="pa-blurb-wrap">
       <div class="pa-blurb">
         <h1 class="pa-name">Gawain Mireblood</h1>
         <div class="pa-epithet">The Stranger</div>
@@ -372,142 +399,101 @@ a:hover{color:var(--gold-bright)}
 
   const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
-  // ── HERO: fade out as user scrolls past it ────────────────────────────
-  const heroImg = document.getElementById('pa-hero-img');
-  function updateHero() {
-    const y = window.scrollY;
-    const vh = window.innerHeight;
-    // Start fading at 20% scrolled, fully gone by 80% of viewport scrolled
-    const progress = Math.max(0, Math.min(1, (y - vh * 0.2) / (vh * 0.6)));
-    heroImg.style.opacity = (1 - progress).toFixed(3);
-    heroImg.style.transform = `translate3d(0, ${(-y * 0.1).toFixed(1)}px, 0) scale(${(1 - progress * 0.04).toFixed(3)})`;
-  }
-
-  // ── SCROLL-HIJACKED STAGES ─────────────────────────────────────────────
-  // For each stage, we compute `progress` from 0 (stage top aligned with
-  // viewport top) to 1 (stage bottom aligned with viewport bottom).
-  // Progress drives:
-  //   0.00 → 0.25  : portrait dissolves in + blurb slides/fades in
-  //   0.25 → 0.75  : both held still, user reads
-  //   0.75 → 1.00  : portrait dissolves out + blurb slides/fades out
-  const stages = Array.from(document.querySelectorAll('.pa-stage'));
+  const stages   = Array.from(document.querySelectorAll('.pa-stage'));
+  const clearing = document.getElementById('pa-clearing');
 
   function easeInOut(t) {
-    // fast start, slow middle, fast end → not quite what user asked
-    // User wanted: appears quickly, hangs, exits quickly. The HOLD phase
-    // (0.25–0.75) is where it sits still. So the curve in the IN and OUT
-    // phases should be "ease" so it feels smooth into and out of holding.
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   }
 
   function updateStages() {
     if (isMobile()) {
-      // Mobile: reset any transforms so stacked layout renders cleanly
       stages.forEach(st => {
-        const img = st.querySelector('.pa-portrait-img');
-        const murk = st.querySelector('.pa-portrait-murk');
-        const portrait = st.querySelector('.pa-portrait');
-        const blurb = st.querySelector('.pa-blurb');
-        [img, murk, portrait, blurb].forEach(el => { if (el) el.style.cssText = ''; });
+        st.querySelectorAll('.pa-portrait, .pa-portrait-img, .pa-blurb').forEach(el => el.style.cssText = '');
       });
+      clearing.style.opacity = 0;
       return;
     }
+
+    const vh = window.innerHeight;
+    let strongestStage = null;
+    let strongestVisibility = 0;
 
     stages.forEach(stage => {
       const rect = stage.getBoundingClientRect();
       const stageHeight = stage.offsetHeight;
-      const vh = window.innerHeight;
 
-      // progress from 0 (stage top at viewport top) to 1 (stage bottom at viewport bottom)
-      // We use: (viewport_top - stage_top) / (stage_height - vh)
-      //       = -rect.top / (stageHeight - vh)
       const raw = (-rect.top) / (stageHeight - vh);
       const progress = Math.max(0, Math.min(1, raw));
 
-      const portrait = stage.querySelector('.pa-portrait');
-      const img      = stage.querySelector('.pa-portrait-img');
-      const murk     = stage.querySelector('.pa-portrait-murk');
-      const blurb    = stage.querySelector('.pa-blurb');
-      const isReverse = stage.classList.contains('reverse');
-
-      // Phase computation
-      let phaseIn, phaseHold, phaseOut;
-      if (progress <= 0.25) {
-        // In
-        phaseIn = progress / 0.25;         // 0 → 1
-        phaseHold = 0;
+      // Tightened phases — quick in, long hold, quick out. Back-to-back with
+      // adjacent stages: when one is at phaseOut end, the next is at phaseIn start.
+      let phaseIn, phaseOut;
+      if (progress <= 0.18) {
+        phaseIn  = progress / 0.18;
         phaseOut = 0;
-      } else if (progress <= 0.75) {
-        phaseIn = 1;
-        phaseHold = (progress - 0.25) / 0.5;  // 0 → 1 (unused but preserved for clarity)
+      } else if (progress <= 0.82) {
+        phaseIn  = 1;
         phaseOut = 0;
       } else {
-        phaseIn = 1;
-        phaseHold = 1;
-        phaseOut = (progress - 0.75) / 0.25;  // 0 → 1
+        phaseIn  = 1;
+        phaseOut = (progress - 0.82) / 0.18;
       }
 
       const eIn  = easeInOut(phaseIn);
       const eOut = easeInOut(phaseOut);
+      const visibility = eIn * (1 - eOut);
 
-      // ── Portrait reveal: murk parts, scale grows, brightness lifts ──
-      // Murk: opacity 1 → 0 during phaseIn, then 0 → 1 during phaseOut
-      const murkOpacity = (1 - eIn) + eOut;
-      murk.style.opacity = Math.min(1, murkOpacity).toFixed(3);
+      if (visibility > strongestVisibility) {
+        strongestVisibility = visibility;
+        strongestStage = stage;
+      }
 
-      // Portrait scale: starts slightly back (0.92), grows to 1.0, then slightly recedes
-      const scaleIn  = 0.92 + 0.08 * eIn;
-      const scaleOut = 1.0 - 0.04 * eOut;
-      const scale = eOut > 0 ? scaleOut : scaleIn;
-      // Portrait drifts up slightly during reveal (feels like climbing forward)
-      const driftY = (1 - eIn) * 20 - eOut * 12;
+      const portrait = stage.querySelector('.pa-portrait');
+      const img      = stage.querySelector('.pa-portrait-img');
+      const blurb    = stage.querySelector('.pa-blurb');
+      const isReverse = stage.classList.contains('reverse');
 
-      portrait.style.transform = `translate3d(0, ${driftY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
-      portrait.style.opacity = Math.max(0, (1 - eOut)).toFixed(3);
+      // Portrait: pure fade, no positional drift
+      portrait.style.opacity = visibility.toFixed(3);
+      img.style.filter = `brightness(${(0.85 + 0.2 * eIn * (1 - eOut)).toFixed(2)}) contrast(${(0.95 + 0.1 * eIn).toFixed(2)})`;
 
-      // Slight brightness boost as reveal completes
-      img.style.filter = `brightness(${(0.9 + 0.2 * eIn).toFixed(2)}) contrast(${(0.95 + 0.15 * eIn).toFixed(2)})`;
-
-      // ── Blurb slide + fade ──
-      // Slide in from the OPPOSITE side of the portrait
-      // Arthur/Gawain: portrait left, blurb comes from right, exits right
-      // Brandon (reverse): portrait right, blurb comes from left, exits left
+      // Blurb: slide in from opposite side of portrait, fade, exit opposite direction
       const slideDir = isReverse ? -1 : 1;
-
-      // In: slide from +100 → 0 (or -100 → 0 for reverse)
-      const slideInX  = slideDir *  60 * (1 - eIn);
-      // Out: slide from 0 → -80 (or +80 for reverse) — exits OPPOSITE direction from entry
-      const slideOutX = slideDir * -80 * eOut;
+      const slideInX  = slideDir *  50 * (1 - eIn);
+      const slideOutX = slideDir * -60 * eOut;
       const slideX = eOut > 0 ? slideOutX : slideInX;
 
-      const blurbOpacity = eIn * (1 - eOut);
-
+      blurb.style.opacity = visibility.toFixed(3);
       blurb.style.transform = `translate3d(${slideX.toFixed(1)}px, 0, 0)`;
-      blurb.style.opacity = blurbOpacity.toFixed(3);
     });
+
+    // Fog-clearing follows whichever stage is most visible
+    if (strongestStage && strongestVisibility > 0.05) {
+      const side = strongestStage.dataset.clearingSide;
+      const xPct = side === 'left' ? '28%' : '72%';
+      clearing.style.setProperty('--clearing-x', xPct);
+      clearing.style.setProperty('--clearing-opacity', strongestVisibility.toFixed(3));
+    } else {
+      clearing.style.setProperty('--clearing-opacity', '0');
+    }
   }
 
-  // ── RAF loop for smooth updates ────────────────────────────────────────
   let ticking = false;
   function onScroll() {
     if (!ticking) {
       requestAnimationFrame(() => {
-        updateHero();
         updateStages();
         ticking = false;
       });
       ticking = true;
     }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
-
-  // Initial paint
-  updateHero();
   updateStages();
 
-  // ── FADE-OUT ON NAV ────────────────────────────────────────────────────
+  // Fade-out on nav away
   const fader = document.getElementById('pa-fader');
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a');
@@ -522,7 +508,7 @@ a:hover{color:var(--gold-bright)}
     }, 1500);
   });
 
-  // ── BFCACHE: reload if restored from back/forward ──────────────────────
+  // bfcache reload on back/forward
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) window.location.reload();
   });
