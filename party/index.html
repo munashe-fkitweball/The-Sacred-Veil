@@ -24,6 +24,16 @@ html,body{
   font-family:'Cormorant Garamond',serif;
 }
 
+/* Vanta fog background — fixed, full viewport, behind everything */
+#fog-bg{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  z-index:0;
+  pointer-events:none;
+}
+
 a{color:#d8c99b;text-decoration:none}
 a:hover{color:#f2d98c}
 
@@ -104,16 +114,8 @@ a:hover{color:#f2d98c}
 }
 .portrait img{
   width:100%; height:100%;
-  object-fit:cover;
-  object-position:center 20%;
-  -webkit-mask-image:url('../assets/art/party/mask.png');
-          mask-image:url('../assets/art/party/mask.png');
-  -webkit-mask-size:100% 100%;
-          mask-size:100% 100%;
-  -webkit-mask-repeat:no-repeat;
-          mask-repeat:no-repeat;
-  -webkit-mask-position:center;
-          mask-position:center;
+  object-fit:contain;
+  object-position:center center;
 }
 
 /* ─── BLURB ─── */
@@ -199,6 +201,8 @@ a:hover{color:#f2d98c}
 </style>
 </head>
 <body>
+
+<div id="fog-bg"></div>
 
 <div class="fader" id="fader"></div>
 
@@ -365,6 +369,26 @@ a:hover{color:#f2d98c}
     if(e.persisted) window.location.reload();
   });
 })();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+<script>
+  VANTA.FOG({
+    el: "#fog-bg",
+    mouseControls: false,
+    touchControls: false,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x1e1717,
+    midtoneColor:   0x484843,
+    lowlightColor:  0x100048,
+    baseColor:      0x070707,
+    blurFactor: 0.56,
+    speed: 0.20,
+    zoom: 2.20
+  });
 </script>
 
 </body>
