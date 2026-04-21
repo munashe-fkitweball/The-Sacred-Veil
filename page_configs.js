@@ -11,7 +11,7 @@
 // ============================================================================
 
 window.SV_HUBS = [
-  { key: 'campaign', numeral: 'I',    short: 'Campaign', href: 'campaign.html' },
+  { key: 'campaign', numeral: 'I',    short: 'Campaign', href: 'campaign/index.html' },
   { key: 'kingdom',  numeral: 'II',   short: 'Kingdom',  href: 'kingdom/index.html' },
   { key: 'faith',    numeral: 'III',  short: 'Faith',    href: 'faith/index.html' },
   { key: 'magic',    numeral: 'IV',   short: 'Magic',    href: 'magic/index.html' },
@@ -28,13 +28,23 @@ window.SV_PAGES = {
   // ═══════════════════════════════════════════════════════════════════════
   'campaign': {
     hub: 'campaign',
-    href: 'campaign.html',
+    href: 'campaign/index.html',
     numeral: 'I',
     title: 'The Campaign',
     subtitle: 'What you are walking into',
     hero: 'hero-campaign.jpg',
     sigil: 'campaign-sigil.png',
-    sections: ['introduction', 'the-hook', 'central-tensions', 'tone-scope'],
+    sections: ['introduction', 'central-tensions', 'tone-scope'],
+    children: ['campaign/hook'],
+  },
+  'campaign/hook': {
+    hub: 'campaign',
+    parent: 'campaign',
+    href: 'campaign/hook.html',
+    title: 'The Hook',
+    subtitle: 'The night Amarsgate burned',
+    fullHero: 'hook-scene-the-fall.jpg',
+    sections: ['the-hook'],
   },
 
   // ═══════════════════════════════════════════════════════════════════════
@@ -296,7 +306,7 @@ window.SV_PAGES = {
     title: 'Homebrew Rules',
     subtitle: 'Subject to change',
     sigil: 'rules-sigil.png',
-    sections: ['rules-intro', 'brittle-weapons', 'shoddy-armour', 'true-quality-steel', 'fighting-blind', 'pariah-burden', 'ogre-custom-armour', 'changeling-disguise'],
+    sections: ['rules-intro', 'true-quality-steel', 'fighting-blind', 'pariah-burden', 'ogre-custom-armour', 'changeling-disguise'],
   },
 
   // ═══════════════════════════════════════════════════════════════════════

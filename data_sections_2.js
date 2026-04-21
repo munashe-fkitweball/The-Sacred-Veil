@@ -361,40 +361,28 @@ window.SV_SECTIONS_2 = [
 },
 
 {
-  id: "brittle-weapons",
-  group: "Homebrew Rules",
-  title: "Brittle Weapons",
-  blocks: [
-    { type: "facts", items: [
-      ["Trigger", "Natural 20 on an attack roll with a low-grade weapon."],
-      ["Effect", "The weapon becomes Brittle — damage die drops permanently to 1d4 until a smith repairs it."],
-    ]},
-  ],
-},
-
-{
-  id: "shoddy-armour",
-  group: "Homebrew Rules",
-  title: "Shoddy Armour",
-  blocks: [
-    { type: "facts", items: [
-      ["Trigger", "Natural 20 on a defense roll while wearing low-grade armour."],
-      ["Effect", "Armour Tier −1. At Tier 0, the piece is destroyed."],
-    ]},
-  ],
-},
-
-{
   id: "true-quality-steel",
   group: "Homebrew Rules",
   title: "True Quality Steel",
+  subtitle: "The steel rule — and what happens to everyone who can't afford it",
+  body: `In K'naan, every weapon, shield and suit of armour is assumed to be low-grade by default — bronze-shod, brittle iron, cracked hide, boiled leather, rust under lacquer. True Quality Steel is the exception: rare, expensive, and the only gear that will reliably not fail you. A piece may also be exempt if the GM explicitly says so (magical origin, ancient relic, a specific heirloom) but the default assumption is that nothing you carry is dependable.`,
   blocks: [
+    { type: "h3", text: "True Quality Steel" },
     { type: "facts", items: [
-      ["Source", "Officially forged by [[house-vane:House Vane]]."],
+      ["Source", "Officially forged only by [[house-vane:House Vane]], through the [[chainmakers:Chainmakers]]' [[great-forge:Great Forge]] in [[har-moloch:Har-Moloch]]."],
       ["Cost", "10× the standard price for its class."],
-      ["Properties", "Cannot become Brittle; armour cannot become Shoddy."],
-      ["Repair", "Only a smith can repair it."],
+      ["Properties", "Never becomes Brittle. Armour never becomes Shoddy. See below for what those are."],
+      ["Repair", "Only a smith can repair it — no field patches, no tavern fixes."],
     ]},
+    { type: "p", text: `Players start the campaign with none of it. Acquiring even a single True Steel piece is a story beat, not a shopping trip.` },
+
+    { type: "h3", text: "Everything else — the default" },
+    { type: "p", text: `Because almost everything on your character sheet is low-grade, the kingdom's metalwork has a habit of betraying its wielder at the worst moment. "Brittle" and "Shoddy" aren't properties you can buy, enchant, or pick off a table — they're descriptions of what happens to the default, and what the kingdom assumes will happen, sooner or later, to anyone who can't afford Vane steel.` },
+    { type: "defs", items: [
+      ["Brittle (weapons)", "On a natural 20 on an attack roll with a low-grade weapon, the weapon becomes Brittle: its damage die drops permanently to 1d4 until a smith repairs it. You can keep swinging it — it just stops reliably killing people."],
+      ["Shoddy (armour)", "On a natural 20 on a defense roll while wearing low-grade armour, the armour becomes Shoddy: its Armour Tier drops by one. At Tier 0, the piece is destroyed. A smith can repair Shoddy armour, but the fix is never as good as the original."],
+    ]},
+    { type: "p", text: `Exceptions to the default — magical arms, relics, gifts from the Chancel — are rare enough that when one comes up, the GM will tell you.` },
   ],
 },
 
@@ -618,7 +606,7 @@ window.SV_SECTIONS_2 = [
   title: "Amarsgate",
   subtitle: "House Jannin's silver-mining town (the PCs' home)",
   blocks: [
-    { type: "p", text: `Small fortified town at the foot of the [[eastern-massif:Eastern Massif]]. Built around the silver mine. Amar's keep stood on the ridge above the mine. When the campaign begins, most of it is burning or burned. The mine itself was not taken.` },
+    { type: "p", text: `Small fortified town at the foot of the [[eastern-massif:Eastern Massif]], built around the silver mine. Keep Amar stands on the ridge above the mine — by tradition older than House Jannin, whoever holds the keep takes its name, so the lord who sits there is always "Lord Amar." When the campaign begins, most of the town is burning or burned. The mine itself was not taken.` },
   ],
 },
 
@@ -813,7 +801,7 @@ window.SV_SECTIONS_2 = [
       ["[[malagant:Sun-Speaker Malagant]]", "Head of Orthodoxy", "[[orthodoxy:The Orthodoxy]]"],
       ["[[velis:Scribe-Mother Velis]]", "Malagant's secretary", "[[orthodoxy:The Orthodoxy]]"],
       ["[[gest-harrow:Gest Harrow]]", "Foreman, Third Furnace", "[[chainmakers:Chainmakers]]"],
-      ["[[amar-jannin:Lord Amar Jannin]]", "Patriarch (deceased)", "[[house-jannin:House Jannin]]"],
+      ["[[amar-jannin:Lord Amar, 13th of that name]]", "Patriarch (deceased)", "[[house-jannin:House Jannin]]"],
       ["[[naviel-jannin:Naviel Jannin]]", "Lord-Elect (missing)", "[[house-jannin:House Jannin]]"],
       ["[[fidarel:Sovereign Fidarel]]", "Prior Lord of Lords (deceased)", "—"],
     ]},
@@ -834,10 +822,11 @@ window.SV_SECTIONS_2 = [
 {
   id: "amar-jannin",
   group: "NPCs",
-  title: "Lord Amar Jannin",
-  subtitle: "Deceased patriarch of House Jannin",
+  title: "Lord Amar, 13th of that name",
+  subtitle: "Amar Jannin — deceased patriarch of House Jannin",
   blocks: [
     { type: "p", text: `A man as wise as he is wealthy, deeply respected, and the patriarch of a large family. The heart of the house — a man of iron will and deep pockets who kept the silver flowing and the borders secure. Killed alongside his wife at the siege of the keep.` },
+    { type: "p", text: `"Lord Amar" was his office, not his birth name. By a custom older than House Jannin, whoever holds Keep Amar takes the keep's name while they hold it. Twelve lords bore the title before him; he was the thirteenth, and the first to die at the gate of his own keep.` },
     { type: "p", text: `His letters to his surviving children, found later, are brief, affectionate, concerned almost entirely with the health of his flocks.` },
   ],
 },
@@ -993,7 +982,7 @@ window.SV_SECTIONS_2 = [
     { type: "h3", text: "Mechanics" },
     { type: "defs", items: [
       ["Resolute", `Symbaroum attribute. Sets Corruption [[threshold:Threshold]] (Resolute / 2) and Maximum Corruption (Resolute).`],
-      ["Threshold", `Resolute / 2. The point at which a character accumulates their first [[stigma:Stigma]].`],
+      ["Threshold", `Half your Resolute score (Resolute ÷ 2) — that is all "Threshold" means. The term is shorthand. When TotalCor rises above this value, a character is at risk of gaining their first [[stigma:Stigma]]. "Above Threshold" and "crossing the Threshold" both refer to TotalCor exceeding half Resolute.`],
       ["TempCor", `Temporary [[corruption:corruption]] — recovers with rest.`],
       ["PermCor", `Permanent [[corruption:corruption]] — does not recover.`],
       ["TotalCor", `TempCor + PermCor. Compared against [[threshold:Threshold]] and Maximum Corruption.`],

@@ -66,7 +66,7 @@ window.SV_DATA = {
     { id: "arkin-valerius", name: "Arkin Valerius", aliases: ["Lord Arkin Valerius"] },
     { id: "dennin-grendel", name: "Dennin Grendel", aliases: ["Lord Dennin Grendel"] },
     { id: "malagant", name: "Malagant", aliases: ["Sun-Speaker Malagant"] },
-    { id: "amar-jannin", name: "Lord Amar Jannin", aliases: ["Amar Jannin", "Lord Amar"] },
+    { id: "amar-jannin", name: "Lord Amar Jannin", aliases: ["Amar Jannin", "Lord Amar", "Lord Amar the 13th", "Amar the 13th", "Lord Amar, 13th of that name"] },
     { id: "naviel-jannin", name: "Naviel Jannin", aliases: ["Naviel", "Lord-Elect Naviel Jannin"] },
     { id: "fidarel", name: "Sovereign Fidarel", aliases: ["Fidarel"] },
     { id: "velis", name: "Scribe-Mother Velis", aliases: ["Velis"] },

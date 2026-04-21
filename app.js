@@ -131,9 +131,16 @@
           return '<dl class="sv-defs">' +
             b.items.map(([k,v]) => `<div class="sv-def"><dt>${renderInline(k)}</dt><dd>${renderInline(v)}</dd></div>`).join('') +
             '</dl>';
-        case 'image-slot':
+        case 'image-slot': {
           // Render an optional image. Fails silently if the asset doesn't exist.
-          return `<figure class="sv-figure" data-slot="${b.file}"><img src="${rel('assets/art/' + b.file)}" alt="" onerror="this.closest('figure').classList.add('missing')"/>${b.caption?`<figcaption>${renderInline(b.caption)}</figcaption>`:''}</figure>`;
+          // If cinematic:true, the figure renders wider/taller with stronger fade
+          // and can carry an overlay quote via `overlay`.
+          const figCls = b.cinematic ? 'sv-figure sv-figure--cinematic' : 'sv-figure';
+          const overlay = b.overlay
+            ? `<div class="sv-figure-overlay">${renderInline(b.overlay)}</div>`
+            : '';
+          return `<figure class="${figCls}" data-slot="${b.file}"><img src="${rel('assets/art/' + b.file)}" alt="${b.alt || ''}" onerror="this.closest('figure').classList.add('missing')"/>${overlay}${b.caption?`<figcaption>${renderInline(b.caption)}</figcaption>`:''}</figure>`;
+        }
         case 'children-grid':
           // Renders child-page cards for hub pages
           return renderChildrenGrid(b.children);
@@ -238,6 +245,13 @@
 
   // ── Section rendering ──
   function renderSection(s) {
+    // Headless sections render only their blocks — used when the page header
+    // already carries the section's title (e.g. cinematic fullHero pages).
+    if (s.headless) {
+      return `<section class="sv-section sv-section--headless" id="${s.id}">
+        ${renderBlocks(s.blocks)}
+      </section>`;
+    }
     const group = s.group ? `<div class="sv-section-group">${s.group}</div>` : '';
     const subtitle = s.subtitle ? `<div class="sv-subtitle">${renderInline(s.subtitle)}</div>` : '';
     const body = s.body ? `<p class="sv-section-body">${renderInline(s.body)}</p>` : '';
@@ -251,9 +265,12 @@
   }
 
   // ── Page header (title block + hero image) ──
+  // Normal pages only. Cinematic pages (PAGE.fullHero) are handled by
+  // render() directly so the hero can break out of the container.
   function renderPageHeader() {
     const numeral = PAGE.numeral ? `<div class="sv-page-num">${PAGE.numeral}</div>` : '';
     const sub = PAGE.subtitle ? `<div class="sv-page-sub">${PAGE.subtitle}</div>` : '';
+
     // Use a real <img> with onerror. If the file is missing, the parent figure
     // removes itself entirely — no empty reserved space on the page.
     const hero = PAGE.hero
@@ -270,9 +287,44 @@
     `;
   }
 
+  // ── Cinematic hero: full-bleed image with title overlay.
+  //    Rendered OUTSIDE the normal container so it spans the viewport width. ──
+  function renderCinematicHero() {
+    const src = rel('assets/art/' + PAGE.fullHero);
+    const numeral = PAGE.numeral ? `<div class="sv-cinema-eyebrow">${PAGE.numeral}</div>` : '';
+    const sub = PAGE.subtitle ? `<p class="sv-cinema-sub">${PAGE.subtitle}</p>` : '';
+    return `
+      <section class="sv-cinema-hero" id="sv-cinema-hero">
+        <img class="sv-cinema-hero-img"
+             src="${src}" alt=""
+             onerror="document.getElementById('sv-cinema-hero').classList.add('is-missing')"/>
+        <div class="sv-cinema-hero-fade"></div>
+        <div class="sv-cinema-hero-content">
+          ${numeral}
+          <h1 class="sv-cinema-title">${PAGE.title}</h1>
+          ${sub}
+        </div>
+      </section>
+    `;
+  }
+
+  // ── Footer link back to the parent on cinematic pages ──
+  function renderCinematicFooter() {
+    if (!PAGE.parent) return '';
+    const parent = window.SV_PAGES[PAGE.parent];
+    if (!parent) return '';
+    return `
+      <nav class="sv-cinema-footer">
+        <a class="sv-cinema-return" href="${rel(parent.href)}">&larr; Return to ${parent.title}</a>
+      </nav>
+    `;
+  }
+
   // ── Layout scaffold ──
   function render() {
     const sigilImg = rel('assets/sigil.png');
+    const isCinema = !!PAGE.fullHero;
+
     document.body.innerHTML = `
       <div class="sv-sticky-top">
         <header class="sv-head">
@@ -291,22 +343,25 @@
         <nav class="sv-archbar" aria-label="Main sections">${renderArchBar()}</nav>
       </div>
 
-      <div class="sv-container">
+      ${isCinema ? renderCinematicHero() : ''}
+
+      <div class="sv-container${isCinema ? ' sv-container--cinema' : ''}">
         ${renderBreadcrumbs()}
 
-        ${renderPageHeader()}
+        ${isCinema ? '' : renderPageHeader()}
 
-        <div class="sv-layout">
-          <aside class="sv-toc" id="sv-toc">
+        <div class="sv-layout${isCinema ? ' sv-layout--cinema' : ''}">
+          ${isCinema ? '' : `<aside class="sv-toc" id="sv-toc">
             ${renderPeerSidebar()}
             ${renderPageToC()}
-          </aside>
+          </aside>`}
 
           <main class="sv-main">
             ${PAGE_SECTIONS.map(renderSection).join('')}
+            ${isCinema ? renderCinematicFooter() : ''}
           </main>
 
-          <aside class="sv-rail" id="sv-rail"></aside>
+          ${isCinema ? '' : `<aside class="sv-rail" id="sv-rail"></aside>`}
         </div>
       </div>
 

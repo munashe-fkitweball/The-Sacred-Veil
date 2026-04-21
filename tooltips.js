@@ -66,7 +66,7 @@ window.SV_TOOLTIPS = {
   "malagant":       { kind: "NPC — Orthodoxy",      name: "Sun-Speaker Malagant", text: "Head of the Orthodoxy. Conducts the midday rite on certain holy days; officiates ascensions. Does not claim to hear Prios — claims to perfectly understand the Lord of Lords' Law." },
   "velis":          { kind: "NPC — Orthodoxy",      name: "Scribe-Mother Velis",  text: "Malagant's secretary — the true face of the Orthodoxy's day-to-day business. Personal devotion to Cassiel; wears a plain grey scribe's robe while wielding Malagant's authority." },
   "gest-harrow":    { kind: "NPC — Chainmaker",     name: "Gest Harrow",    text: "Half-deaf veteran foreman of the Third Furnace, Har-Moloch. Thirty-one years in the post. One of perhaps six people in the kingdom who truly understand the metallurgy of True Quality Steel." },
-  "amar-jannin":    { kind: "NPC — House Jannin",   name: "Lord Amar Jannin", text: "Deceased patriarch. Wise, wealthy, deeply respected. Killed with his wife at the siege. His letters to his surviving children, found later, are brief and concerned almost entirely with his flocks." },
+  "amar-jannin":    { kind: "NPC — House Jannin",   name: "Lord Amar, 13th of that name", text: "Deceased patriarch. Born Amar Jannin; took the borrowed name 'Amar' when he assumed Keep Amar, as twelve lords of that keep had done before him. Wise, wealthy, deeply respected. Killed with his wife at the siege. His letters to his surviving children, found later, are brief and concerned almost entirely with his flocks." },
   "naviel-jannin":  { kind: "NPC — House Jannin",   name: "Naviel Jannin",  text: "Lord-Elect, missing. Favourite son of Lord Amar. A reader and walker rather than a politician. At the siege, an attacker recoiled with a confused yelp trying to rip his lavender pendant loose." },
   "fidarel":        { kind: "NPC — Deceased",       name: "Sovereign Fidarel", text: "Deceased prior Lord of Lords. Master of ruling his people, failure at ruling his household. Sired a legion of sons through illicit affairs, no legitimate heir. His death broke the kingdom." },
 
@@ -106,7 +106,7 @@ window.SV_TOOLTIPS = {
   "vigil":             { kind: "Ritual",    name: "Vigil of Absolute Disclosure", text: "Mandatory private rite for high officials and noble aspirants. Three days' fast, then a night in the crypt dictating every secret. If one is withheld, the Divining of the Lie follows." },
   "liturgy-of-truth":  { kind: "Doctrine",  name: "Liturgy of Truth", text: "The doctrinal core of the Orthodoxy: secrecy is heresy, and a Changeling's false face is its ultimate manifestation." },
   "sun-taxes":         { kind: "Tribute",   name: "Sun-Taxes",        text: "Tributes owed to the Orthodoxy by K'naanian citizens. Paying them — and confessing one's sins — affords the basic protections of the law." },
-  "true-quality-steel": { kind: "Rule",     name: "True Quality Steel", text: "Officially forged by House Vane. Cannot become Brittle; armour cannot become Shoddy. 10× standard price. Only a smith can repair it." },
+  "true-quality-steel": { kind: "Rule",     name: "True Quality Steel", text: "All weapons and armour in K'naan are low-grade by default — the kingdom's metalwork goes Brittle (weapons, damage die → 1d4) or Shoddy (armour, Tier −1) on a natural 20. True Quality Steel is the exception: 10× the price, forged only by House Vane, never Brittle or Shoddy, smith-repair only." },
   "high-council":      { kind: "Institution", name: "High Council of Electors", text: "An assembly of the most powerful noble houses and a few important minor houses. In the Sovereign's absence, holds the kingdom in tense gridlock." },
   "magistracy":        { kind: "Office",    name: "Magistracy",       text: "The Watch — police of K'naan. Operated by House Thorne and staffed in the capital largely by House Valerius. Composed of private sworn levies of the noble houses." },
 
@@ -130,7 +130,7 @@ window.SV_TOOLTIPS = {
   "tempcor":           { kind: "System",    name: "TempCor",          text: "Temporary corruption — recovers with rest." },
   "permcor":           { kind: "System",    name: "PermCor",          text: "Permanent corruption — does not recover." },
   "totalcor":          { kind: "System",    name: "TotalCor",         text: "TempCor + PermCor — compared against Threshold and Maximum Corruption." },
-  "threshold":         { kind: "System",    name: "Threshold",        text: "The point (Resolute / 2) at which a character accumulates their first Stigma." },
+  "threshold":         { kind: "System",    name: "Threshold",        text: "Half your Resolute score (Resolute ÷ 2). 'Threshold' is just shorthand for that number. When TotalCor goes above it, you risk gaining a Stigma." },
   "milestone-xp":      { kind: "Rule",      name: "Milestone XP",     text: "The progression model in use — XP granted at meaningful story points rather than per-challenge." },
 
   // ── Ash-Kadesh districts ──
