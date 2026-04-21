@@ -970,8 +970,6 @@ window.SV_SECTIONS_2 = [
   title: "Glossary",
   subtitle: "Terms without their own section",
   blocks: [
-    { type: "p", text: `Brief definitions only. Major concepts (houses, guilds, rituals, places, NPCs, rules, etc.) have their own sections and are linked inline across the wiki — they are not duplicated here.` },
-
     { type: "h3", text: "Kingdom & Title" },
     { type: "defs", items: [
       ["K'naan", `The kingdom in which Sacred Veil takes place.`],
