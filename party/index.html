@@ -19,7 +19,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=UnifrakturCook:wght@700&display=swap');
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#030106;color:#f0e4bc;font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+html,body{background:#030106;color:#f0e4bc;font-family:'Cormorant Garamond',serif;overflow-x:clip}
 html{scroll-behavior:auto}  /* we do our own */
 
 :root{
@@ -35,25 +35,28 @@ a{color:var(--gold);text-decoration:none}
 a:hover{color:var(--gold-bright)}
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HERO
+   HERO — shows the Sacred Veil card, dissolves into intro
    ═══════════════════════════════════════════════════════════════════════ */
 .pa-hero{
-  height:120vh;
+  height:100vh;
   position:relative;
   overflow:hidden;
-  background:#000;
+  display:flex; align-items:center; justify-content:center;
+  padding:40px 20px;
+  background:#030106;
 }
 .pa-hero-img{
-  position:absolute; inset:0; width:100%; height:100%;
-  background-image:url('../assets/art/party/hero.webp');
-  background-size:cover; background-position:center;
-  /* Gently fade the bottom edge so the hero dissolves into the dark */
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-          mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-  will-change:transform;
+  max-width:min(1100px, 92%);
+  max-height:80%;
+  width:auto; height:auto;
+  object-fit:contain;
+  /* Gentle feather on all sides so card doesn't read as a pasted rectangle */
+  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%);
+          mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 60%, transparent 100%);
+  will-change:transform,opacity;
 }
 .pa-hero-grain{
-  position:absolute; inset:0; pointer-events:none; opacity:0.08;
+  position:absolute; inset:0; pointer-events:none; opacity:0.06;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
   mix-blend-mode:overlay;
 }
@@ -287,7 +290,7 @@ a:hover{color:var(--gold-bright)}
 
 <!-- HERO -->
 <section class="pa-hero" id="pa-hero">
-  <div class="pa-hero-img" id="pa-hero-img"></div>
+  <img class="pa-hero-img" id="pa-hero-img" src="../assets/art/party/hero.webp" alt="The Sacred Veil"/>
   <div class="pa-hero-grain"></div>
 </section>
 
@@ -369,13 +372,15 @@ a:hover{color:var(--gold-bright)}
 
   const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
-  // ── HERO PARALLAX ──────────────────────────────────────────────────────
+  // ── HERO: fade out as user scrolls past it ────────────────────────────
   const heroImg = document.getElementById('pa-hero-img');
-  function updateHeroParallax() {
-    if (isMobile()) { heroImg.style.transform = ''; return; }
+  function updateHero() {
     const y = window.scrollY;
-    // Parallax: hero moves up slower than scroll, so it feels like descending past it
-    heroImg.style.transform = `translate3d(0, ${(y * -0.15).toFixed(1)}px, 0)`;
+    const vh = window.innerHeight;
+    // Start fading at 20% scrolled, fully gone by 80% of viewport scrolled
+    const progress = Math.max(0, Math.min(1, (y - vh * 0.2) / (vh * 0.6)));
+    heroImg.style.opacity = (1 - progress).toFixed(3);
+    heroImg.style.transform = `translate3d(0, ${(-y * 0.1).toFixed(1)}px, 0) scale(${(1 - progress * 0.04).toFixed(3)})`;
   }
 
   // ── SCROLL-HIJACKED STAGES ─────────────────────────────────────────────
@@ -487,7 +492,7 @@ a:hover{color:var(--gold-bright)}
   function onScroll() {
     if (!ticking) {
       requestAnimationFrame(() => {
-        updateHeroParallax();
+        updateHero();
         updateStages();
         ticking = false;
       });
@@ -499,7 +504,7 @@ a:hover{color:var(--gold-bright)}
   window.addEventListener('resize', onScroll);
 
   // Initial paint
-  updateHeroParallax();
+  updateHero();
   updateStages();
 
   // ── FADE-OUT ON NAV ────────────────────────────────────────────────────
