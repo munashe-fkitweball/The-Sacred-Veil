@@ -606,7 +606,7 @@ window.SV_SECTIONS_2 = [
   title: "Amarsgate",
   subtitle: "House Jannin's silver-mining town (the PCs' home)",
   blocks: [
-    { type: "p", text: `Small fortified town at the foot of the [[eastern-massif:Eastern Massif]], built around the silver mine. Keep Amar stands on the ridge above the mine — by tradition older than House Jannin, whoever holds the keep takes its name, so the lord who sits there is always "Lord Amar." When the campaign begins, most of the town is burning or burned. The mine itself was not taken.` },
+    { type: "p", text: `Small fortified town at the foot of the [[eastern-massif:Eastern Massif]], built around the silver mine. Keep Amar stands on the ridge above the mine — by tradition older than House Jannin, whoever holds the keep takes its name, so the lord who sits there is always "Lord Amar." When the campaign begins, the town is burning.` },
   ],
 },
 
@@ -814,8 +814,9 @@ window.SV_SECTIONS_2 = [
   title: "Naviel Jannin",
   subtitle: "Lord-Elect, missing, favourite son",
   blocks: [
-    { type: "p", text: `[[house-jannin:House Jannin]]'s favourite son and appointed heir. Rarely involved in courtly politics; spent his time in a library, on long walks, or with the poor and destitute. Despite this, commanded an unexpectedly large and diverse base of support.` },
-    { type: "p", text: `At the siege that opened the campaign, one attacker tried to rip the lavender pendant from Naviel's neck, only to recoil with a confused yelp. The commander snarled, <i>"Leave it! We'll cut it off him later!"</i> Added flavour: the pendant's protective behaviour is consistent across the campaign.` },
+    { type: "p", text: `[[house-jannin:House Jannin]]'s favourite son and appointed heir. Slightly above average height, rugged good looks, no obvious transformation from the [[seraphs-marrow:Seraph's Marrow]] despite being anointed — some whisper the chemical had no effect on him at all. Favours dusty travel clothes and a shepherd's crook over regal vestments, and is more at home among his father's flock than at court. Practical, rugged, and genuinely kind; a man of the people rather than the crown. Not involved in courtly politics, yet charms everyone he meets — and commanded an unexpectedly large and diverse base of support even within some of the greatest houses.` },
+    { type: "p", text: `The lavender pendant he's worn since boyhood — a cluster of flowers set with stones that seem to catch the light from within — was given to him by a foreign girl he fell head-over-heels for in his youth, sealed with a promise that they would meet again. He has never taken it off, and swears (to laughter now that he is a grown man) that he will still find her one day.` },
+    { type: "p", text: `At the siege that opened the campaign, one attacker tried to rip the pendant from his neck, only to recoil with a confused yelp. The commander snarled, <i>"Leave it! We'll cut it off him later!"</i> The pendant's protective behaviour is consistent across the campaign.` },
   ],
 },
 
@@ -826,8 +827,7 @@ window.SV_SECTIONS_2 = [
   subtitle: "Amar Jannin — deceased patriarch of House Jannin",
   blocks: [
     { type: "p", text: `A man as wise as he is wealthy, deeply respected, and the patriarch of a large family. The heart of the house — a man of iron will and deep pockets who kept the silver flowing and the borders secure. Killed alongside his wife at the siege of the keep.` },
-    { type: "p", text: `"Lord Amar" was his office, not his birth name. By a custom older than House Jannin, whoever holds Keep Amar takes the keep's name while they hold it. Twelve lords bore the title before him; he was the thirteenth, and the first to die at the gate of his own keep.` },
-    { type: "p", text: `His letters to his surviving children, found later, are brief, affectionate, concerned almost entirely with the health of his flocks.` },
+    { type: "p", text: `"Lord Amar" was his office, not his birth name. By a custom older than House Jannin, whoever holds Keep Amar takes the keep's name while they hold it. Twelve lords bore the title before him; he was the thirteenth.` },
   ],
 },
 
