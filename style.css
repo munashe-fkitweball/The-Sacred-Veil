@@ -653,6 +653,49 @@ noscript .sv-noscript h1{
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   CTA-LINK — large title-like link used as a dramatic "continue to" button
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sv-cta-link{
+  display:block;
+  margin:40px 0 48px;
+  padding:36px 20px;
+  text-align:center;text-decoration:none;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, transparent, rgba(30,18,42,0.35), transparent);
+  transition:background 0.35s ease, border-color 0.35s ease;
+}
+.sv-cta-link:hover{
+  background:linear-gradient(180deg, rgba(24,12,36,0.35), rgba(50,28,70,0.55), rgba(24,12,36,0.35));
+  border-color:var(--border-bright);
+}
+.sv-cta-kicker{
+  font-family:'Cinzel',serif;
+  font-size:11px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:14px;
+  transition:color 0.35s;
+}
+.sv-cta-link:hover .sv-cta-kicker{color:var(--gold-bright)}
+.sv-cta-title{
+  font-family:'UnifrakturCook',serif;
+  font-size:clamp(40px, 5vw, 64px);
+  color:var(--gold-bright);
+  letter-spacing:0.02em;line-height:1.1;
+  text-shadow:0 0 24px rgba(215,170,85,0.3);
+  transition:text-shadow 0.35s;
+}
+.sv-cta-link:hover .sv-cta-title{
+  text-shadow:
+    0 0 40px rgba(215,170,85,0.55),
+    0 0 80px rgba(130,80,160,0.35);
+}
+.sv-cta-sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:16px;color:var(--text-dim);margin-top:12px;
+  letter-spacing:0.05em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    CINEMATIC PAGE — full-bleed hero + narrow reading column.
    Triggered when a page config has `fullHero: 'filename'`.
    ═══════════════════════════════════════════════════════════════════════════ */

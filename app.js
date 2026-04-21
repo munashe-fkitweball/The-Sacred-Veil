@@ -141,6 +141,23 @@
             : '';
           return `<figure class="${figCls}" data-slot="${b.file}"><img src="${rel('assets/art/' + b.file)}" alt="${b.alt || ''}" onerror="this.closest('figure').classList.add('missing')"/>${overlay}${b.caption?`<figcaption>${renderInline(b.caption)}</figcaption>`:''}</figure>`;
         }
+        case 'cta-link': {
+          // Large, title-like call-to-action link to another page (or section).
+          //   { type: "cta-link", to: "campaign/hook", kicker: "Continue to",
+          //     label: "The Hook", subtitle: "The night the keep falls" }
+          // If `to` matches a page key in SV_PAGES, links straight to that page
+          // (no anchor) so the user lands at the top, e.g. to see a cinematic hero.
+          // Otherwise falls back to section/entity linking.
+          let href;
+          if (b.to && window.SV_PAGES[b.to]) {
+            href = rel(window.SV_PAGES[b.to].href);
+          } else {
+            href = linkHref(b.to);
+          }
+          const kicker = b.kicker ? `<div class="sv-cta-kicker">${b.kicker}</div>` : '';
+          const sub = b.subtitle ? `<div class="sv-cta-sub">${b.subtitle}</div>` : '';
+          return `<a class="sv-cta-link" href="${href}">${kicker}<div class="sv-cta-title">${b.label}</div>${sub}</a>`;
+        }
         case 'children-grid':
           // Renders child-page cards for hub pages
           return renderChildrenGrid(b.children);
@@ -244,20 +261,18 @@
   }
 
   // ── Section rendering ──
-  function renderSection(s) {
-    // Headless sections render only their blocks — used when the page header
-    // already carries the section's title (e.g. cinematic fullHero pages).
-    if (s.headless) {
-      return `<section class="sv-section sv-section--headless" id="${s.id}">
-        ${renderBlocks(s.blocks)}
-      </section>`;
-    }
+  function renderSection(s, index) {
+    // On cinematic pages (PAGE.fullHero), the hero already displays the page
+    // title prominently. Suppress the h1 of the first section so it isn't
+    // duplicated directly below the hero.
+    const suppressHeading = !!PAGE.fullHero && index === 0;
     const group = s.group ? `<div class="sv-section-group">${s.group}</div>` : '';
+    const heading = suppressHeading ? '' : `<h1>${renderInline(s.title)}</h1>`;
     const subtitle = s.subtitle ? `<div class="sv-subtitle">${renderInline(s.subtitle)}</div>` : '';
     const body = s.body ? `<p class="sv-section-body">${renderInline(s.body)}</p>` : '';
     return `<section class="sv-section" id="${s.id}">
       ${group}
-      <h1>${renderInline(s.title)}</h1>
+      ${heading}
       ${subtitle}
       ${body}
       ${renderBlocks(s.blocks)}
