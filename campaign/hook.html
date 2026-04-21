@@ -62,9 +62,30 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover; object-position: center;
+    /* Mask the image's own bottom edge so it fades into black regardless
+       of viewport height or scroll position. Desktop: gentle. */
+    -webkit-mask-image: linear-gradient(to bottom,
+      black 0%, black 65%,
+      rgba(0,0,0,0.6) 88%,
+      transparent 100%);
+            mask-image: linear-gradient(to bottom,
+      black 0%, black 65%,
+      rgba(0,0,0,0.6) 88%,
+      transparent 100%);
   }
   @media (orientation: portrait) and (max-width: 900px) {
-    .bg-image { object-position: center top; }
+    .bg-image {
+      object-position: center top;
+      /* Mobile: stronger fade, starts higher up */
+      -webkit-mask-image: linear-gradient(to bottom,
+        black 0%, black 55%,
+        rgba(0,0,0,0.45) 82%,
+        transparent 100%);
+              mask-image: linear-gradient(to bottom,
+        black 0%, black 55%,
+        rgba(0,0,0,0.45) 82%,
+        transparent 100%);
+    }
   }
   .bg-feather {
     position: absolute; left: 0; right: 0; bottom: 0;
@@ -537,6 +558,12 @@
   let muted = false;
   let musicHasPlayedOnce = false;
   let musicGapTimer = null;
+  // `musicReadyTime` is when the music is next allowed to play (as a
+  // performance.now() timestamp). If the tab is unfocused when the 2-min gap
+  // elapses, we don't play — we hold this timestamp and check it again when
+  // the tab regains focus. Null = not waiting on a gap (music currently
+  // playing, or never scheduled).
+  let musicReadyTime = null;
 
   function fadeVolume(el, target, s) {
     return new Promise(resolve => {
@@ -554,13 +581,32 @@
   }
   const effVol = v => muted ? 0 : v;
 
-  function scheduleMusicCycle() {
+  // Called when a music track ends naturally. Sets up the 2-minute wait.
+  function onMusicEnded() {
+    musicHasPlayedOnce = true;
+    // Schedule the "ready to play" time 2 minutes from now. When that moment
+    // arrives, maybePlayMusic() checks if the tab is focused — if yes, it
+    // plays; if no, it does nothing, and visibilitychange will call
+    // maybePlayMusic() again when focus returns.
+    musicReadyTime = performance.now() + CFG.MUSIC_GAP_S * 1000;
     clearTimeout(musicGapTimer);
-    music.onended = () => {
-      musicHasPlayedOnce = true;
-      musicGapTimer = setTimeout(playMusicFromStart, CFG.MUSIC_GAP_S * 1000);
-    };
+    musicGapTimer = setTimeout(maybePlayMusic, CFG.MUSIC_GAP_S * 1000);
   }
+
+  // Check if music can play NOW and start it if so. Safe to call any time.
+  function maybePlayMusic() {
+    // Already playing? Never interrupt.
+    if (!music.paused) return;
+    // Not time yet?
+    if (musicReadyTime === null) return;
+    if (performance.now() < musicReadyTime) return;
+    // Tab unfocused? Hold until focus returns.
+    if (document.hidden) return;
+    // All clear — play from the start.
+    musicReadyTime = null;
+    playMusicFromStart();
+  }
+
   async function playMusicFromStart() {
     try {
       music.currentTime = 0;
@@ -572,14 +618,17 @@
       await fadeVolume(music, target, CFG.MUSIC_RETURN_FADE_S);
     } catch (e) { console.warn('music.play failed:', e); }
   }
+
   async function startAudioFlow() {
+    music.addEventListener('ended', onMusicEnded);
     try {
       ambience.volume = 0;
       await ambience.play();
       await fadeVolume(ambience, effVol(CFG.AMBIENCE_VOL), CFG.AMBIENCE_FADE_IN_S);
     } catch (e) { console.warn('ambience.play failed:', e); }
     setTimeout(() => {
-      scheduleMusicCycle();
+      // First play (happens while gate has just been dismissed — tab is
+      // definitionally focused right now)
       playMusicFromStart();
     }, CFG.MUSIC_DELAY_AFTER_AMB_S * 1000);
   }
@@ -627,6 +676,15 @@
       if (a.target && a.target !== '_self') window.open(href, a.target);
       else window.location.href = href;
     });
+  });
+
+  // ── VISIBILITY: simply check when focus returns whether the music should
+  // now start. Music never rewinds or interrupts itself. If the 2-min gap
+  // elapsed while the tab was unfocused, maybePlayMusic() will start the
+  // track as soon as the user comes back. If the user is still focused when
+  // the gap ends, the timer fires maybePlayMusic() directly.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) maybePlayMusic();
   });
 
   // ── SCROLL: dim + embers + parallax ───────────────────────────────────
