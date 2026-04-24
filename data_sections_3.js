@@ -98,12 +98,12 @@ window.SV_SECTIONS_3 = [
 {
   id: "houses-overview",
   title: "Houses & the High Council",
-  subtitle: "Eight Houses. Seven mottos. One empty throne.",
+  subtitle: "The Houses circle. One motto broken. The throne sits empty.",
   body: `Since the death of [[fidarel:Sovereign Fidarel]], the throne of the [[lord-of-lords:Lord of Lords]] sits empty. Authority that was once the Sovereign's now rests, in tense gridlock, with the [[high-council:High Council of Electors]] — an assembly of the most powerful noble Houses and a few important minor ones.`,
   blocks: [
     { type: "p", text: `Neither armies nor laws are primarily the Crown's any longer. The Magistracy, the tax collectors, and the military are almost entirely composed of the private, sworn levies of these Houses. To know K'naan is to know who holds what, who owes what, and who wants the throne.` },
 
-    { type: "h3", text: "The Eight Houses" },
+    { type: "h3", text: "The Houses (so far)" },
     { type: "table", headers: ["House", "Known as", "At a glance"], rows: [
       ["[[house-vane:Vane]]",      "Architects of War",    "Iron and coal. Only producer of high-grade steel. The wealthiest House in the realm."],
       ["[[house-chancel:Chancel]]",  "Marrow-Keepers",       "The Marrow-refiners. Banned from the throne by old compact. Zealous to Prios."],

@@ -1,7 +1,7 @@
 // ============================================================================
 // SACRED VEIL — tooltip summaries
 // Short (2-3 sentence) hover summaries for entities. Summaries are paraphrased
-// or lifted from the canonical doc + CONTENT_DELTA. Header gives category.
+// or lifted from the canonical doc. Header gives category.
 // ============================================================================
 
 window.SV_TOOLTIPS = {
@@ -59,11 +59,11 @@ window.SV_TOOLTIPS = {
   "vespera":        { kind: "NPC — House Chancel",  name: "High Abbotess Vespera", text: "Head of Chancel. Has not left the central sanctum of Bet-Seraphim in seventeen years. Conducts all business in writing, via Tybalt. Voice: a low, breathy whisper." },
   "tybalt":         { kind: "NPC — House Chancel",  name: "Brother-Captain Tybalt", text: "Was a soldier before he was a cleric; still trains at arms every morning. Carries a broad-headed Chainmaker spear openly in the capital — legal for his rank, a statement." },
   "olenna-kaelen":  { kind: "NPC — House Kaelen",   name: "Olenna Kaelen",  text: "Lady-Regent. Runs the port, keeps the ledgers, feeds the kingdom. Most competent head of house in K'naan — and most personally boring. Takes Silveldt's flooding as a personal insult." },
-  "fenris-morbray": { kind: "NPC — House Morbray",  name: "Fenris Morbray", text: "Lord-Captain. Has not left Raven-Garron's walls in eleven years. Broad, grey-bearded, limps from a Barrens engagement decades past — lost a horse, walked back five days." },
+  "fenris-morbray": { kind: "NPC — House Morbray",  name: "Fenris Morbray", text: "Lord-Captain. Rarely seen far from Raven-Garron's walls. Broad, grey-bearded, limps from a Barrens engagement decades past — lost a horse, walked back five days." },
   "malachi-thorne": { kind: "NPC — House Thorne",   name: "Malachi Thorne", text: "Lord Chancellor. Small, neat, grey-templed. Never seen out of an out-of-fashion black wool robe. Writes left-handed; reads four times faster than any other man in the kingdom." },
   "arkin-valerius": { kind: "NPC — House Valerius", name: "Arkin Valerius", text: "Grey-eyed, grey-humoured, in his fifties. Reputation for tedious consistency. Not loved, but trusted. Leading authority on pre-Fidarel High Sovereign's Law." },
   "dennin-grendel": { kind: "NPC — House Grendel",  name: "Dennin Grendel", text: "Thin, quiet, grey-green eyes. Rarely leaves his marsh-village. Rumoured to keep a Witch in a back room of The Rot. Says only: \"Deep roots need dark water.\"" },
-  "malagant":       { kind: "NPC — Orthodoxy",      name: "Sun-Speaker Malagant", text: "Head of the Orthodoxy. Conducts the midday rite on certain holy days; officiates ascensions. Does not claim to hear Prios — claims to perfectly understand the Lord of Lords' Law." },
+  "malagant":       { kind: "NPC — Orthodoxy",      name: "Sun-Speaker Malagant", text: "Head of the Orthodoxy. Conducts the midday rite on certain holy days; officiates ascensions. Does not claim to hear Prios — claims to understand Prios's word and law so perfectly that he may as well have." },
   "velis":          { kind: "NPC — Orthodoxy",      name: "Scribe-Mother Velis",  text: "Malagant's secretary — the true face of the Orthodoxy's day-to-day business. Personal devotion to Cassiel; wears a plain grey scribe's robe while wielding Malagant's authority." },
   "gest-harrow":    { kind: "NPC — Chainmaker",     name: "Gest Harrow",    text: "Half-deaf veteran foreman of the Third Furnace, Har-Moloch. Thirty-one years in the post. One of perhaps six people in the kingdom who truly understand the metallurgy of True Quality Steel." },
   "amar-jannin":    { kind: "NPC — House Jannin",   name: "Lord Amar, 13th of that name", text: "Deceased patriarch. Born Amar Jannin; took the borrowed name 'Amar' when he assumed Keep Amar, as twelve lords of that keep had done before him. Wise, wealthy, deeply respected. Killed with his wife at the siege." },

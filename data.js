@@ -1,8 +1,7 @@
 // ============================================================================
 // SACRED VEIL — content data
-// All prose lifted verbatim from:
-//   - The Sacred Veil: Symbaroum Homebrew Document (canonical PDF)
-//   - CONTENT_DELTA.txt (GM-approved additions)
+// All prose lifted verbatim from the canonical doc:
+//   - The Sacred Veil: Symbaroum Homebrew Document
 // Do not add, rewrite, or invent content here without GM approval.
 // ============================================================================
 
@@ -140,7 +139,7 @@ window.SV_DATA = {
     { id: "crown-shelf", name: "Crown-Shelf" },
     { id: "ledger-ward", name: "Ledger-Ward" },
     { id: "the-mourn", name: "The Mourn", aliases: ["the Mourn"] },
-    { id: "dusk-knell", name: "Dusk-Knell" },
+    // dusk-knell already declared in Places above; duplicate removed 2026-04-23
 
     // New full sections — also need entities so they auto-link
     { id: "fringe-folk", name: "Fringe-Folk", aliases: ["Fringe Folk"] },
