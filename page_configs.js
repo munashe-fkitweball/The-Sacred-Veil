@@ -242,7 +242,7 @@ window.SV_PAGES = {
     href: 'houses/index.html',
     numeral: 'V',
     title: 'Houses & The High Council',
-    subtitle: 'Eight Houses. Seven mottos. One empty throne.',
+    subtitle: 'The Houses circle. One motto broken. The throne sits empty.',
     hero: 'hero-houses.jpg',
     sigil: 'houses-sigil.png',
     sections: ['houses-overview'],

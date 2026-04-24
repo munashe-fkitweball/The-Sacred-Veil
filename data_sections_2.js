@@ -59,7 +59,7 @@ window.SV_SECTIONS_2 = [
   title: "The Sun-Speaker",
   subtitle: "The High Priest",
   blocks: [
-    { type: "p", text: `The absolute head of the [[orthodoxy:Orthodoxy]]. Currently, the position is held by [[malagant:Sun-Speaker Malagant]]. He does not claim to hear [[prios:Prios]]; rather, he claims to perfectly understand the Lord of Lords' Law, which he enforces with terrifying exactness. He holds a seat on the [[high-council:High Council]] and his vote can often break a deadlock between the major Houses.` },
+    { type: "p", text: `The absolute head of the [[orthodoxy:Orthodoxy]]. Currently, the position is held by [[malagant:Sun-Speaker Malagant]]. He does not claim to hear [[prios:Prios]]; rather, he claims to understand Prios's word and law so perfectly that he may as well have, and he enforces it with terrifying exactness. He holds a seat on the [[high-council:High Council]] and his vote can often break a deadlock between the major Houses.` },
   ],
 },
 
@@ -826,7 +826,7 @@ window.SV_SECTIONS_2 = [
   title: "Lord Amar, 13th of that name",
   subtitle: "Amar Jannin — deceased patriarch of House Jannin",
   blocks: [
-    { type: "p", text: `A man as wise as he is wealthy, deeply respected, and the patriarch of a large family. The heart of the house — a man of iron will and deep pockets who kept the silver flowing and the borders secure. Killed alongside his wife at the siege of the keep.` },
+    { type: "p", text: `A man as wise as he is wealthy, deeply respected, and the patriarch of a large family. The heart of the house — a man of iron will and deep pockets who kept the silver flowing and the borders secure. Killed at the siege of the keep.` },
     { type: "p", text: `"Lord Amar" was his office, not his birth name. By a custom older than House Jannin, whoever holds Keep Amar takes the keep's name while they hold it. Twelve lords bore the title before him; he was the thirteenth.` },
   ],
 },
@@ -896,7 +896,7 @@ window.SV_SECTIONS_2 = [
   title: "Fenris Morbray",
   subtitle: "Lord-Captain of House Morbray",
   blocks: [
-    { type: "p", text: `Has not left [[raven-garron:Raven-Garron]]'s walls in eleven years. Broad, grey-bearded, walks with a slight limp from a Barrens engagement decades past in which he lost a horse and survived five days on foot to walk back.` },
+    { type: "p", text: `Rarely seen far from [[raven-garron:Raven-Garron]]'s walls. Broad, grey-bearded, walks with a slight limp from a Barrens engagement decades past in which he lost a horse and survived five days on foot to walk back.` },
   ],
 },
 
@@ -936,7 +936,7 @@ window.SV_SECTIONS_2 = [
   title: "Sun-Speaker Malagant",
   subtitle: "Head of Orthodoxy",
   blocks: [
-    { type: "p", text: `Conducts the midday rite on certain holy days in the oculus-hour of [[hollow-sun:the Hollow Sun]]; officiates the ascension of a new Lord of Lords. Beyond those two functions, effectively invisible. Defining line: he does not claim to hear [[prios:Prios]] — he claims to perfectly understand the Lord of Lords' Law.` },
+    { type: "p", text: `Conducts the midday rite on certain holy days in the oculus-hour of [[hollow-sun:the Hollow Sun]]; officiates the ascension of a new Lord of Lords. Beyond those two functions, effectively invisible. Defining line: he does not claim to hear [[prios:Prios]] — he claims to understand Prios's word and law so perfectly that he may as well have.` },
   ],
 },
 
