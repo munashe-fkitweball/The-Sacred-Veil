@@ -236,60 +236,6 @@ window.SV_SECTIONS = [
   ],
 },
 
-// ───────────────────────── REGIONS & ENVIRONMENT ─────────────────────────
-{
-  id: "silt-mere",
-  group: "Regions",
-  title: "The Silt-Mere",
-  subtitle: "The inland sea that defines the west",
-  blocks: [
-    { type: "p", text: `A massive inland sea of brackish, shallow water in K'naan's northwest. The tides are unpredictable; the mud-flats can swallow a horse whole. West of the coast the Mere becomes largely unmapped — a false horizon that never yields, and 'islands' that are merely shifting mounds of silt and bone.` },
-    { type: "p", text: `Trade across it is lucrative but treacherous. The [[silt-strider-collective:Silt-Strider Collective]] holds the de-facto monopoly on safe passage. Those who cross without them are frequently barred from returning.` },
-  ],
-},
-
-{
-  id: "eastern-massif",
-  group: "Regions",
-  title: "The Eastern Massif",
-  subtitle: "Wall of grey stone, eastern edge of the kingdom",
-  blocks: [
-    { type: "p", text: `A wall of grey stone and thin air to K'naan's east. Peaks so steep and shattered that only a handful of high passes are remotely traversable. Beyond the Massif lies the proper Frontier — lands beyond the kingdom's effective reach.` },
-  ],
-},
-
-{
-  id: "gorse-barrens",
-  group: "Regions",
-  title: "The Gorse-Barrens",
-  subtitle: "The land between",
-  blocks: [
-    { type: "p", text: `The common name for much of the land stretching between the [[silt-mere:Silt-Mere]] and the [[eastern-massif:Eastern Massif]]. Rolling, sparse, windswept and lawless — noisome bogs venting combustible, acrid gases; mire-choked earth churned by the passage of pilgrims, merchants, and brigands; dense towns clustered against the roads.` },
-    { type: "p", text: `Periodically blanketed by [[white-blind:the White-Blind]]. The "Frontier" in K'naan is not a line on a map — it is the point where the roads simply end, swallowed by the Barrens or the encroaching mists of the Mere.` },
-  ],
-},
-
-{
-  id: "great-forests",
-  group: "Regions",
-  title: "The Great Forests",
-  subtitle: "Haven of the foulest things",
-  blocks: [
-    { type: "p", text: `Dense, malignant woods that honeycomb the land between the major roads. Feared more than any single feature of the landscape — the haven of the most wicked, foulest creatures and rogue Ambrians, including the nefarious [[witches:Witches]]. Most travellers go miles out of their way to avoid them.` },
-  ],
-},
-
-{
-  id: "white-blind",
-  group: "Regions",
-  title: "The White-Blind",
-  subtitle: "The mist that rots iron",
-  blocks: [
-    { type: "p", text: `A thick, salty mist that rolls off the [[silt-mere:Silt-Mere]] and blankets the [[gorse-barrens:Gorse-Barrens]] for minutes, hours, or days at a time. More than a visual hurdle: the heavy brine rusts iron, rots leather, and chokes the lungs. Travellers caught in it hunker down or risk wandering blindly into cliffs and ravines.` },
-    { type: "p", text: `Combat inside the White-Blind without a light source triggers the [[fighting-blind:Fighting Blind]] rule.` },
-  ],
-},
-
 // ───────────────────────── FACTIONS ─────────────────────────
 {
   id: "power-architecture",
@@ -611,26 +557,4 @@ window.SV_SECTIONS = [
   ],
 },
 
-// ───────────────────────── LAW ─────────────────────────
-{
-  id: "magistracy",
-  group: "Law",
-  title: "The Magistracy",
-  subtitle: "The Watch",
-  blocks: [
-    { type: "p", text: `The kingdom's police force. Nominally commanded by the [[lord-of-lords:Lord of Lords]]; in the Sovereign's absence, day-to-day direction falls to the [[high-council:High Council]] and the houses that staff it.` },
-    { type: "p", text: `Operated by [[house-thorne:House Thorne]] (administration, records, warrants) and staffed in the capital largely by [[house-valerius:House Valerius]]'s sworn levies.` },
-    { type: "h3", text: "Footprint" },
-    { type: "ul", items: [
-      `<b>[[ash-kadesh:Ash-Kadesh]] (capital):</b> heavy, visible, routine patrols. The Magistracy's proper shape.`,
-      `<b>Larger cities:</b> a Reeve and three to five Wardens under them, supplemented by whatever the local house chooses to lend.`,
-      `<b>Towns and villages:</b> a single Reeve, sometimes with a Warden or two. Often the same person who handles the tax ledger.`,
-      `<b>The Barrens and the deep country:</b> effectively no presence. If something happens past the roads, it is dealt with by the nearest house levy, or not at all.`,
-    ]},
-    { type: "h3", text: "Reeves & Wardens" },
-    { type: "p", text: `A <b>Reeve</b> is the ranking Magistracy officer of a given jurisdiction — appointed by [[house-thorne:House Thorne]], answerable to the Lord of Lords in principle, to the local house lord in practice. Reeves carry writ authority: they can arrest, they can seize, they can summon the Watch's levy if one exists.` },
-    { type: "p", text: `<b>Wardens</b> serve under a Reeve. They walk the beat, serve summons, and escort prisoners. In most small jurisdictions, wardens are half-pay men — reliable enough, but not well-equipped and not incorruptible.` },
-    { type: "p", text: `In the capital, the hierarchy is denser: senior Reeves command districts, junior Reeves command wards, and Wardens are organised in regular watch-patrols. Outside Ash-Kadesh, things are thinner and the titles do more work than the uniforms.` },
-  ],
-},
 ];
