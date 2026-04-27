@@ -640,6 +640,7 @@ window.SV_SECTIONS_2 = [
   title: "The Silt-Mere",
   subtitle: "Humongous inland lake",
   blocks: [
+    { type: "image-slot", file: "silt-mere.webp", alt: "The Silt-Mere at low tide, a lone skiff stranded on the mudflats", cinematic: true },
     { type: "p", text: `A massive inland sea of brackish, shallow water that defines K'naan's northwestern horizon. The tides are unpredictable and the mud-flats can swallow a horse whole.` },
     { type: "p", text: `Crossing the Mere safely is the monopoly of the [[silt-strider-collective:Silt-Strider Collective]]. [[house-kaelen:House Kaelen]] controls the grain, fisheries and shoreline trade. [[house-grendel:House Grendel]] occupies its marshy fringes.` },
   ],
@@ -651,6 +652,7 @@ window.SV_SECTIONS_2 = [
   title: "The Eastern Massif",
   subtitle: "Wall of grey stone",
   blocks: [
+    { type: "image-slot", file: "eastern-massif.webp", alt: "The Eastern Massif — storm-wreathed grey peaks rising over a high pass, a watchtower clinging to the cliffs", cinematic: true },
     { type: "p", text: `A wall of grey stone and thin air forming K'naan's eastern boundary. Its peaks are so steep and shattered that only a handful of high passes are even remotely traversable.` },
     { type: "p", text: `[[house-morbray:House Morbray]] holds the single reliable pass; [[raven-garron:Raven-Garron]] exists to guard it.` },
   ],
@@ -662,6 +664,7 @@ window.SV_SECTIONS_2 = [
   title: "The Gorse-Barrens",
   subtitle: "Between Mere and Massif",
   blocks: [
+    { type: "image-slot", file: "gorse-barrens.webp", alt: "The Gorse-Barrens at dusk — a muddy track winding across the storm-swept moor, a raven on a fencepost", cinematic: true },
     { type: "p", text: `The common name for the broad land that stretches between the [[silt-mere:Silt-Mere]] and the [[eastern-massif:Eastern Massif]]. Noisome bogs, mire-choked earth, sparse settlements, and dense towns all fall within it. Frequently blanketed by [[white-blind:the White-Blind]].` },
   ],
 },
