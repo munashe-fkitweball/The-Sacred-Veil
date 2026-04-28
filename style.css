@@ -494,7 +494,8 @@ noscript .sv-noscript h1{
   position:relative;
   margin:40px calc(-1 * clamp(24px,3vw,56px)) 40px;
 }
-.sv-figure--cinematic img{
+/* Plain-img cinematic (no parallax wrapper) — kept for backwards compat. */
+.sv-figure--cinematic > img{
   width:100%;height:auto;max-height:72vh;
   object-fit:cover;display:block;opacity:0.95;
   -webkit-mask-image:
@@ -502,6 +503,41 @@ noscript .sv-noscript h1{
   mask-image:
     linear-gradient(to bottom,transparent 0%,black 12%,black 88%,transparent 100%);
 }
+
+/* Parallax frame: a fixed-height window that clips two stacked images.
+   .sv-parallax-blur is a full-bleed blurred backdrop providing dissolved
+   edges where the sharp layer above fades to transparent. Both layers are
+   oversized vs the frame so JS-driven translateY doesn't expose gaps. */
+.sv-parallax{
+  position:relative;width:100%;
+  height:clamp(360px,62vh,720px);
+  overflow:hidden;
+  isolation:isolate;
+}
+.sv-parallax-blur,
+.sv-parallax-img{
+  position:absolute;left:0;right:0;
+  top:-15%;height:130%;
+  width:100%;object-fit:cover;display:block;
+  will-change:transform;
+}
+.sv-parallax-blur{
+  filter:blur(28px) saturate(1.05) brightness(0.85);
+  transform:scale(1.08);
+  z-index:1;
+}
+.sv-parallax-img{
+  opacity:0.97;z-index:2;
+  -webkit-mask-image:
+    linear-gradient(to bottom,transparent 0%,black 14%,black 86%,transparent 100%);
+  mask-image:
+    linear-gradient(to bottom,transparent 0%,black 14%,black 86%,transparent 100%);
+}
+@media (prefers-reduced-motion: reduce){
+  .sv-parallax-blur,
+  .sv-parallax-img{transform:none !important;}
+}
+
 .sv-figure--cinematic figcaption{
   font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
   color:var(--text-dim);margin-top:10px;padding:0 24px;
@@ -520,7 +556,8 @@ noscript .sv-noscript h1{
 }
 @media(max-width:900px){
   .sv-figure--cinematic{margin-left:-16px;margin-right:-16px}
-  .sv-figure--cinematic img{max-height:50vh}
+  .sv-figure--cinematic > img{max-height:50vh}
+  .sv-parallax{height:clamp(280px,52vh,520px)}
 }
 
 /* Section divider ornament */

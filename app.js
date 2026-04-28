@@ -133,13 +133,28 @@
             '</dl>';
         case 'image-slot': {
           // Render an optional image. Fails silently if the asset doesn't exist.
-          // If cinematic:true, the figure renders wider/taller with stronger fade
-          // and can carry an overlay quote via `overlay`.
+          // If cinematic:true, the figure renders wider/taller with stronger fade,
+          // edge-blur halo, parallax scroll, and can carry an overlay quote.
           const figCls = b.cinematic ? 'sv-figure sv-figure--cinematic' : 'sv-figure';
+          const src = rel('assets/art/' + b.file);
           const overlay = b.overlay
             ? `<div class="sv-figure-overlay">${renderInline(b.overlay)}</div>`
             : '';
-          return `<figure class="${figCls}" data-slot="${b.file}"><img src="${rel('assets/art/' + b.file)}" alt="${b.alt || ''}" onerror="this.closest('figure').classList.add('missing')"/>${overlay}${b.caption?`<figcaption>${renderInline(b.caption)}</figcaption>`:''}</figure>`;
+          const caption = b.caption ? `<figcaption>${renderInline(b.caption)}</figcaption>` : '';
+          if (b.cinematic) {
+            // Two stacked images: a blurred backdrop fills the frame; a sharp
+            // foreground sits on top with a fade mask so its edges dissolve
+            // into the blurred copy underneath. Both translateY in sync via JS
+            // for parallax (data-parallax-speed = fraction of scroll speed).
+            const speed = b.parallaxSpeed != null ? b.parallaxSpeed : 0.5;
+            return `<figure class="${figCls}" data-slot="${b.file}">
+              <div class="sv-parallax" data-parallax-speed="${speed}">
+                <img class="sv-parallax-blur" src="${src}" alt="" aria-hidden="true" onerror="this.closest('figure').classList.add('missing')"/>
+                <img class="sv-parallax-img"  src="${src}" alt="${b.alt || ''}"/>
+              </div>${overlay}${caption}
+            </figure>`;
+          }
+          return `<figure class="${figCls}" data-slot="${b.file}"><img src="${src}" alt="${b.alt || ''}" onerror="this.closest('figure').classList.add('missing')"/>${overlay}${caption}</figure>`;
         }
         case 'cta-link': {
           // Large, title-like call-to-action link to another page (or section).
@@ -390,6 +405,48 @@
   }
 
   render();
+
+  // ── Parallax for .sv-parallax inside cinematic figures.
+  //    Each frame, position the inner images so they translate at a fraction
+  //    of scroll speed (data-parallax-speed, default 0.5 → image moves at 50%
+  //    of page scroll, drifting more slowly than the surrounding text).
+  //    Skipped when the user has prefers-reduced-motion set.
+  (function initParallax() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const frames = Array.from(document.querySelectorAll('.sv-parallax'));
+    if (!frames.length) return;
+    let ticking = false;
+    function update() {
+      ticking = false;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const viewCenter = vh / 2;
+      frames.forEach(frame => {
+        const rect = frame.getBoundingClientRect();
+        // Skip frames far off-screen — saves transform thrash.
+        if (rect.bottom < -vh || rect.top > vh * 2) return;
+        const speed = parseFloat(frame.dataset.parallaxSpeed) || 0.5;
+        const elCenter = rect.top + rect.height / 2;
+        // delta>0 when frame center is above viewport center (we've scrolled past it).
+        const delta = viewCenter - elCenter;
+        // Image translates by delta*(1-speed) so its net visual scroll is `speed` * page scroll.
+        const y = delta * (1 - speed);
+        const t = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+        const sharp = frame.querySelector('.sv-parallax-img');
+        const blur  = frame.querySelector('.sv-parallax-blur');
+        if (sharp) sharp.style.transform = t;
+        // Blur layer scales slightly + translates a touch faster for depth.
+        if (blur)  blur.style.transform  = `translate3d(0, ${(y * 1.15).toFixed(1)}px, 0) scale(1.08)`;
+      });
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
 
   // ── Measure the sticky top (header + archbar) and expose its height as a
   //    CSS variable so sidebar offsets and section scroll-margins stay exact.
