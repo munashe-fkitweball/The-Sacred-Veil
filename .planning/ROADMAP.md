@@ -2,7 +2,7 @@
 
 **Created:** 2026-04-29
 **Granularity:** coarse (5 phases — locked by user during discovery, not derived)
-**Coverage:** 50 / 50 v1 requirements mapped (100%)
+**Coverage:** 51 / 51 v1 requirements mapped (100%)
 **Mode:** interactive (user approval gates between phases)
 
 ## Core Value
@@ -83,15 +83,16 @@ These constraints are inherited by every plan and every executor in this milesto
 **UI hint**: yes
 
 ### Phase 5: Polish & Ship
-**Goal**: The atlas ships. A soft fade-in cinematic intro plays once per session; mobile gets a graceful fallback (touch UX is explicitly v2); accessibility minima are met (keyboard reachability, ARIA labels, `:focus-visible`, `<noscript>`); page weight stays inside the perf ceiling; canonical names match the wiki; the atlas card appears in the Kingdom hub-grid; the entire site is cache-busted to `?v=26` so the new content actually serves; OG/Twitter metadata is in place. Small phase, but it ships-the-thing.
+**Goal**: The atlas ships. A soft fade-in cinematic intro plays once per session; mobile gets a graceful fallback (touch UX is explicitly v2); accessibility minima are met (keyboard reachability, ARIA labels, `:focus-visible`, `<noscript>`); page weight stays inside the perf ceiling; canonical names match the wiki; the atlas card appears in the Kingdom hub-grid; the entire site is cache-busted to `?v=26` so the new content actually serves; OG/Twitter metadata is in place. Also: while we're in the repo, the 4 duplicate section ID collisions in `data_sections_2.js` get cleaned up (POLISH-09 — folded in per user request, unrelated to atlas content but worth fixing). Small phase, but it ships-the-thing.
 **Depends on**: Phase 4 (animations must be live and stable before final polish — cache-bust + intro framing + mobile fallback all assume the atlas they're framing is the real, animated, shippable atlas).
-**Requirements**: POLISH-01, POLISH-02, POLISH-03, POLISH-04, POLISH-05, POLISH-06, POLISH-07, POLISH-08
+**Requirements**: POLISH-01, POLISH-02, POLISH-03, POLISH-04, POLISH-05, POLISH-06, POLISH-07, POLISH-08, POLISH-09
 **Success Criteria** (what must be TRUE):
   1. The reader's first visit to `kingdom/atlas.html` in a session opens with a soft ~1–1.5s fade-in of the kingdom from black (no camera pull-back, fade only); subsequent visits in the same session skip the intro (gated by `sessionStorage`).
   2. A reader on a < ~720px wide viewport sees a graceful "Best viewed on a wider screen" fallback page (a flat overview SVG with no pan/zoom) instead of a broken pan/zoom experience — touch UX is explicitly out of scope for v1.
   3. A keyboard-only reader can Tab through every interactive marker in spatial reading order, sees `:focus-visible` states on each, and screen-reader users get ARIA labels; a JS-disabled reader sees the `<noscript>` fallback that every other wiki page already has.
   4. A `grep ?v=25` across the repo returns zero results in committed files (every script tag in every HTML file has been bumped to `?v=26` so the new atlas page and its sibling pages serve fresh).
   5. A reader who lands on the Kingdom hub (`kingdom/index.html`) sees the atlas as a card in the hub's children-grid, alongside Geography, Peoples, Places, etc. — the atlas is discoverable through normal site navigation, and the page meta (description, OG/Twitter card, OG image) matches the metadata pattern of `kingdom/geography.html`.
+  6. Running `grep -E "^\s*id:\s*['\"][a-z-]+['\"]" data_sections_*.js | awk '{print $2}' | sort | uniq -c | sort -rn | head` returns max count of 1 per ID — the 4 duplicate section ID collisions in `data_sections_2.js` (lines 244/724, 255/735, 266/713, 299/698) are resolved with no content silently lost.
 **Plans**: TBD
 **UI hint**: yes
 
