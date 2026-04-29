@@ -100,6 +100,8 @@ The audience is the people the rest of the site already serves: the GM (Munashe)
 | Soft fade-in cinematic intro instead of camera pull-back | Fade is humbler, fits SVG-as-craft; pull-back risks reading as loud / try-hard | — Pending |
 | Fix the 5 atlas-relevant orphan `[[id:Label]]` references (`silveldt`, `the-drift`, `the-rot`, `third-furnace`, `tide-reach-wharf`, `anvilhold`) as part of phase 1 | Atlas links to these locations; without real targets, the atlas ships broken on day one. Cheap fix, big payoff. | — Pending |
 | Cache-bust to `?v=26` site-wide when shipping atlas | Adding a section file or modifying `app.js` requires bumping every HTML's `?v=` query string; current is `?v=25` | — Pending |
+| **4-phase shape: Foundations & Visual Direction → Build (static) → Animations → Polish & Ship** | User's explicit instinct: each phase boundary should produce something testable on its own. Locking "the static map looks amazing" *before* layering any motion lets him evaluate the foundation cleanly and decide whether the calibrated animation list is right or needs further trimming. | — Pending |
+| **Opus on every GSD agent** (config: `model_profile: "quality"` + `model_overrides` pins every agent including executor / verifier / checkers / auditors to opus) | Craft-as-deliverable project. User explicitly chose to pay higher token cost for max model quality across the board, not just the Quality-profile defaults. Revisit if cost becomes a concern. | — Pending |
 
 ## Evolution
 
