@@ -113,17 +113,67 @@ Acknowledged but not in v1 scope. Tracked here so they don't get lost.
 
 ## Traceability
 
-Empty until roadmap creation maps requirements to phases. The roadmapper agent will populate this table.
+Each requirement-prefix maps 1:1 to a phase (the prefix scheme was designed alongside the phase shape during discovery). All 50 v1 requirements are mapped; no orphans.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| _(populated by roadmapper)_ | | |
+| FOUND-01 | Phase 1: Foundations & Visual Direction | Pending |
+| FOUND-02 | Phase 1: Foundations & Visual Direction | Pending |
+| FOUND-03 | Phase 1: Foundations & Visual Direction | Pending |
+| FOUND-04 | Phase 1: Foundations & Visual Direction | Pending |
+| FOUND-05 | Phase 1: Foundations & Visual Direction | Pending |
+| FOUND-06 | Phase 1: Foundations & Visual Direction | Pending |
+| LORE-01 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| LORE-02 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| LORE-03 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| LORE-04 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| LORE-05 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| LORE-06 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| LORE-07 | Phase 2: Lore-Faithful Geography Spec | Pending (HARD GATE — user approval required before Phase 3) |
+| LORE-08 | Phase 2: Lore-Faithful Geography Spec | Pending |
+| BUILD-01 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-02 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-03 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-04 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-05 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-06 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-07 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-08 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-09 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-10 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-11 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-12 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-13 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-14 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-15 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-16 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-17 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-18 | Phase 3: Build the Atlas — static | Pending |
+| BUILD-19 | Phase 3: Build the Atlas — static | Pending |
+| ANIM-01 | Phase 4: Animations | Pending |
+| ANIM-02 | Phase 4: Animations | Pending |
+| ANIM-03 | Phase 4: Animations | Pending |
+| ANIM-04 | Phase 4: Animations | Pending |
+| ANIM-05 | Phase 4: Animations | Pending |
+| ANIM-06 | Phase 4: Animations | Pending |
+| ANIM-07 | Phase 4: Animations | Pending |
+| ANIM-08 | Phase 4: Animations | Pending |
+| ANIM-09 | Phase 4: Animations | Pending |
+| POLISH-01 | Phase 5: Polish & Ship | Pending |
+| POLISH-02 | Phase 5: Polish & Ship | Pending |
+| POLISH-03 | Phase 5: Polish & Ship | Pending |
+| POLISH-04 | Phase 5: Polish & Ship | Pending |
+| POLISH-05 | Phase 5: Polish & Ship | Pending |
+| POLISH-06 | Phase 5: Polish & Ship | Pending |
+| POLISH-07 | Phase 5: Polish & Ship | Pending |
+| POLISH-08 | Phase 5: Polish & Ship | Pending |
 
 **Coverage:**
 - v1 requirements: 50 total (6 FOUND + 8 LORE + 19 BUILD + 9 ANIM + 8 POLISH)
-- Mapped to phases: TBD
-- Unmapped: TBD
+- Mapped to phases: 50 / 50 (100%)
+- Unmapped: 0
+- Per-phase counts: Phase 1 = 6, Phase 2 = 8, Phase 3 = 19, Phase 4 = 9, Phase 5 = 8
 
 ---
 *Requirements defined: 2026-04-29*
-*Last updated: 2026-04-29 after initial definition*
+*Traceability populated: 2026-04-29 by gsd-roadmapper*
