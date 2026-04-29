@@ -75,6 +75,7 @@ All animations obey the **"no animation without lore"** hard rule from PROJECT.m
 - [ ] **POLISH-06**: All atlas-rendered location names match canonical wiki names (case + spelling), verified by a one-off check against `data_sections_*.js` IDs and titles. No "Ashkadesh" vs "Ash-Kadesh" drift.
 - [ ] **POLISH-07**: Page weight (HTML + inline SVG + inline CSS + inline JS, gzip-uncompressed) is ≤ 800KB ideal / 1.5MB hard cap. SVG node count ≤ ~5,000 simultaneously rendered (LOD culls aggressively).
 - [ ] **POLISH-08**: A `<meta>` description, OG/Twitter card, and OG image present on the atlas page, matching the metadata pattern in `kingdom/geography.html` and other site pages. (Atlas-specific copy, not a copy-paste of the homepage's.)
+- [ ] **POLISH-09**: The 4 duplicate section ID collisions in `data_sections_2.js` are resolved (collisions at lines 244/724, 255/735, 266/713, 299/698 per `.planning/codebase/CONCERNS.md`). For each pair: read both definitions; identify which one is "live" (currently always the second, since the second def silently wins); confirm the dead first definition isn't authoritative content that needs preservation; consolidate any unique content from the dead definition into the live entry; delete the dead one. Verified by `grep -E "^\s*id:\s*['\"][a-z-]+['\"]" data_sections_*.js | awk '{print $2}' | sort | uniq -c | sort -rn | head` showing max count of 1 per ID across all data files. Folded into POLISH per user request — unrelated to atlas content but worth fixing while in the repo.
 
 ## v2 Requirements
 
@@ -113,7 +114,7 @@ Acknowledged but not in v1 scope. Tracked here so they don't get lost.
 
 ## Traceability
 
-Each requirement-prefix maps 1:1 to a phase (the prefix scheme was designed alongside the phase shape during discovery). All 50 v1 requirements are mapped; no orphans.
+Each requirement-prefix maps 1:1 to a phase (the prefix scheme was designed alongside the phase shape during discovery). All 51 v1 requirements are mapped; no orphans.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
@@ -167,10 +168,11 @@ Each requirement-prefix maps 1:1 to a phase (the prefix scheme was designed alon
 | POLISH-06 | Phase 5: Polish & Ship | Pending |
 | POLISH-07 | Phase 5: Polish & Ship | Pending |
 | POLISH-08 | Phase 5: Polish & Ship | Pending |
+| POLISH-09 | Phase 5: Polish & Ship | Pending |
 
 **Coverage:**
-- v1 requirements: 50 total (6 FOUND + 8 LORE + 19 BUILD + 9 ANIM + 8 POLISH)
-- Mapped to phases: 50 / 50 (100%)
+- v1 requirements: 51 total (6 FOUND + 8 LORE + 19 BUILD + 9 ANIM + 9 POLISH)
+- Mapped to phases: 51 / 51 (100%)
 - Unmapped: 0
 - Per-phase counts: Phase 1 = 6, Phase 2 = 8, Phase 3 = 19, Phase 4 = 9, Phase 5 = 8
 
