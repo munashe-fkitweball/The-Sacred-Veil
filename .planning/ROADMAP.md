@@ -41,7 +41,13 @@ These constraints are inherited by every plan and every executor in this milesto
   2. The user has previewed 3–4 distinct stylistic variants from a `/gsd-sketch` round, picked a winner (or rejected all and re-sketched), and the chosen visual register is documented in `.planning/sketches/MANIFEST.md`.
   3. Hovering over `silveldt`, `the-drift`, `the-rot`, `third-furnace`, `tide-reach-wharf`, or `anvilhold` anywhere on the existing wiki produces a real tooltip and clicks resolve to a live section anchor (no dead `#id` fallbacks).
   4. The atlas page is registered as a child of the Kingdom hub in `page_configs.js` (`hub: 'kingdom'`, `parent: 'kingdom'`) so site-nav users can find it through the normal information architecture.
-**Plans**: TBD (first plan should be the `/gsd-sketch` round itself — visual register locks before page-shell work)
+**Plans**: 6 plans
+  - [ ] 01-01-PLAN.md — Sketch round: curate 5+ register menu, draw sketches, user lock-in
+  - [ ] 01-02-PLAN.md — Orphan audit: per-orphan Mechanism A/B classification (gates orphan repair)
+  - [ ] 01-03-PLAN.md — Page shell: kingdom/atlas.html standalone-cinematic + page_configs.js entry
+  - [ ] 01-04-PLAN.md — Entry-point links: cta-link on kingdom hub + inline link in geography
+  - [ ] 01-05-PLAN.md — Orphan repairs: execute Mechanism A lifts and Mechanism B alias indirection
+  - [ ] 01-06-PLAN.md — Phase verification: goal-backward smoke test against ROADMAP success criteria
 **UI hint**: yes
 
 ### Phase 2: Lore-Faithful Geography Spec
@@ -111,7 +117,7 @@ Each arrow is a hard dependency: Phase N+1 cannot start its first plan until Pha
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundations & Visual Direction | 0/? | Not started | — |
+| 1. Foundations & Visual Direction | 0/6 | Not started | — |
 | 2. Lore-Faithful Geography Spec | 0/? | Not started | — |
 | 3. Build the Atlas — static | 0/? | Not started | — |
 | 4. Animations | 0/? | Not started | — |
@@ -119,4 +125,4 @@ Each arrow is a hard dependency: Phase N+1 cannot start its first plan until Pha
 
 ---
 *Roadmap created: 2026-04-29*
-*Last updated: 2026-04-29 after initial creation*
+*Last updated: 2026-04-30 after Phase 1 plan-phase*

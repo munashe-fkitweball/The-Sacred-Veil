@@ -1,7 +1,7 @@
 # State: The Sacred Veil — Atlas
 
 **Initialized:** 2026-04-29
-**Last updated:** 2026-04-29 (after roadmap creation)
+**Last updated:** 2026-04-30 (after Phase 1 discuss-phase)
 
 ## Project Reference
 
@@ -13,9 +13,9 @@
 
 ## Current Position
 
-- **Phase**: 1 (Foundations & Visual Direction) — not started
-- **Plan**: none yet
-- **Status**: Roadmap complete; awaiting `/gsd-plan-phase 1`
+- **Phase**: 1 (Foundations & Visual Direction) — planned, ready to execute
+- **Plan**: 6 plans (01-01 through 01-06) in 5 waves
+- **Status**: PLAN.md files written and verified; awaiting `/gsd-execute-phase 1`
 - **Progress**: ▱▱▱▱▱ 0/5 phases complete
 
 ## Performance Metrics
@@ -58,6 +58,9 @@ None.
 - 2026-04-29: Codebase mapped (`codebase/ARCHITECTURE.md`, `codebase/CONVENTIONS.md`, `codebase/CONCERNS.md`).
 - 2026-04-29: ROADMAP.md created — 5 phases, 100% requirement coverage, dependencies mapped.
 - 2026-04-29: STATE.md initialized.
+- 2026-04-30: Phase 1 discuss-phase complete. Key locks: 5+ visually-distinct sketch variants (not 3-4), iterative, all on the same Ash-Kadesh-slice fragment, all static; Phase 1 strictly sequenced sketch-first → plumbing-after; orphan repairs use a two-mechanism rule (lift verbatim from canon if it exists, alias indirection otherwise — never invent prose); entry-point links via cta-link + inline geography link, not children-grid card (that's Phase 5).
+- 2026-04-30: Project-wide content rule sharpened (saved to user memory `feedback_lift_dont_embellish.md`): lifting exact lines from existing canon is fine; embellishing or extrapolating is not, even one sentence. Applies anywhere Claude might be tempted to write world prose.
+- 2026-04-30: Phase 1 plans written by gsd-planner, verified by gsd-plan-checker (PASSED with 3 minor warnings). User accepted warnings 1+3 for tightening (sketch verify regex extended; cta-link subtitle made Phase-1-honest); kept warning 2 (Esc-to-return handler in atlas.html). Plans 01-01..01-06 ready for execution.
 
 ## Session Continuity
 
