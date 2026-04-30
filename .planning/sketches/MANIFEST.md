@@ -21,32 +21,32 @@ Every sketch renders the same content for apples-to-apples comparison:
 
 ## Round 1 Register Menu (proposed — awaiting user approval)
 
-5 visually-distinct registers stress-testing the leading hypothesis from genuinely different traditions.
+Every register is **player-facing** — an in-world artifact a player encounters, never a GM-tool framing. Every register is described as the SVG primitives it actually contains, not as the analog medium it might evoke. The medium IS honest SVG; the *"all of this is just SVG?"* reaction is the wow north star.
 
-### 01 — Schematic / GM planning-room (the leading hypothesis)
-**Tradition:** Polished GM back-room cork-board / wargame planning surface. Typographic primitives, fixed-width annotations, faint coordinate-grid wash.
-**Why include:** Locked-in leading hypothesis from PROJECT.md "Key Decisions." Aligns with the "back-end view but polished" original framing AND the visual-primitives discipline hard rule.
-**Visual cues:** Faint coordinate-grid blue wash; gold + brown stroke shapes for districts; fixed-width annotation font for labels; capital marker as a purple star with gold halo; foothills as dashed contour lines.
+### 01 — Cartographer's draft (revised leading hypothesis)
+**In-world framing:** The official kingdom atlas as a working draft. Disciplined, ruled, annotated — the cartographer hasn't quite signed off yet. The player feels like they're reading a document that exists in K'naan, not a UI screen.
+**SVG vocabulary:** `<line>` coord-grid wash (very faint, `--gold-faint` or a thin schematic blue), `<polygon>` and `<rect>` for the three district outlines (gold strokes, no fill or muted fill), `<polyline>` for the south road, dashed `<line>` runs along the Massif foothill edge, `<text>` in fixed-width annotation font (JetBrains Mono / similar) for callouts, `<circle>` + `<polygon>` 5-point star for the capital marker (gold body + faint `--purple` halo).
+**Why include:** Locked-in leading-hypothesis visual DNA from PROJECT.md, with the GM-tool framing dropped. Most aligned with the visual-primitives discipline hard rule.
 
-### 02 — Illuminated-manuscript / blackletter cartulary
-**Tradition:** Medieval ecclesiastical manuscript map. UnifrakturCook titles already in the site's font stack — leans into the "Catching a Falling Knife" succession-crisis dread.
-**Why include:** Stress-tests register #01 from a high-formality, sacred-text direction. Different visual world entirely.
-**Visual cues:** Heavy UnifrakturCook display labels; ornamental flourishes drawn as primitive strokes (not blur or gradient); districts as bordered enclosures with hand-shaped (but primitive-stroke) edges; gold leaf simulated only via solid gold fills on crisp shapes, NOT via gradient.
+### 02 — Heraldic / blazoned
+**In-world framing:** A page from K'naan's own armorial — the kingdom rendered as it would describe itself in heraldry. Each district wears a banner; the capital wears a crown.
+**SVG vocabulary:** `<rect>` banded shields for each of the three districts (different ordinaries — chief, fess, bend — using only locked palette), `<polygon>` crown-shaped capital marker, a single bold `<line>` for the south road, `<polyline>` chevrons for the Massif edge, `<text>` in Cinzel for district names rendered as banner labels above each shield. Solid fills only — gold-on-dark, never gradient.
+**Why include:** Stress-tests #01 from a formal-symbolic direction. Tests whether the kingdom's "succession crisis" tone reads stronger as heraldry than as draft cartography.
 
-### 03 — Brutalist-typographic / atlas-as-text
-**Tradition:** Information-design brutalism. Massimo Vignelli subway-map energy. The map IS its labels.
-**Why include:** Stress-tests #01 from the opposite direction — push typographic-primitive discipline to its limit; if a place has no label, it's not on the map.
-**Visual cues:** Districts rendered as named blocks of fixed-width text or Cinzel-uppercase wordmarks; roads as solid/dashed straight-line connectors between named nodes; the foothill edge of the Massif as a stack of `^` glyphs along an axis; capital marker still a purple star but rendered tiny against the typographic field.
+### 03 — Typographic / labels-are-the-map
+**In-world framing:** A players' atlas where the words *are* the geography. Vignelli subway-map energy applied to a fantasy kingdom. If a place doesn't have a name, it's not on the map.
+**SVG vocabulary:** Large `<text>` wordmarks (Cinzel uppercase, UnifrakturCook for hierarchy) positioned as district shapes — the type fills the district silhouette. Thin `<line>` connectors for roads between named nodes. Foothills as a stacked column of `^` `<text>` glyphs along an axis. Capital as a small `<polygon>` star sitting between the wordmarks.
+**Why include:** Pushes the typographic-primitive discipline to its limit — opposite extreme from #01's drafted register, same constraint family.
 
-### 04 — Hand-drawn pen-and-ink (primitive-stroke version)
-**Tradition:** Cartographer's pen-and-ink atlas, but rendered with primitive SVG strokes (no faked stroke variation, no inked texture). Honest about the medium.
-**Why include:** Stress-tests #01 from a more pictorial, less schematic direction — does the kingdom feel more "real" or just less polished? User decides.
-**Visual cues:** District silhouettes as closed paths with hand-shaped (jagged or wavy) edges, all in the same stroke weight; foothills as overlapping `<` chevron primitives; road as a single dashed stroke; capital as the purple star, no halo flourish.
+### 04 — Glyph-terrain / character-cartographic
+**In-world framing:** A players' atlas seen through pure type — the kingdom rendered as if a scribe had laid out its terrain entirely from the alphabet. Mountains are `^^^`, marshes are `:` and `.`, roads are `——`, crossroads are `+`. The atoms of the map are characters.
+**SVG vocabulary:** Almost entirely `<text>` glyphs — `^` columns for the Massif foothills, dot-character grids for terrain texture, `—` and `+` characters for roads and crossings, place names in Cinzel/Cormorant rendered between the glyph fields. Capital as a `<polygon>` star (the one non-text element, deliberately).
+**Why include:** Most-honest-about-medium of any register — pure characters and lines. Tests whether ASCII-style cartography reads as craft or as kitsch.
 
-### 05 — Constellation / star-map register
-**Tradition:** Celestial atlas. Districts as named star-clusters connected by faint lines; roads as constellation-edges.
-**Why include:** Genuinely different visual world. Tests whether the lore's "fading sun-god" theme reads better as a sky than as a planning surface.
-**Visual cues:** Districts as clusters of small gold dots with a single named center; the capital marker as a brighter star at the centroid; roads and foothills as dashed connector lines; everything floats on the deep `--bg-deep` field with occasional `--purple` halos.
+### 05 — Constellation / star-chart
+**In-world framing:** The kingdom as a celestial chart — districts as named star-clusters, the capital as the brightest star, roads as constellation-edges connecting bright points. Player feels like they're reading the kingdom from the night sky.
+**SVG vocabulary:** Many small `<circle>` gold dots clustered into named groups (one cluster per district, varying density), `<line>` faint connector strokes within and between clusters, `<polygon>` star for the capital (brighter, larger, central), dashed `<line>` for the south road as a constellation-edge, `<text>` in Cormorant Garamond italic for cluster names. Deep `--bg-deep` field; occasional `--purple` halo around the capital.
+**Why include:** Genuinely different visual world from the other four. Tests whether the lore's "fading sun-god" theme reads better as a sky than as a drafted document or armorial.
 
 (User may request additional registers, drop registers, or pivot the menu before any sketch is drawn.)
 
@@ -56,7 +56,8 @@ Every sketch renders the same content for apples-to-apples comparison:
 
 ## Iteration Log
 
-- **Round 1:** 2026-04-30 — register menu drafted; awaiting user review.
+- **Round 1 v1:** 2026-04-30 — register menu drafted; awaiting user review.
+- **Round 1 v2:** 2026-04-30 — user corrections applied before any sketch was drawn: (1) all registers must be player-facing, never framed as a GM tool — register #01 reframed from "GM planning-room" to "cartographer's draft" (visual DNA preserved, in-world framing fixed); (2) all registers must be described in terms of the SVG primitives they contain, not as analog mediums — registers #02 (was "illuminated-manuscript"), #04 (was "pen-and-ink"), and the others rewritten as in-world framing + SVG vocabulary instead of medium-imitation. Visual-primitives discipline strengthened across the board. Awaiting user review.
 
 ## Lock-In
 
