@@ -23,6 +23,8 @@ Every sketch renders the same content for apples-to-apples comparison:
 
 Every register is **player-facing** — an in-world artifact a player encounters, never a GM-tool framing. Every register is described as the SVG primitives it actually contains, not as the analog medium it might evoke. The medium IS honest SVG; the *"all of this is just SVG?"* reaction is the wow north star.
 
+7 visually-distinct registers in this round.
+
 ### 01 — Cartographer's draft (revised leading hypothesis)
 **In-world framing:** The official kingdom atlas as a working draft. Disciplined, ruled, annotated — the cartographer hasn't quite signed off yet. The player feels like they're reading a document that exists in K'naan, not a UI screen.
 **SVG vocabulary:** `<line>` coord-grid wash (very faint, `--gold-faint` or a thin schematic blue), `<polygon>` and `<rect>` for the three district outlines (gold strokes, no fill or muted fill), `<polyline>` for the south road, dashed `<line>` runs along the Massif foothill edge, `<text>` in fixed-width annotation font (JetBrains Mono / similar) for callouts, `<circle>` + `<polygon>` 5-point star for the capital marker (gold body + faint `--purple` halo).
@@ -48,6 +50,16 @@ Every register is **player-facing** — an in-world artifact a player encounters
 **SVG vocabulary:** Many small `<circle>` gold dots clustered into named groups (one cluster per district, varying density), `<line>` faint connector strokes within and between clusters, `<polygon>` star for the capital (brighter, larger, central), dashed `<line>` for the south road as a constellation-edge, `<text>` in Cormorant Garamond italic for cluster names. Deep `--bg-deep` field; occasional `--purple` halo around the capital.
 **Why include:** Genuinely different visual world from the other four. Tests whether the lore's "fading sun-god" theme reads better as a sky than as a drafted document or armorial.
 
+### 06 — Royal Survey (strict / professional / accurate)
+**In-world framing:** The Crown's commissioned cartographic survey of K'naan — the most measured, most accurate rendering the kingdom owns. No romance. Designed for navigation and administration, not for ceremony. Player-facing as *"this is the working reference; every other map is interpretation."*
+**SVG vocabulary:** Precise 1px gold `<polygon>` district boundaries (no fills or restrained `<rect>` density patterns for hierarchy). Cartographic-standard symbology: capital as a `<circle>` with an inscribed concentric `<circle>` (international "national capital" convention), other markers as plain circles. `<text>` labels in small restrained Cinzel uppercase. A `<line>` scale bar in the corner with tick marks (`0   5   10 leagues`) and a `<polygon>` north arrow. Foothills as evenly-spaced contour `<polyline>` runs at consistent intervals (proper topographic convention). Bordered `<rect>` map frame with `<text>` dimension callouts in fixed-width annotation font. **No purple halos, no flourishes** — even the capital marker uses cartographic-standard symbology, not the project's signature purple-star treatment.
+**Why include:** Stress-tests every other register from the opposite pole — does the kingdom read stronger when *stripped of romance entirely*? Also a useful baseline: if a richer register can't beat the sober survey on craft surprise, we ship the survey. **Note:** this register deliberately bends one project default — the purple-star capital marker becomes a cartographic dot. If chosen, the project's capital-marker convention gets revisited for the full atlas.
+
+### 07 — Geomantic chart / divinatory wheel
+**In-world framing:** A divinatory map of K'naan — the kingdom rendered as the casting-wheel of an in-world geomancer or myth-priest of the fading sun-god. The land is read as a chart of fate; districts sit on a ringed wheel, the capital is the figure-of-state at the centre being cast about. The player feels like they've found something a witch or seer authored.
+**SVG vocabulary:** Concentric `<circle>` rings (outer / middle / inner) divided by `<line>` radial spokes into named segments. Districts and outlying places live on the rim as named segments; outer ring carries the cardinal directions and major roads; middle ring carries the districts; inner ring is empty space framing the capital. Capital as a `<polygon>` 5-point star at dead centre with a `<circle>` `--purple` halo. South road as a `<line>` radial spoke escaping the wheel southward. Massif edge as a dense arc of small `<polygon>` triangle marks along one rim segment. `<text>` labels are radial — Cormorant Garamond italic on curved baselines via `<textPath>` along the ring `<circle>`s.
+**Why include:** Genuinely different visual world from the other six — none use radial composition. Tests whether the lore's mystical / fading-sun-god / succession-crisis weight reads stronger as a divinatory artifact than as a map. Maps the locked palette elegantly (gold radials on `--bg-deep`, `--purple` for the centre halo).
+
 (User may request additional registers, drop registers, or pivot the menu before any sketch is drawn.)
 
 ## Sketches
@@ -58,6 +70,7 @@ Every register is **player-facing** — an in-world artifact a player encounters
 
 - **Round 1 v1:** 2026-04-30 — register menu drafted; awaiting user review.
 - **Round 1 v2:** 2026-04-30 — user corrections applied before any sketch was drawn: (1) all registers must be player-facing, never framed as a GM tool — register #01 reframed from "GM planning-room" to "cartographer's draft" (visual DNA preserved, in-world framing fixed); (2) all registers must be described in terms of the SVG primitives they contain, not as analog mediums — registers #02 (was "illuminated-manuscript"), #04 (was "pen-and-ink"), and the others rewritten as in-world framing + SVG vocabulary instead of medium-imitation. Visual-primitives discipline strengthened across the board. Awaiting user review.
+- **Round 1 v3:** 2026-04-30 — user expanded the menu by 2 (5 → 7 registers): added #06 Royal Survey (strict / professional / accurate cartographic baseline — note: deliberately bends the project's purple-star capital-marker default for cartographic-standard symbology), and #07 Geomantic chart (Claude's pick, radial composition, divinatory in-world framing). Awaiting user review.
 
 ## Lock-In
 
