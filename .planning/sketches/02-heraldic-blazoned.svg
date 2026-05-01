@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t02">
+  <title id="t02">Atlas Sketch — Heraldic / Blazoned</title>
+  <!-- palette: locked tokens only. solid fills, never gradient. -->
+
+  <rect width="1600" height="1000" fill="#030106"/>
+
+  <!-- Decorative outer frame (thin gold border, simple stroke shapes) -->
+  <rect x="40" y="40" width="1520" height="920" fill="none" stroke="#d8c99b" stroke-width="1" opacity="0.4"/>
+  <rect x="50" y="50" width="1500" height="900" fill="none" stroke="#d8c99b" stroke-width="0.5" opacity="0.3"/>
+  <g stroke="#d8c99b" stroke-width="1" fill="none" opacity="0.5">
+    <path d="M 60 60 L 90 60 L 90 90"/>
+    <path d="M 1540 60 L 1510 60 L 1510 90"/>
+    <path d="M 60 940 L 90 940 L 90 910"/>
+    <path d="M 1540 940 L 1510 940 L 1510 910"/>
+  </g>
+
+  <!-- Crown above shield (the capital marker housing) -->
+  <g transform="translate(800, 130)">
+    <rect x="-90" y="20" width="180" height="22" fill="none" stroke="#d8c99b" stroke-width="2"/>
+    <line x1="-90" y1="42" x2="90" y2="42" stroke="#d8c99b" stroke-width="1"/>
+    <polygon points="-90,20 -75,0 -60,20" fill="none" stroke="#d8c99b" stroke-width="2"/>
+    <polygon points="-50,20 -25,-10 0,20" fill="none" stroke="#d8c99b" stroke-width="2"/>
+    <polygon points="0,20 25,-15 50,20" fill="none" stroke="#d8c99b" stroke-width="2"/>
+    <polygon points="50,20 75,-10 100,20" fill="none" stroke="#d8c99b" stroke-width="2"/>
+    <!-- crown jewel = purple-star capital marker -->
+    <circle cx="0" cy="-15" r="14" fill="rgba(95,55,130,0.30)"/>
+    <polygon points="0,-30 3,-19 14,-19 5,-12 9,-2 0,-9 -9,-2 -5,-12 -14,-19 -3,-19" fill="#f2d98c"/>
+    <circle cx="-25" cy="-2" r="4" fill="#d8c99b"/>
+    <circle cx="25" cy="-7" r="4" fill="#d8c99b"/>
+  </g>
+
+  <!-- Banner with city name -->
+  <g transform="translate(800, 200)">
+    <polygon points="-220,0 220,0 200,30 -200,30" fill="rgba(200,160,80,0.10)" stroke="#d8c99b" stroke-width="1.5"/>
+    <polygon points="-220,30 -200,40 -240,40 -260,20" fill="rgba(200,160,80,0.10)" stroke="#d8c99b" stroke-width="1"/>
+    <polygon points="220,30 200,40 240,40 260,20" fill="rgba(200,160,80,0.10)" stroke="#d8c99b" stroke-width="1"/>
+    <text x="0" y="22" font-family="Cinzel, serif" font-size="22" fill="#f2d98c" text-anchor="middle" letter-spacing="6">ASH·KADESH</text>
+  </g>
+
+  <!-- Main shield: 3 horizontal divisions -->
+  <g transform="translate(800, 270)">
+    <path d="M -200 0 L 200 0 L 200 280 Q 200 380, 100 470 Q 0 540, 0 540 Q 0 540, -100 470 Q -200 380, -200 280 Z"
+          fill="rgba(6,3,9,0.95)" stroke="#d8c99b" stroke-width="2.5"/>
+
+    <!-- Chief: Crown-Shelf — pattern of small crown charges -->
+    <line x1="-200" y1="120" x2="200" y2="120" stroke="#d8c99b" stroke-width="1"/>
+    <g fill="#d8c99b" opacity="0.85">
+      <g transform="translate(-130, 60)">
+        <polygon points="-15,10 -10,-3 -5,8 0,-6 5,8 10,-3 15,10"/>
+        <rect x="-15" y="10" width="30" height="4"/>
+      </g>
+      <g transform="translate(-50, 60)">
+        <polygon points="-15,10 -10,-3 -5,8 0,-6 5,8 10,-3 15,10"/>
+        <rect x="-15" y="10" width="30" height="4"/>
+      </g>
+      <g transform="translate(50, 60)">
+        <polygon points="-15,10 -10,-3 -5,8 0,-6 5,8 10,-3 15,10"/>
+        <rect x="-15" y="10" width="30" height="4"/>
+      </g>
+      <g transform="translate(130, 60)">
+        <polygon points="-15,10 -10,-3 -5,8 0,-6 5,8 10,-3 15,10"/>
+        <rect x="-15" y="10" width="30" height="4"/>
+      </g>
+    </g>
+
+    <!-- Fess: Ledger-Ward — banded with scales charge -->
+    <rect x="-200" y="120" width="400" height="120" fill="rgba(200,160,80,0.10)"/>
+    <line x1="-200" y1="240" x2="200" y2="240" stroke="#d8c99b" stroke-width="1"/>
+    <g transform="translate(0, 180)" stroke="#d8c99b" stroke-width="2" fill="none">
+      <line x1="0" y1="-25" x2="0" y2="20"/>
+      <line x1="-50" y1="-15" x2="50" y2="-15"/>
+      <line x1="-50" y1="-15" x2="-65" y2="5"/>
+      <line x1="-50" y1="-15" x2="-35" y2="5"/>
+      <line x1="-65" y1="5" x2="-35" y2="5"/>
+      <line x1="50" y1="-15" x2="65" y2="5"/>
+      <line x1="50" y1="-15" x2="35" y2="5"/>
+      <line x1="35" y1="5" x2="65" y2="5"/>
+    </g>
+
+    <!-- Base: The Mourn — single tear charge -->
+    <g transform="translate(0, 320)" stroke="#d8c99b" stroke-width="2" fill="rgba(200,160,80,0.20)">
+      <path d="M 0 -25 Q -15 -10, -15 5 Q -15 20, 0 20 Q 15 20, 15 5 Q 15 -10, 0 -25 Z"/>
+    </g>
+  </g>
+
+  <!-- District banners on the side -->
+  <g font-family="Cinzel, serif" font-size="14" fill="#d8c99b" letter-spacing="3">
+    <text x="450" y="320" text-anchor="end">CROWN·SHELF</text>
+    <line x1="465" y1="316" x2="595" y2="316" stroke="rgba(200,160,80,0.55)" stroke-width="1"/>
+    <text x="450" y="450" text-anchor="end">LEDGER·WARD</text>
+    <line x1="465" y1="446" x2="595" y2="446" stroke="rgba(200,160,80,0.55)" stroke-width="1"/>
+    <text x="450" y="590" text-anchor="end">THE·MOURN</text>
+    <line x1="465" y1="586" x2="595" y2="586" stroke="rgba(200,160,80,0.55)" stroke-width="1"/>
+  </g>
+
+  <!-- Eastern Massif: heraldic chevrons stacked -->
+  <g transform="translate(1280, 380)" stroke="#d8c99b" stroke-width="2" fill="none">
+    <polyline points="-60,0 0,-50 60,0"/>
+    <polyline points="-60,40 0,-10 60,40"/>
+    <polyline points="-60,80 0,30 60,80"/>
+    <polyline points="-60,120 0,70 60,120"/>
+    <polyline points="-60,160 0,110 60,160"/>
+    <polyline points="-60,200 0,150 60,200"/>
+  </g>
+  <text x="1280" y="620" font-family="Cinzel, serif" font-size="13" fill="#d8c99b" text-anchor="middle" letter-spacing="3">EASTERN·MASSIF</text>
+
+  <!-- South road: heraldic pale (vertical band) descending -->
+  <rect x="790" y="820" width="20" height="130" fill="rgba(200,160,80,0.15)" stroke="#d8c99b" stroke-width="1.5"/>
+  <text x="800" y="945" font-family="Cinzel, serif" font-size="12" fill="rgba(200,160,80,0.65)" text-anchor="middle" letter-spacing="3">SOUTH·ROAD</text>
+
+  <!-- Cardinal mark (small heraldic compass) -->
+  <g transform="translate(150, 870)" stroke="#d8c99b" stroke-width="1" fill="none" opacity="0.7">
+    <circle cx="0" cy="0" r="20"/>
+    <polygon points="0,-15 3,3 0,-2 -3,3" fill="#d8c99b"/>
+    <text x="0" y="-25" font-family="Cinzel, serif" font-size="11" fill="#d8c99b" text-anchor="middle" letter-spacing="2">N</text>
+  </g>
+</svg>

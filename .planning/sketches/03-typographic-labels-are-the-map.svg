@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t03">
+  <title id="t03">Atlas Sketch — Typographic / Labels-Are-The-Map</title>
+  <!-- palette: locked tokens only. type IS the geography. -->
+
+  <rect width="1600" height="1000" fill="#030106"/>
+
+  <!-- Top eyebrow: indicates this is a place-name composition -->
+  <text x="80" y="100" font-family="Cinzel, serif" font-size="13" fill="rgba(200,160,80,0.55)" letter-spacing="6">— A·KINGDOM·OF·NAMES —</text>
+  <line x1="80" y1="115" x2="380" y2="115" stroke="rgba(200,160,80,0.40)" stroke-width="1"/>
+
+  <!-- Crown-Shelf: large Cinzel uppercase wordmark, top tier (high) -->
+  <text x="800" y="280" font-family="Cinzel, serif" font-size="78" fill="#d8c99b" text-anchor="middle" letter-spacing="14" font-weight="600">CROWN·SHELF</text>
+  <line x1="500" y1="310" x2="1100" y2="310" stroke="rgba(200,160,80,0.40)" stroke-width="1"/>
+  <text x="800" y="335" font-family="Cinzel, serif" font-size="11" fill="rgba(200,160,80,0.55)" text-anchor="middle" letter-spacing="6">— HIGH·CITY —</text>
+
+  <!-- Ledger-Ward: middle tier, slightly smaller, with the capital marker between letters -->
+  <text x="800" y="490" font-family="Cinzel, serif" font-size="64" fill="#d8c99b" text-anchor="middle" letter-spacing="12" font-weight="500">LEDGER · WARD</text>
+
+  <!-- Capital marker: tiny purple star tucked beside the middle wordmark, marking the city centroid -->
+  <g transform="translate(800, 540)">
+    <circle cx="0" cy="0" r="14" fill="rgba(95,55,130,0.30)"/>
+    <polygon points="0,-12 2.5,-3 12,-3 4,2 7,11 0,5 -7,11 -4,2 -12,-3 -2.5,-3" fill="#f2d98c"/>
+  </g>
+  <text x="900" y="544" font-family="Cinzel, serif" font-size="11" fill="rgba(200,160,80,0.55)" letter-spacing="4">★ ASH-KADESH</text>
+
+  <!-- The Mourn: bottom tier, smaller, lower contrast (the dying part of the city) -->
+  <text x="800" y="700" font-family="Cinzel, serif" font-size="50" fill="rgba(200,160,80,0.55)" text-anchor="middle" letter-spacing="10" font-weight="400">T H E · M O U R N</text>
+  <text x="800" y="730" font-family="Cinzel, serif" font-size="11" fill="rgba(200,160,80,0.40)" text-anchor="middle" letter-spacing="6">— LOW·CITY —</text>
+
+  <!-- Thin gold connectors implying district stack -->
+  <line x1="800" y1="370" x2="800" y2="430" stroke="rgba(200,160,80,0.30)" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="800" y1="580" x2="800" y2="640" stroke="rgba(200,160,80,0.30)" stroke-width="1" stroke-dasharray="3,4"/>
+
+  <!-- South road: a connector descending below The Mourn with text label -->
+  <line x1="800" y1="770" x2="800" y2="900" stroke="#d8c99b" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="800" y="930" font-family="Cinzel, serif" font-size="14" fill="#d8c99b" text-anchor="middle" letter-spacing="6">SOUTH ↓</text>
+
+  <!-- Eastern Massif: a column of ^ glyphs along the east axis -->
+  <g font-family="JetBrains Mono, monospace" font-size="48" fill="#d8c99b" letter-spacing="0">
+    <text x="1380" y="180">^</text>
+    <text x="1410" y="240">^</text>
+    <text x="1380" y="300">^</text>
+    <text x="1430" y="360">^</text>
+    <text x="1395" y="420">^</text>
+    <text x="1420" y="480">^</text>
+    <text x="1385" y="540">^</text>
+    <text x="1430" y="600">^</text>
+    <text x="1395" y="660">^</text>
+    <text x="1420" y="720">^</text>
+    <text x="1380" y="780">^</text>
+  </g>
+  <!-- Massif label: vertically rotated -->
+  <g transform="translate(1500, 480) rotate(-90)">
+    <text x="0" y="0" font-family="Cinzel, serif" font-size="14" fill="#d8c99b" text-anchor="middle" letter-spacing="8">EASTERN·MASSIF</text>
+  </g>
+
+  <!-- Western edge: empty, signaling "if it has no name, it isn't on the map" -->
+  <text x="180" y="500" font-family="Cinzel, serif" font-size="11" fill="rgba(200,160,80,0.30)" letter-spacing="4">[WEST · UNNAMED]</text>
+
+  <!-- Index footer -->
+  <text x="80" y="965" font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(200,160,80,0.40)" letter-spacing="1">— atlas as text · the map IS its labels · type composes the kingdom —</text>
+</svg>
