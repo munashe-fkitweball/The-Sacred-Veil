@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t07">
+  <title id="t07">Atlas Sketch — Geomantic Chart / Divinatory Wheel</title>
+  <!-- palette: locked tokens only. radial composition. textPath for curved labels. -->
+
+  <rect width="1000" height="1000" fill="#030106"/>
+
+  <!-- Path defs for textPath labels (defs is allowed: not a filter, gradient, raster, animate, or script) -->
+  <defs>
+    <path id="ringOuterTop" d="M 500 500 m -380 0 a 380 380 0 0 1 760 0" fill="none"/>
+    <path id="ringOuterBottom" d="M 500 500 m -380 0 a 380 380 0 0 0 760 0" fill="none"/>
+    <path id="ringMiddleCS" d="M 500 500 m -300 0 a 300 300 0 0 1 600 0" fill="none"/>
+    <path id="ringMiddleLW_left" d="M 250 660 a 300 300 0 0 0 -55 -180" fill="none"/>
+    <path id="ringMiddleLW_right" d="M 805 480 a 300 300 0 0 0 -55 180" fill="none"/>
+    <path id="ringMiddleMourn" d="M 220 580 a 300 300 0 0 0 560 0" fill="none"/>
+    <path id="ringMassif" d="M 500 500 m 360 0 a 360 360 0 0 0 -100 -250" fill="none"/>
+  </defs>
+
+  <!-- Concentric rings -->
+  <circle cx="500" cy="500" r="380" fill="none" stroke="#d8c99b" stroke-width="1.2"/>
+  <circle cx="500" cy="500" r="300" fill="none" stroke="#d8c99b" stroke-width="1"/>
+  <circle cx="500" cy="500" r="220" fill="none" stroke="#d8c99b" stroke-width="0.8" opacity="0.55"/>
+  <circle cx="500" cy="500" r="140" fill="none" stroke="#d8c99b" stroke-width="0.7" opacity="0.40"/>
+  <circle cx="500" cy="500" r="60" fill="none" stroke="rgba(200,160,80,0.40)" stroke-width="0.6"/>
+
+  <!-- 12 radial spokes dividing the rings into segments -->
+  <g stroke="#d8c99b" stroke-width="0.8" opacity="0.55">
+    <line x1="500" y1="120" x2="500" y2="60"/>
+    <line x1="500" y1="500" x2="500" y2="120"/>
+    <line x1="500" y1="500" x2="690" y2="171"/>
+    <line x1="500" y1="500" x2="829" y2="310"/>
+    <line x1="500" y1="500" x2="880" y2="500"/>
+    <line x1="500" y1="500" x2="829" y2="690"/>
+    <line x1="500" y1="500" x2="690" y2="829"/>
+    <line x1="500" y1="500" x2="500" y2="940"/>
+    <line x1="500" y1="500" x2="310" y2="829"/>
+    <line x1="500" y1="500" x2="171" y2="690"/>
+    <line x1="500" y1="500" x2="120" y2="500"/>
+    <line x1="500" y1="500" x2="171" y2="310"/>
+    <line x1="500" y1="500" x2="310" y2="171"/>
+  </g>
+
+  <!-- Cardinal pip-marks at outer ring intersections -->
+  <g fill="#d8c99b">
+    <circle cx="500" cy="120" r="4"/>
+    <circle cx="880" cy="500" r="4"/>
+    <circle cx="500" cy="880" r="4"/>
+    <circle cx="120" cy="500" r="4"/>
+  </g>
+  <g fill="rgba(200,160,80,0.55)">
+    <circle cx="690" cy="171" r="2.5"/>
+    <circle cx="829" cy="310" r="2.5"/>
+    <circle cx="829" cy="690" r="2.5"/>
+    <circle cx="690" cy="829" r="2.5"/>
+    <circle cx="310" cy="829" r="2.5"/>
+    <circle cx="171" cy="690" r="2.5"/>
+    <circle cx="171" cy="310" r="2.5"/>
+    <circle cx="310" cy="171" r="2.5"/>
+  </g>
+
+  <!-- Cardinal letters (outside outer ring) -->
+  <g font-family="Cinzel, serif" font-size="14" fill="#d8c99b" letter-spacing="3" text-anchor="middle">
+    <text x="500" y="105">N</text>
+    <text x="897" y="505">E</text>
+    <text x="500" y="912">S</text>
+    <text x="103" y="505">W</text>
+  </g>
+
+  <!-- District labels on the middle ring via textPath -->
+  <g font-family="Cinzel, serif" font-size="20" fill="#f2d98c" letter-spacing="14">
+    <text>
+      <textPath href="#ringMiddleCS" startOffset="50%" text-anchor="middle">CROWN · SHELF</textPath>
+    </text>
+  </g>
+  <g font-family="Cinzel, serif" font-size="16" fill="#d8c99b" letter-spacing="10">
+    <text>
+      <textPath href="#ringMiddleMourn" startOffset="50%" text-anchor="middle">THE · MOURN</textPath>
+    </text>
+  </g>
+  <!-- Ledger-Ward sits on east-west girdle, two halves -->
+  <g font-family="Cinzel, serif" font-size="14" fill="#d8c99b" letter-spacing="6">
+    <text x="195" y="480" text-anchor="middle" transform="rotate(-90, 195, 480)">LEDGER · WARD</text>
+    <text x="805" y="520" text-anchor="middle" transform="rotate(90, 805, 520)">LEDGER · WARD</text>
+  </g>
+
+  <!-- District segment markers: small triangle pip-marks on rim, density per district -->
+  <!-- Crown-Shelf upper rim — bright pips -->
+  <g fill="#f2d98c">
+    <polygon points="430,121 432,131 428,131"/>
+    <polygon points="470,118 472,128 468,128"/>
+    <polygon points="500,116 502,126 498,126"/>
+    <polygon points="530,118 532,128 528,128"/>
+    <polygon points="570,121 572,131 568,131"/>
+  </g>
+  <!-- The Mourn lower rim — faint pips -->
+  <g fill="rgba(200,160,80,0.55)">
+    <polygon points="428,879 432,869 436,879"/>
+    <polygon points="478,881 482,871 486,881"/>
+    <polygon points="518,881 522,871 526,881"/>
+    <polygon points="568,879 572,869 576,879"/>
+  </g>
+
+  <!-- Eastern Massif: dense arc of triangle marks along the eastern rim segment -->
+  <g fill="#d8c99b">
+    <polygon points="867,420 880,418 873,432"/>
+    <polygon points="876,440 889,438 882,452"/>
+    <polygon points="880,460 893,458 886,472"/>
+    <polygon points="884,480 897,478 890,492"/>
+    <polygon points="884,500 897,500 890,514"/>
+    <polygon points="884,520 897,522 890,536"/>
+    <polygon points="880,540 893,542 886,556"/>
+    <polygon points="876,560 889,562 882,576"/>
+    <polygon points="867,580 880,582 873,596"/>
+  </g>
+  <!-- Massif rim label -->
+  <g font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#d8c99b" letter-spacing="3">
+    <text>
+      <textPath href="#ringMassif" startOffset="50%" text-anchor="middle">Eastern Massif</textPath>
+    </text>
+  </g>
+
+  <!-- South road: radial spoke escaping the wheel southward, drawn over -->
+  <line x1="500" y1="500" x2="500" y2="980" stroke="#d8c99b" stroke-width="2"/>
+  <text x="520" y="950" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#d8c99b" letter-spacing="2">south road</text>
+  <!-- Tick marks along the road -->
+  <g stroke="#d8c99b" stroke-width="1">
+    <line x1="494" y1="600" x2="506" y2="600"/>
+    <line x1="494" y1="700" x2="506" y2="700"/>
+    <line x1="494" y1="800" x2="506" y2="800"/>
+    <line x1="494" y1="900" x2="506" y2="900"/>
+  </g>
+
+  <!-- Inner geomantic figures (4 cardinal pip-figures: classic geomantic dots) -->
+  <g fill="#d8c99b">
+    <!-- N: Populus (4 doubles) -->
+    <circle cx="465" cy="280" r="2.5"/><circle cx="485" cy="280" r="2.5"/>
+    <circle cx="465" cy="295" r="2.5"/><circle cx="485" cy="295" r="2.5"/>
+    <circle cx="465" cy="310" r="2.5"/><circle cx="485" cy="310" r="2.5"/>
+    <circle cx="465" cy="325" r="2.5"/><circle cx="485" cy="325" r="2.5"/>
+    <!-- E: Caput (single dots top) -->
+    <circle cx="710" cy="485" r="2.5"/>
+    <circle cx="710" cy="500" r="2.5"/>
+    <circle cx="700" cy="515" r="2.5"/><circle cx="720" cy="515" r="2.5"/>
+    <circle cx="700" cy="530" r="2.5"/><circle cx="720" cy="530" r="2.5"/>
+    <!-- S: Via -->
+    <circle cx="500" cy="675" r="2.5"/>
+    <circle cx="500" cy="690" r="2.5"/>
+    <circle cx="500" cy="705" r="2.5"/>
+    <circle cx="500" cy="720" r="2.5"/>
+    <!-- W: Cauda -->
+    <circle cx="280" cy="485" r="2.5"/><circle cx="300" cy="485" r="2.5"/>
+    <circle cx="280" cy="500" r="2.5"/><circle cx="300" cy="500" r="2.5"/>
+    <circle cx="290" cy="515" r="2.5"/>
+    <circle cx="290" cy="530" r="2.5"/>
+  </g>
+
+  <!-- Capital marker at dead centre: 5-point gold star with purple halo -->
+  <g transform="translate(500, 500)">
+    <circle cx="0" cy="0" r="44" fill="rgba(95,55,130,0.30)"/>
+    <circle cx="0" cy="0" r="28" fill="rgba(95,55,130,0.30)"/>
+    <polygon points="0,-30 7,-10 28,-10 11,3 17,28 0,15 -17,28 -11,3 -28,-10 -7,-10" fill="#f2d98c"/>
+  </g>
+  <!-- ASH-KADESH label sweeping just under the centre star -->
+  <text x="500" y="470" font-family="Cinzel, serif" font-size="11" fill="#f2d98c" text-anchor="middle" letter-spacing="6">ASH · KADESH</text>
+
+  <!-- Bottom inscription line -->
+  <text x="500" y="980" font-family="Cormorant Garamond, serif" font-style="italic" font-size="11" fill="rgba(200,160,80,0.40)" text-anchor="middle" letter-spacing="3">— a casting of the kingdom · the land read as a chart of fate —</text>
+</svg>

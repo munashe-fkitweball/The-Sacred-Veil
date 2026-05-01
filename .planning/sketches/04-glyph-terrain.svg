@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t04">
+  <title id="t04">Atlas Sketch — Glyph-Terrain / Character-Cartographic</title>
+  <!-- palette: locked tokens only. terrain rendered entirely as type characters. -->
+
+  <rect width="1600" height="1000" fill="#030106"/>
+
+  <!-- Header -->
+  <text x="80" y="100" font-family="JetBrains Mono, monospace" font-size="13" fill="rgba(200,160,80,0.55)" letter-spacing="3">> ATLAS · ASH-KADESH · CHARACTER MAP</text>
+  <line x1="80" y1="115" x2="600" y2="115" stroke="rgba(200,160,80,0.40)" stroke-width="1"/>
+
+  <!-- Crown-Shelf district: top tier — sparse / characters above and # blocks below for the high city -->
+  <g font-family="JetBrains Mono, monospace" font-size="22" fill="#d8c99b">
+    <text x="500" y="220">/  /   /    /     /   /    /   /     /   /</text>
+    <text x="490" y="248">  /   /    /    /     /     /   /    /    /  /</text>
+    <text x="500" y="276">/    #  #  #  #  #  #  #  #  #  #  #  #  #  /</text>
+    <text x="500" y="300">  #  #  #  #  #  #  #  #  #  #  #  #  #  #</text>
+    <text x="500" y="324">/    #  #  #  #  #  #  #  #  #  #  #  #  #  /</text>
+  </g>
+  <text x="80" y="280" font-family="Cinzel, serif" font-size="14" fill="#d8c99b" letter-spacing="4">CROWN·SHELF</text>
+  <line x1="80" y1="290" x2="490" y2="290" stroke="rgba(200,160,80,0.40)" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <!-- Ledger-Ward district: middle tier — denser # blocks, ledger lines, = bands -->
+  <g font-family="JetBrains Mono, monospace" font-size="22" fill="#d8c99b">
+    <text x="490" y="400">= = = = = = = = = = = = = = = = = = = = = = = =</text>
+    <text x="490" y="430">|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |</text>
+    <text x="490" y="460">#  #  #  #  #  #     #  #  #  #  #  #  #  #  #</text>
+    <text x="490" y="490">#  #  #     #  #  #  #  #  #  #     #  #  #  #</text>
+    <text x="490" y="520">|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |</text>
+    <text x="490" y="550">= = = = = = = = = = = = = = = = = = = = = = = =</text>
+  </g>
+  <text x="80" y="465" font-family="Cinzel, serif" font-size="14" fill="#d8c99b" letter-spacing="4">LEDGER·WARD</text>
+  <line x1="80" y1="475" x2="480" y2="475" stroke="rgba(200,160,80,0.40)" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <!-- Capital marker: the one polygon star, deliberately the only non-text element, sits in Ledger-Ward -->
+  <g transform="translate(880, 480)">
+    <circle cx="0" cy="0" r="18" fill="rgba(95,55,130,0.30)"/>
+    <polygon points="0,-16 4,-4 16,-4 6,3 9,15 0,7 -9,15 -6,3 -16,-4 -4,-4" fill="#f2d98c"/>
+  </g>
+  <text x="910" y="486" font-family="JetBrains Mono, monospace" font-size="11" fill="#f2d98c" letter-spacing="2">★ ASH-KADESH</text>
+
+  <!-- The Mourn district: bottom tier — sparse . and : characters (decay, low density) -->
+  <g font-family="JetBrains Mono, monospace" font-size="22" fill="rgba(200,160,80,0.55)">
+    <text x="500" y="640">.  :  .   .  :    .  .   :   .  :  .    .   :  .</text>
+    <text x="490" y="670">  :   .   .  :    .   .  :  .   .   :    .   :</text>
+    <text x="500" y="700">.   .  :   .   .   :   .  :   .   .  :   .   .  :</text>
+    <text x="490" y="730">  .   :    .  :   .    :   .   .   :    .  :</text>
+  </g>
+  <text x="80" y="685" font-family="Cinzel, serif" font-size="14" fill="rgba(200,160,80,0.65)" letter-spacing="4">THE·MOURN</text>
+  <line x1="80" y1="695" x2="490" y2="695" stroke="rgba(200,160,80,0.40)" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <!-- South road: a stream of em-dash characters descending -->
+  <g font-family="JetBrains Mono, monospace" font-size="22" fill="#d8c99b">
+    <text x="690" y="780">|</text>
+    <text x="690" y="810">|</text>
+    <text x="690" y="840">|</text>
+    <text x="690" y="870">|</text>
+    <text x="690" y="900">↓</text>
+  </g>
+  <text x="730" y="845" font-family="JetBrains Mono, monospace" font-size="11" fill="rgba(200,160,80,0.65)" letter-spacing="2">SOUTH ROAD →</text>
+
+  <!-- Eastern Massif: dense ^ and / glyph stack as terrain -->
+  <g font-family="JetBrains Mono, monospace" font-size="28" fill="#d8c99b">
+    <text x="1240" y="200">^      ^         ^      ^</text>
+    <text x="1220" y="240">^   ^      ^   ^      ^   ^</text>
+    <text x="1240" y="280">^      ^   ^      ^      ^</text>
+    <text x="1220" y="320">^   ^      ^      ^   ^   ^</text>
+    <text x="1230" y="360">^      ^      ^      ^      ^</text>
+    <text x="1220" y="400">^   ^      ^   ^      ^   ^</text>
+    <text x="1230" y="440">^      ^      ^   ^      ^</text>
+    <text x="1240" y="480">^   ^      ^      ^      ^</text>
+    <text x="1230" y="520">^      ^   ^      ^   ^   ^</text>
+    <text x="1240" y="560">^   ^      ^      ^      ^</text>
+    <text x="1220" y="600">^      ^      ^   ^   ^</text>
+    <text x="1240" y="640">^   ^      ^   ^      ^</text>
+    <text x="1230" y="680">^      ^      ^   ^      ^</text>
+  </g>
+  <text x="1340" y="170" font-family="Cinzel, serif" font-size="13" fill="#d8c99b" letter-spacing="4" text-anchor="middle">EASTERN·MASSIF</text>
+
+  <!-- Footer character-legend -->
+  <g font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(200,160,80,0.55)">
+    <text x="80" y="920">LEGEND  /  = roof-thatch  ·  # = stone-block  ·  = = ledger-band  ·  | = column  ·  . : = silt / dust</text>
+    <text x="80" y="940">        ^ = foothill peak  ·  | + ↓ = travelled road  ·  ★ = capital (purple-star marker)</text>
+  </g>
+</svg>

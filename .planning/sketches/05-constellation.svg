@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t05">
+  <title id="t05">Atlas Sketch — Constellation / Star-Chart</title>
+  <!-- palette: locked tokens only. dots and lines on dark. -->
+
+  <rect width="1600" height="1000" fill="#030106"/>
+
+  <!-- Outer celestial ring (decorative coordinate frame) -->
+  <circle cx="800" cy="500" r="430" fill="none" stroke="rgba(200,160,80,0.30)" stroke-width="1"/>
+  <circle cx="800" cy="500" r="438" fill="none" stroke="rgba(200,160,80,0.15)" stroke-width="0.5"/>
+
+  <!-- Cardinal tick marks on outer ring -->
+  <g stroke="#d8c99b" stroke-width="1.5">
+    <line x1="800" y1="55" x2="800" y2="75"/>
+    <line x1="800" y1="925" x2="800" y2="945"/>
+    <line x1="355" y1="500" x2="375" y2="500"/>
+    <line x1="1225" y1="500" x2="1245" y2="500"/>
+  </g>
+  <g font-family="Cinzel, serif" font-size="13" fill="#d8c99b" letter-spacing="4" text-anchor="middle">
+    <text x="800" y="50">N</text>
+    <text x="800" y="965">S</text>
+    <text x="345" y="505">W</text>
+    <text x="1255" y="505">E</text>
+  </g>
+
+  <!-- Crown-Shelf constellation: arc of dots forming a high-crown shape (top of frame) -->
+  <g fill="#d8c99b">
+    <circle cx="600" cy="240" r="2.5"/>
+    <circle cx="650" cy="220" r="3.5"/>
+    <circle cx="700" cy="208" r="3"/>
+    <circle cx="755" cy="200" r="4"/>
+    <circle cx="800" cy="195" r="5"/>
+    <circle cx="845" cy="200" r="4"/>
+    <circle cx="900" cy="208" r="3"/>
+    <circle cx="950" cy="220" r="3.5"/>
+    <circle cx="1000" cy="240" r="2.5"/>
+    <circle cx="680" cy="265" r="2"/>
+    <circle cx="730" cy="255" r="2"/>
+    <circle cx="780" cy="248" r="2"/>
+    <circle cx="830" cy="248" r="2"/>
+    <circle cx="880" cy="255" r="2"/>
+    <circle cx="930" cy="265" r="2"/>
+  </g>
+  <!-- Constellation lines connecting the crown -->
+  <g stroke="rgba(200,160,80,0.40)" stroke-width="0.8" fill="none">
+    <polyline points="600,240 650,220 700,208 755,200 800,195 845,200 900,208 950,220 1000,240"/>
+    <polyline points="680,265 730,255 780,248 800,195"/>
+    <polyline points="800,195 830,248 880,255 930,265"/>
+  </g>
+  <text x="800" y="290" font-family="Cormorant Garamond, serif" font-style="italic" font-size="16" fill="#d8c99b" text-anchor="middle" letter-spacing="6">Crown-Shelf</text>
+
+  <!-- Ledger-Ward constellation: denser cluster, grid-like (administrative) -->
+  <g fill="#d8c99b">
+    <circle cx="640" cy="430" r="2.5"/>
+    <circle cx="690" cy="425" r="2.5"/>
+    <circle cx="740" cy="422" r="3"/>
+    <circle cx="800" cy="420" r="3.5"/>
+    <circle cx="860" cy="422" r="3"/>
+    <circle cx="910" cy="425" r="2.5"/>
+    <circle cx="960" cy="430" r="2.5"/>
+    <circle cx="640" cy="475" r="2.5"/>
+    <circle cx="700" cy="470" r="2"/>
+    <circle cx="755" cy="468" r="2.5"/>
+    <circle cx="845" cy="468" r="2.5"/>
+    <circle cx="900" cy="470" r="2"/>
+    <circle cx="960" cy="475" r="2.5"/>
+    <circle cx="650" cy="525" r="2"/>
+    <circle cx="710" cy="525" r="2.5"/>
+    <circle cx="760" cy="528" r="2"/>
+    <circle cx="840" cy="528" r="2"/>
+    <circle cx="890" cy="525" r="2.5"/>
+    <circle cx="950" cy="525" r="2"/>
+  </g>
+  <g stroke="rgba(200,160,80,0.30)" stroke-width="0.6" fill="none">
+    <line x1="640" y1="430" x2="960" y2="430"/>
+    <line x1="640" y1="475" x2="960" y2="475"/>
+    <line x1="650" y1="525" x2="950" y2="525"/>
+    <line x1="640" y1="430" x2="650" y2="525"/>
+    <line x1="800" y1="420" x2="800" y2="528"/>
+    <line x1="960" y1="430" x2="950" y2="525"/>
+  </g>
+
+  <!-- Capital marker: bright purple-haloed star at city centroid (between Ledger-Ward rows) -->
+  <g transform="translate(800, 475)">
+    <circle cx="0" cy="0" r="28" fill="rgba(95,55,130,0.30)"/>
+    <circle cx="0" cy="0" r="18" fill="rgba(95,55,130,0.30)"/>
+    <polygon points="0,-22 5,-7 22,-7 8,4 13,21 0,11 -13,21 -8,4 -22,-7 -5,-7" fill="#f2d98c"/>
+  </g>
+  <text x="800" y="395" font-family="Cinzel, serif" font-size="14" fill="#f2d98c" text-anchor="middle" letter-spacing="6">★ ASH·KADESH</text>
+
+  <!-- The Mourn constellation: thinner, sadder, trailing downward -->
+  <g fill="rgba(200,160,80,0.65)">
+    <circle cx="660" cy="650" r="2"/>
+    <circle cx="710" cy="660" r="2"/>
+    <circle cx="760" cy="668" r="2.5"/>
+    <circle cx="810" cy="672" r="2.5"/>
+    <circle cx="860" cy="668" r="2.5"/>
+    <circle cx="910" cy="660" r="2"/>
+    <circle cx="960" cy="650" r="2"/>
+    <circle cx="700" cy="700" r="1.5"/>
+    <circle cx="780" cy="710" r="2"/>
+    <circle cx="830" cy="715" r="2"/>
+    <circle cx="900" cy="710" r="1.5"/>
+    <circle cx="760" cy="745" r="1.5"/>
+    <circle cx="830" cy="752" r="1.5"/>
+  </g>
+  <g stroke="rgba(200,160,80,0.20)" stroke-width="0.5" fill="none">
+    <polyline points="660,650 710,660 760,668 810,672 860,668 910,660 960,650"/>
+    <polyline points="700,700 780,710 830,715 900,710"/>
+    <polyline points="760,745 830,752"/>
+  </g>
+  <text x="810" y="800" font-family="Cormorant Garamond, serif" font-style="italic" font-size="15" fill="rgba(200,160,80,0.65)" text-anchor="middle" letter-spacing="6">The Mourn</text>
+
+  <!-- South road: dashed line of small dots heading south past the outer ring -->
+  <g fill="#d8c99b">
+    <circle cx="800" cy="830" r="1.5"/>
+    <circle cx="800" cy="860" r="1.5"/>
+    <circle cx="800" cy="890" r="1.5"/>
+    <circle cx="800" cy="920" r="1.5"/>
+  </g>
+  <text x="830" y="888" font-family="Cormorant Garamond, serif" font-style="italic" font-size="12" fill="rgba(200,160,80,0.55)" letter-spacing="3">south road</text>
+
+  <!-- Eastern Massif: chain of brighter dots along the east, foothill edge -->
+  <g fill="#d8c99b">
+    <circle cx="1180" cy="280" r="3"/>
+    <circle cx="1220" cy="320" r="3.5"/>
+    <circle cx="1245" cy="370" r="3"/>
+    <circle cx="1265" cy="420" r="4"/>
+    <circle cx="1280" cy="470" r="3.5"/>
+    <circle cx="1290" cy="520" r="4"/>
+    <circle cx="1280" cy="570" r="3.5"/>
+    <circle cx="1265" cy="620" r="3"/>
+    <circle cx="1240" cy="665" r="3.5"/>
+    <circle cx="1210" cy="700" r="3"/>
+  </g>
+  <g stroke="rgba(200,160,80,0.50)" stroke-width="1" fill="none">
+    <polyline points="1180,280 1220,320 1245,370 1265,420 1280,470 1290,520 1280,570 1265,620 1240,665 1210,700"/>
+  </g>
+  <!-- subtle foothill arc bracket -->
+  <g stroke="rgba(200,160,80,0.20)" stroke-width="0.5" fill="none">
+    <path d="M 1180 280 Q 1330 490, 1210 700"/>
+  </g>
+  <text x="1340" y="495" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="#d8c99b" letter-spacing="4">Eastern Massif</text>
+
+  <!-- Sparse decorative star-field -->
+  <g fill="rgba(200,160,80,0.30)">
+    <circle cx="180" cy="200" r="1"/>
+    <circle cx="240" cy="280" r="1"/>
+    <circle cx="320" cy="180" r="1"/>
+    <circle cx="180" cy="600" r="1"/>
+    <circle cx="280" cy="780" r="1"/>
+    <circle cx="160" cy="850" r="1"/>
+    <circle cx="1380" cy="190" r="1"/>
+    <circle cx="1480" cy="280" r="1"/>
+    <circle cx="1450" cy="780" r="1"/>
+    <circle cx="1340" cy="850" r="1"/>
+    <circle cx="400" cy="700" r="1"/>
+    <circle cx="1220" cy="220" r="1"/>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="965" font-family="Cormorant Garamond, serif" font-style="italic" font-size="12" fill="rgba(200,160,80,0.40)" letter-spacing="2">— atlas as star-chart · the kingdom read from the sky —</text>
+</svg>
