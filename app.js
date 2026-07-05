@@ -350,10 +350,43 @@
     `;
   }
 
+  // ── Plain image hero: a full-viewport image fixed behind the page, with NO
+  //    text over it. The content sheet scrolls up and progressively covers it,
+  //    the image blending into the page background at its lower edge. ──
+  function renderImageHero() {
+    const src = rel('assets/art/' + PAGE.imageHero);
+    return `
+      <div class="sv-imghero" id="sv-imghero" aria-hidden="true">
+        <img class="sv-imghero-img" src="${src}" alt=""
+             onerror="document.getElementById('sv-imghero').classList.add('is-missing')"/>
+        <div class="sv-imghero-veil"></div>
+        <div class="sv-imghero-dim" id="sv-imghero-dim"></div>
+      </div>
+    `;
+  }
+
+  // ── Centered hero title for image-hero pages: numeral + title + subtitle
+  //    centred in the first viewport over the clear image, with a very subtle
+  //    oval scrim behind it for legibility. ──
+  function renderImageHeroTitle() {
+    const numeral = PAGE.numeral ? `<div class="sv-imghero-eyebrow">${PAGE.numeral}</div>` : '';
+    const sub = PAGE.subtitle ? `<div class="sv-imghero-tsub">${PAGE.subtitle}</div>` : '';
+    return `
+      <div class="sv-imghero-title">
+        <div class="sv-imghero-titlebox">
+          ${numeral}
+          <h1 class="sv-imghero-h1">${PAGE.title}</h1>
+          ${sub}
+        </div>
+      </div>
+    `;
+  }
+
   // ── Layout scaffold ──
   function render() {
     const sigilImg = rel('assets/sigil.png');
     const isCinema = !!PAGE.fullHero;
+    const isImgHero = !!PAGE.imageHero;
 
     document.body.innerHTML = `
       <div class="sv-sticky-top">
@@ -375,11 +408,13 @@
       </div>
 
       ${isCinema ? renderCinematicHero() : ''}
+      ${isImgHero ? renderImageHero() : ''}
 
-      <div class="sv-container${isCinema ? ' sv-container--cinema' : ''}">
+      ${isImgHero ? '<div class="sv-imghero-sheet">' + renderImageHeroTitle() + '<div class="sv-imghero-body">' : ''}
+      <div class="sv-container${isCinema ? ' sv-container--cinema' : ''}${isImgHero ? ' sv-container--imghero' : ''}">
         ${renderBreadcrumbs()}
 
-        ${isCinema ? '' : renderPageHeader()}
+        ${(isCinema || isImgHero) ? '' : renderPageHeader()}
 
         <div class="sv-layout${isCinema ? ' sv-layout--cinema' : ''}">
           ${isCinema ? '' : `<aside class="sv-toc" id="sv-toc">
@@ -395,6 +430,7 @@
           ${isCinema ? '' : `<aside class="sv-rail" id="sv-rail"></aside>`}
         </div>
       </div>
+      ${isImgHero ? '</div></div>' : ''}
 
       <div class="sv-tip" id="sv-tip">
         <div class="sv-tip-kind"></div>
@@ -402,9 +438,56 @@
         <div class="sv-tip-body"></div>
       </div>
     `;
+    if (isImgHero) {
+      document.body.classList.add('has-imghero');
+      document.documentElement.classList.add('has-imghero');
+    }
   }
 
   render();
+
+  // ── Auto-condensing top bar (site-wide) ──
+  //   Expanded (brand row + arch bar) only at the very top of the page.
+  //   Scroll down → the brand row folds away leaving the slim arch bar.
+  //   Back to the top → it opens up again. Hysteresis avoids flicker.
+  (function initCondenseBar() {
+    const CONDENSE_AT = 90, EXPAND_AT = 24;
+    let ticking = false;
+    function apply() {
+      ticking = false;
+      const y = window.scrollY;
+      const condensed = document.body.classList.contains('sv-condensed');
+      if (!condensed && y > CONDENSE_AT) document.body.classList.add('sv-condensed');
+      else if (condensed && y < EXPAND_AT) document.body.classList.remove('sv-condensed');
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(apply); ticking = true; }
+    }, { passive: true });
+    apply();
+  })();
+
+  // ── Image-hero scroll darkening ──
+  //   The fixed hero image dims progressively as you scroll: from START (a
+  //   faint dim so it reads as a backdrop from the outset) to END (nearly
+  //   covered) once you've scrolled roughly one viewport. It never fully
+  //   hides, lingering as a ghost behind the page content.
+  (function initImageHeroDim() {
+    const dim = document.getElementById('sv-imghero-dim');
+    if (!dim) return;
+    const START = 0.00;   // fully clear at the very top
+    const END   = 0.82;   // darkened but still slightly viewable once ~one screen scrolled
+    let ticking = false;
+    function apply() {
+      ticking = false;
+      const p = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+      dim.style.opacity = (START + (END - START) * p).toFixed(3);
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(apply); ticking = true; }
+    }, { passive: true });
+    window.addEventListener('resize', apply, { passive: true });
+    apply();
+  })();
 
   // ── Parallax for .sv-parallax inside cinematic figures.
   //    Each frame, position the inner images so they translate at a fraction

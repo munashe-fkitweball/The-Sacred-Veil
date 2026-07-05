@@ -32,7 +32,7 @@ window.SV_PAGES = {
     numeral: 'I',
     title: 'The Campaign',
     subtitle: 'What you are walking into',
-    hero: 'hero-campaign.jpg',
+    imageHero: 'hero-campaign.webp',
     sigil: 'campaign-sigil.png',
     sections: ['introduction', 'central-tensions', 'tone-scope'],
     children: ['campaign/hook'],
