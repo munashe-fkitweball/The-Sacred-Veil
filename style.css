@@ -28,7 +28,7 @@
   --bg-deep:       #030106;
   --bg-elev:       #0c0614;
   --purple:        rgba(95,55,130,0.30);
-  --text:          #f0e4bc;                      /* was #e3d4a6 — lifted for readability on dark bg */
+  --text:          #f8f0d4;                      /* lifted twice for readability (was #e3d4a6 → #f0e4bc → this) */
   --text-dim:      rgba(240,228,188,0.85);       /* was 0.75 — lifted */
   --text-faint:    rgba(240,228,188,0.60);       /* was 0.45 — lifted */
   --border:        rgba(180,140,70,0.25);
@@ -51,6 +51,10 @@ html,body{
      position:sticky for every descendant. */
   overflow-x:clip;
 }
+/* Hide the page scrollbar site-wide (scrolling still works). Inner scrollable
+   regions — tables, TOC, search dropdown — keep theirs. */
+html{scrollbar-width:none}
+html::-webkit-scrollbar{width:0;height:0;display:none}
 body{min-height:100vh}
 a{color:inherit}
 
@@ -447,6 +451,9 @@ noscript .sv-noscript h1{
 .sv-def{
   display:grid;grid-template-columns:180px 1fr;gap:14px;padding:8px 0;
   border-bottom:1px dotted rgba(180,140,70,0.15);
+  /* defs carry anchor ids (search / glossary links) — keep the landing spot
+     clear of the sticky top bar, same as sections. */
+  scroll-margin-top:calc(var(--sticky-top-h) + 20px);
 }
 .sv-def:last-child{border-bottom:none}
 .sv-def dt{
@@ -959,8 +966,8 @@ body.has-imghero { background: var(--bg-deep); }
   position: relative;
   background: linear-gradient(180deg,
     rgba(3,1,6,0.00) 0,
-    rgba(3,1,6,0.44) 160px,
-    rgba(3,1,6,0.44) 100%);
+    rgba(3,1,6,0.54) 160px,
+    rgba(3,1,6,0.54) 100%);
 }
 /* Kill the elastic overscroll bounce SITE-WIDE so the sticky top bar never moves
    on any page (no rubber-band at top or bottom). This is a global fix, not an
@@ -982,11 +989,31 @@ body.has-imghero .sv-sticky-top {
   max-height: 88px;
   transition: max-height .35s ease, min-height .35s ease,
               padding .35s ease, opacity .25s ease;
-  overflow: hidden;
+  /* overflow must stay visible at rest — the search-results dropdown is a child
+     of this bar and has to extend below it. Clip only while condensed. */
+  overflow: visible;
 }
 body.sv-condensed .sv-head {
   max-height: 0; min-height: 0;
   padding-top: 0; padding-bottom: 0;
   opacity: 0; pointer-events: none;
+  overflow: hidden;
 }
 body.sv-condensed .sv-arch { padding-top: 9px; padding-bottom: 9px; }
+/* Applied for the first frame when a page lands already scrolled: the bar starts
+   minimal instead of visibly folding shut. */
+body.sv-no-anim .sv-head, body.sv-no-anim .sv-arch { transition: none !important; }
+
+/* ═══ Floating hero title — drifts up, shrinks, docks at top; opens mid-scroll ═══ */
+.sv-d2-spacer{ visibility:hidden; min-height:100vh; }
+.sv-d2-title{ position:fixed; left:0; right:0; top:0; z-index:2; text-align:center;
+  pointer-events:none; padding:0 24px; will-change:transform; }
+.sv-d2-title .sv-imghero-h1{ font-size:104px; transform-origin:center top; will-change:transform; }
+.sv-d2-sub{ font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--gold);
+  font-size:clamp(15px,2vw,20px); letter-spacing:.08em; margin-top:12px;
+  text-shadow:0 2px 14px rgba(0,0,0,.95); will-change:opacity; }
+.sv-d2-hint{ position:fixed; left:0; right:0; top:14px; text-align:center; z-index:3;
+  color:var(--gold-dim); font-family:'Cormorant Garamond',serif; letter-spacing:.28em;
+  text-transform:uppercase; font-size:12px; opacity:0; transition:opacity .3s; pointer-events:none; }
+/* give the fixed image a little overscan so it can parallax without edge gaps */
+.sv-imghero-img{ height:116%; top:-8%; }

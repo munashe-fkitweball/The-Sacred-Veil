@@ -322,7 +322,7 @@ window.SV_SECTIONS_2 = [
   group: "Races",
   title: "Ogres",
   blocks: [
-    { type: "p", text: `In a kingdom ruled by nobles who use [[seraphs-marrow:Seraph's Marrow]] to turn themselves into towering giants, natural Ogres are viewed with intense disgust as "blighted" or bastardised Marrow-mutants. They are tolerated only as expendable shock-troopers or brute labour. Because custom-sized steel armour is completely unaffordable, an Ogre in K'naan will spend their life fighting in boiled leather, heavy furs, or bare-chested, relying entirely on their natural Robust trait to survive.` },
+    { type: "p", text: `In a kingdom ruled by nobles who use [[seraphs-marrow:Seraph's Marrow]] to turn themselves into towering giants, natural Ogres are viewed with intense disgust as "blighted" or bastardised Marrow-mutants. They are tolerated only as expendable shock-troopers or brute labour. Because custom-sized steel armour is completely unaffordable, an Ogre in K'naan will spend their life fighting in boiled leather, heavy furs, or bare-chested — relying on thick hide and raw bulk to survive. (Mechanically: most Ogres take the Robust trait, but it is bought as an ability at character creation, not automatic.)` },
   ],
 },
 
@@ -342,7 +342,7 @@ window.SV_SECTIONS_2 = [
   subtitle: "The Ultimate Blasphemy",
   blocks: [
     { type: "p", text: `To play a Changeling in K'naan is to invite death. The [[orthodoxy:Orthodoxy]] is built upon the [[liturgy-of-truth:Liturgy of Truth]], which dictates that secrecy is a violent heresy against the dying sun. To physically wear a false face is the most profound, unforgivable lie a creature can tell.` },
-    { type: "p", text: `A Changeling cannot simply exist in society; they must remain perfectly hidden. If they are discovered, they are not merely shunned. The [[inquisitors:Inquisitors of the Brand]] will hunt them down. It is vital to understand that a Changeling's physical disguise is entirely useless against high-ranking Church officials - any Inquisitor or [[theurgs:Theurg]] possessing the [[witchsight:Witchsight]] ability will instantly see through the stolen face to the shifting, unnatural aura beneath.` },
+    { type: "p", text: `A Changeling cannot simply live openly; they survive by staying hidden — and for the careful, that is possible. A stolen face holds against ordinary eyes without fail. Only a mystic trained in [[witchsight:Witchsight]] can even attempt to see past it to the shifting aura beneath — and even that is no certainty: the sight is a contest a practised Changeling can win, and every attempt costs the seer a measure of their own [[corruption:Corruption]]. Few use it lightly; fewer still possess it at all. If discovered, though, they are not merely shunned — the [[inquisitors:Inquisitors of the Brand]] will hunt them down. The danger is real but not absolute: one suspicious [[theurgs:Theurg]] at the wrong moment can end everything, yet a Changeling who stays careful may live a whole life unpierced.` },
     { type: "p", text: `If caught, there is no trial. The Church considers Changelings to be literal manifestations of the encroaching dark. They will be dragged to the nearest forge and subjected to a fatal, prolonged variant of [[cauterisation:the Ritual of Cauterisation]], burned alive to "cleanse the lie" from the earth. A player choosing this race must be prepared for a life of constant, suffocating paranoia.` },
   ],
 },
@@ -429,7 +429,9 @@ window.SV_SECTIONS_2 = [
   title: "Changeling Disguise",
   blocks: [
     { type: "facts", items: [
-      ["vs. [[witchsight:Witchsight]]", "No mechanical protection. No roll. No resistance."],
+      ["vs. [[witchsight:Witchsight]]", "A contested roll — the seer's Vigilant against the Changeling's Discreet. Win the contest and the face holds. (Core Symbaroum rules apply; this replaces the old auto-detect ruling.)"],
+      ["Cost to the seer", "Every Witchsight attempt inflicts temporary [[corruption:Corruption]] on the user. Looking into the dark is never casual."],
+      ["Who can even try", "Only those who have learned Witchsight — uncommon even among senior clergy, not standard issue for Church officials."],
       ["Consequence of detection", "Immediate execution."],
     ]},
   ],
@@ -448,6 +450,8 @@ window.SV_SECTIONS_2 = [
       ["[[bet-seraphim:Bet-Seraphim]]", "Abbey-refinery", "[[house-chancel:House Chancel]]"],
       ["[[gath-mere:Gath-Mere]]", "Port-city", "[[house-kaelen:House Kaelen]]"],
       ["[[raven-garron:Raven-Garron]]", "Fortress-town", "[[house-morbray:House Morbray]]"],
+      ["[[holts-grove:Holt's Grove]]", "City", "[[house-greyholt:House Greyholt]]"],
+      ["[[weysend:Weysend]]", "Walled town", "[[house-gallow:House Gallow]]"],
       ["[[amarsgate:Amarsgate]]", "Mining town", "[[house-jannin:House Jannin]]"],
       ["[[grendels-reach:Grendel's Reach]]", "Stilt-village", "[[house-grendel:House Grendel]]"],
     ]},
@@ -521,8 +525,28 @@ window.SV_SECTIONS_2 = [
   title: "Raven-Garron",
   subtitle: "House Morbray's fortress-town",
   blocks: [
-    { type: "p", text: `Black-walled keep guarding the most reliably traversable [[gorse-barrens:Gorse-Barrens]] pass. Town below exists to service the cavalry.` },
+    { type: "p", text: `Black-walled keep guarding the most reliably traversable pass through the [[eastern-massif:Eastern Massif]]; beyond its gate the road runs on up the [[valley-of-woe:Valley of Woe]] and out of K'naan. Town below exists to service the cavalry.` },
     { type: "p", text: `The courtyard contains a single ancient <b>Dead Rowan Tree</b> — never cut down. Said to have grown from the grave of the first Morbray to hold the pass. Every new recruit is walked past it on day one with no explanation; they are expected to ask.` },
+  ],
+},
+
+{
+  id: "holts-grove",
+  group: "Places",
+  title: "Holt's Grove",
+  subtitle: "House Greyholt's main city",
+  blocks: [
+    { type: "p", text: `[[house-greyholt:House Greyholt]]'s main city, on the path between the two edges of [[great-forests:the Great Forests]]. The seat of the kingdom's timber trade: sawyards, seasoning sheds, and the counting-houses of Greyholt's many family companies. Above it stands <b>Oakenhold</b>, the family's great timber hall — built from the house's famed light, strong, fire-resistant treated wood.` },
+  ],
+},
+
+{
+  id: "weysend",
+  group: "Places",
+  title: "Weysend",
+  subtitle: "House Gallow's walled town",
+  blocks: [
+    { type: "p", text: `[[house-gallow:House Gallow]]'s walled town at the foot of <b>Aeruud</b> — the house's ancient stone keep, the only stone thing for miles and older than its own records — where the main southern road meets the Great Plains. "Way's end": <b>the last town before the roads give out.</b> Beyond its south gate there is only dun grass, wind, and the scattered gallow-trees. Crossroads trade, plains-drovers, and everyone with business south passes through here — under the eyes of Gallow riders.` },
   ],
 },
 
@@ -654,7 +678,7 @@ window.SV_SECTIONS_2 = [
   blocks: [
     { type: "image-slot", file: "eastern-massif.webp", alt: "The Eastern Massif — storm-wreathed grey peaks rising over a high pass, a watchtower clinging to the cliffs", cinematic: true },
     { type: "p", text: `A wall of grey stone and thin air forming K'naan's eastern boundary. Its peaks are so steep and shattered that only a handful of high passes are even remotely traversable.` },
-    { type: "p", text: `[[house-morbray:House Morbray]] holds the single reliable pass; [[raven-garron:Raven-Garron]] exists to guard it.` },
+    { type: "p", text: `[[house-morbray:House Morbray]] holds the single reliable pass; [[raven-garron:Raven-Garron]] exists to guard it. Beyond their gate, the road runs on through the [[valley-of-woe:Valley of Woe]] — the only serious route out of K'naan through the Massif.` },
   ],
 },
 
@@ -838,9 +862,10 @@ window.SV_SECTIONS_2 = [
   id: "fidarel",
   group: "NPCs",
   title: "Sovereign Fidarel",
-  subtitle: "Deceased prior Lord of Lords",
+  subtitle: "First of his Ascendance — the Unclouded Sun · deceased prior Lord of Lords",
   blocks: [
     { type: "p", text: `A master of ruling his people, but a failure at ruling his own household. Sired a legion of sons through illicit affairs but not a single legitimate heir. His death broke the foundations of the kingdom.` },
+    { type: "p", text: `His full style was <b>Fidarel, First of his Ascendance — the Unclouded Sun, Sovereign of K'naan, Warden of the Veil</b>; he was addressed, as every sovereign is, as <b>Your Radiance</b>. His birth name and birth house are a matter for old records and old enemies — he shed both at his [[the-kindling:Kindling]]. With no [[dawn-heir:Dawn-Heir]] named, the realm now says the words it dreads most: the Sun has set on the Ascendance.` },
     { type: "p", text: `[[silent-scrivener:The Silent Scrivener]] has circulated multiple contradictory accounts of his death. No senior house privately accepts the official "long illness" story.` },
   ],
 },
@@ -904,12 +929,52 @@ window.SV_SECTIONS_2 = [
 },
 
 {
+  id: "aldric-greyholt",
+  group: "NPCs",
+  title: "Aldric Greyholt",
+  subtitle: "Lord of House Greyholt",
+  blocks: [
+    { type: "p", text: `Patriarch of the Hewers and master of Oakenhold. A broad, genial man more at home in a sawyard than at council, who knows the name of every foreman in [[holts-grove:Holt's Grove]] and half the branch-families besides. Runs the conglomerate with a steady hand — and guards the secret of the treated wood as closely as any [[house-vane:Vane]] guards their steel.` },
+  ],
+},
+
+{
+  id: "rowena-greyholt",
+  group: "NPCs",
+  title: "Rowena Greyholt",
+  subtitle: "Lady of House Greyholt",
+  blocks: [
+    { type: "p", text: `Aldric's wife and co-head of the house. Older-blooded and statelier than her husband — she carries Greyholt's weight at the [[high-council:High Council]] table while he keeps the camps and the craft running. Said to keep a memory for debts, favours, and slights that would make a [[house-thorne:Thorne]] wince.` },
+  ],
+},
+
+{
   id: "malachi-thorne",
   group: "NPCs",
   title: "Malachi Thorne",
   subtitle: "Lord Chancellor of House Thorne",
   blocks: [
     { type: "p", text: `Small, neat, grey-templed. Never seen out of a half-generation-out-of-fashion black wool robe. Writes left-handed. Reads approximately four times faster than any other man in the kingdom. Conducts business from the top floor of the [[thorne-archive:Thorne Archive]], reached by a single winding staircase.` },
+  ],
+},
+
+{
+  id: "osric-gallow",
+  group: "NPCs",
+  title: "Osric Gallow",
+  subtitle: "Lord of House Gallow",
+  blocks: [
+    { type: "p", text: `Master of Aeruud and head of the Quiet Branch. Grey, spare, and economical with everything — words, coin, rope. He still rides the plains circuit himself, and no one living has heard him raise his voice; no one living has needed him to. It is said he ties every noose his house uses with his own hands, as his father did.` },
+  ],
+},
+
+{
+  id: "aldith-gallow",
+  group: "NPCs",
+  title: "Aldith Gallow",
+  subtitle: "Lady of House Gallow",
+  blocks: [
+    { type: "p", text: `Osric's wife by an arrangement made decades ago. She keeps Aeruud, the ledgers, and the cadet branches in order while he keeps the roads. The two have not been seen to share a joke in thirty years — and each would burn the kingdom for the other. Warmth is not what House Gallow marriages are for.` },
   ],
 },
 
@@ -977,24 +1042,33 @@ window.SV_SECTIONS_2 = [
     { type: "defs", items: [
       ["K'naan", `The kingdom in which Sacred Veil takes place.`],
       ["Averium", `The broader world K'naan is part of.`],
-      ["Lord of Lords", `Title of the reigning Sovereign of K'naan. Currently vacant since [[fidarel:Fidarel]]'s death.`],
+      ["Lord of Lords", `Title of the reigning Sovereign of K'naan, addressed as "Your Radiance." Currently vacant since [[fidarel:Fidarel]]'s death — the Sun has set on the Fidarel [[the-ascendance:Ascendance]].`],
+    ]},
+
+    { type: "h3", text: "Crown & Charters" },
+    { type: "defs", items: [
+      ["Crown Charter", `The instrument that makes a family a legal noble house — a minor house: name, arms, land at law, the right to keep sworn levies. Granted by the Sovereign alone; kept once granted, but reviewable by the next Sovereign when the royal line that granted it dies out.`],
+      ["Sun-Charter", `The great grant that makes a house major — a kingdom-scale monopoly, march, or office of the realm. Made permanent by a blood-seal: one marriage into the royal [[the-ascendance:Ascendance]], once, ever. A sealed Sun-Charter survives the fall of dynasties.`],
+      ["The Ascendance", `The royal line — not a house. A crowned sovereign renounces their birth house at [[the-kindling:the Kindling]], takes a regnal name, and is raised into the Sun. When a line fails, the realm says: "the Sun has set on the Ascendance."`],
+      ["The Kindling", `The rite of crowning, in which the chosen sovereign sheds their birth name and house and rises Ascendant under a regnal name.`],
+      ["Dawn-Heir", `The named successor within a royal [[the-ascendance:Ascendance]]. [[fidarel:Fidarel]] named none.`],
     ]},
 
     { type: "h3", text: "Mechanics" },
     { type: "defs", items: [
       ["Resolute", `Symbaroum attribute. Sets Corruption [[threshold:Threshold]] (Resolute / 2) and Maximum Corruption (Resolute).`],
-      ["Threshold", `Half your Resolute score (Resolute ÷ 2) — that is all "Threshold" means. The term is shorthand. When TotalCor rises above this value, a character is at risk of gaining their first [[stigma:Stigma]]. "Above Threshold" and "crossing the Threshold" both refer to TotalCor exceeding half Resolute.`],
+      ["Threshold", `Half your Resolute score (Resolute ÷ 2) — that is all "Threshold" means. The term is shorthand. Under Sacred Veil's house rules the Threshold is a gamble: when TotalCor goes above it you must immediately roll Resolute — fail, and you transform 1d4 TempCor into PermCor and gain a [[stigma:Stigma]]. See [[magic/corruption:the Corruption page]]. "Above Threshold" and "crossing the Threshold" both refer to TotalCor exceeding half Resolute.`],
       ["TempCor", `Temporary [[corruption:corruption]] — recovers with rest.`],
       ["PermCor", `Permanent [[corruption:corruption]] — does not recover.`],
       ["TotalCor", `TempCor + PermCor. Compared against [[threshold:Threshold]] and Maximum Corruption.`],
-      ["Stigma", `A physical mark gained when [[totalcor:TotalCor]] crosses the [[threshold:Threshold]]. A dark mark such as weeping black tears.`],
+      ["Stigma", `A physical mark gained on a failed [[threshold:Threshold]] roll — under the house rules, crossing the Threshold is a gamble, not an instant scar. A dark mark such as weeping black tears.`],
       ["Abomination", `What a Corrupted soul becomes when [[totalcor:TotalCor]] fills their maximum. Under Sacred Veil's Corruption homebrew, a last stand rather than instant transformation.`],
       ["Milestone XP", `The progression model in use — XP granted at meaningful story points rather than per-challenge.`],
     ]},
 
     { type: "h3", text: "Faith & Orthodoxy" },
     { type: "defs", items: [
-      ["Witchsight", `Ability to see through a [[changelings:Changeling]]'s stolen face instantly. Held by most [[theurgs:Theurgs]], many senior [[ordo-magicka:Ordo]] wizards, some [[inquisitors:Inquisitors]].`],
+      ["Witchsight", `A learned mystic sight that reads Shadows. It can attempt to pierce a [[changelings:Changeling]]'s stolen face — a contested effort (the seer's Vigilant against the target's Discreet) that costs the user temporary [[corruption:Corruption]] each attempt. Held by some trained [[theurgs:Theurgs]], senior [[ordo-magicka:Ordo]] wizards, and some [[inquisitors:Inquisitors]] — not every official.`],
     ]},
 
     { type: "h3", text: "Underworld & Relics" },
@@ -1006,6 +1080,7 @@ window.SV_SECTIONS_2 = [
     { type: "h3", text: "Landmarks" },
     { type: "defs", items: [
       ["Iron Teeth", `The skyline of smelting towers and slag-heaps in [[har-moloch:Har-Moloch]].`],
+      ["Valley of Woe", `River-valley cutting northeast through the [[eastern-massif:Eastern Massif]] just beyond [[raven-garron:Raven-Garron]] — the main (effectively only) serious route beyond K'naan through the mountains. [[house-morbray:House Morbray]]'s keep guards its approach.`],
     ]},
   ],
 },

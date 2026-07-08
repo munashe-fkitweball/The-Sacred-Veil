@@ -63,6 +63,8 @@
     'abomination','iron-teeth','resolute','stigma','void-chime','wound-marrow',
     'knaan','averium','lord-of-lords','tempcor','permcor','totalcor','threshold',
     'milestone-xp','crown-shelf','ledger-ward','the-mourn','dusk-knell','witchsight',
+    'valley-of-woe',
+    'sun-charter','crown-charter','the-ascendance','the-kindling','dawn-heir',
   ]);
 
   function linkHref(targetId) {
@@ -128,8 +130,10 @@
             b.items.map(([k,v]) => `<div class="sv-fact"><div class="sv-fact-k">${renderInline(k)}</div><div class="sv-fact-v">${renderInline(v)}</div></div>`).join('') +
             '</div>';
         case 'defs':
+          // Each definition gets an anchor id (slug of its term) so glossary
+          // links and search results can land on the exact entry.
           return '<dl class="sv-defs">' +
-            b.items.map(([k,v]) => `<div class="sv-def"><dt>${renderInline(k)}</dt><dd>${renderInline(v)}</dd></div>`).join('') +
+            b.items.map(([k,v]) => `<div class="sv-def" id="${defSlug(k)}"><dt>${renderInline(k)}</dt><dd>${renderInline(v)}</dd></div>`).join('') +
             '</dl>';
         case 'image-slot': {
           // Render an optional image. Fails silently if the asset doesn't exist.
@@ -298,9 +302,6 @@
   // Normal pages only. Cinematic pages (PAGE.fullHero) are handled by
   // render() directly so the hero can break out of the container.
   function renderPageHeader() {
-    const numeral = PAGE.numeral ? `<div class="sv-page-num">${PAGE.numeral}</div>` : '';
-    const sub = PAGE.subtitle ? `<div class="sv-page-sub">${PAGE.subtitle}</div>` : '';
-
     // Use a real <img> with onerror. If the file is missing, the parent figure
     // removes itself entirely — no empty reserved space on the page.
     const hero = PAGE.hero
@@ -309,9 +310,7 @@
     return `
       ${hero}
       <div class="sv-page-head">
-        ${numeral}
         <h1 class="sv-page-title">${PAGE.title}</h1>
-        ${sub}
         <div class="sv-page-rule"></div>
       </div>
     `;
@@ -321,8 +320,6 @@
   //    Rendered OUTSIDE the normal container so it spans the viewport width. ──
   function renderCinematicHero() {
     const src = rel('assets/art/' + PAGE.fullHero);
-    const numeral = PAGE.numeral ? `<div class="sv-cinema-eyebrow">${PAGE.numeral}</div>` : '';
-    const sub = PAGE.subtitle ? `<p class="sv-cinema-sub">${PAGE.subtitle}</p>` : '';
     return `
       <section class="sv-cinema-hero" id="sv-cinema-hero">
         <img class="sv-cinema-hero-img"
@@ -330,9 +327,7 @@
              onerror="document.getElementById('sv-cinema-hero').classList.add('is-missing')"/>
         <div class="sv-cinema-hero-fade"></div>
         <div class="sv-cinema-hero-content">
-          ${numeral}
           <h1 class="sv-cinema-title">${PAGE.title}</h1>
-          ${sub}
         </div>
       </section>
     `;
@@ -369,14 +364,10 @@
   //    centred in the first viewport over the clear image, with a very subtle
   //    oval scrim behind it for legibility. ──
   function renderImageHeroTitle() {
-    const numeral = PAGE.numeral ? `<div class="sv-imghero-eyebrow">${PAGE.numeral}</div>` : '';
-    const sub = PAGE.subtitle ? `<div class="sv-imghero-tsub">${PAGE.subtitle}</div>` : '';
     return `
       <div class="sv-imghero-title">
         <div class="sv-imghero-titlebox">
-          ${numeral}
           <h1 class="sv-imghero-h1">${PAGE.title}</h1>
-          ${sub}
         </div>
       </div>
     `;
@@ -471,7 +462,7 @@
   //   faint dim so it reads as a backdrop from the outset) to END (nearly
   //   covered) once you've scrolled roughly one viewport. It never fully
   //   hides, lingering as a ghost behind the page content.
-  (function initImageHeroDim() {
+  (function initImageHeroDim() { return;
     const dim = document.getElementById('sv-imghero-dim');
     if (!dim) return;
     const START = 0.00;   // fully clear at the very top
@@ -580,6 +571,9 @@
   })();
 
   // ── Search ──
+  function defSlug(term) {
+    return term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
   function buildSearchCorpus() {
     const corpus = [];
     Object.values(window.SV_PAGES).forEach(cfg => {
@@ -592,6 +586,19 @@
           page: cfg,
           hub: hub,
           anchor: '#' + s.id,
+        });
+        // Also index every defs term (glossary entries etc.) so terms without
+        // their own section — e.g. Valley of Woe, TempCor — are searchable.
+        (s.blocks || []).forEach(b => {
+          if (b.type !== 'defs') return;
+          b.items.forEach(([term]) => {
+            corpus.push({
+              title: term,
+              page: cfg,
+              hub: hub,
+              anchor: '#' + defSlug(term),
+            });
+          });
         });
       });
     });
@@ -683,18 +690,27 @@
     const act = tocLinks.get(id);
     if (act) act.classList.add('active');
   }
+  // Cache section offsets so scrolling never forces layout reads — positions
+  // are re-measured only on resize/load, not per scroll frame.
+  let spyTops = [], spyStickyH = 108;
+  function measureSpy() {
+    spyStickyH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sticky-top-h')) || 108;
+    const sy = window.scrollY;
+    spyTops = sectionEls.map(el => {
+      const r = el.getBoundingClientRect();
+      return { id: el.id, top: r.top + sy, bottom: r.bottom + sy };
+    });
+  }
   function updateActive() {
     if (suppressIO) return;
-    const stickyH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sticky-top-h')) || 108;
-    const readLine = stickyH + 30;
+    const readLine = window.scrollY + spyStickyH + 30;
     let active = sectionEls[0]?.id;
-    for (const el of sectionEls) {
-      const top = el.getBoundingClientRect().top;
-      if (top <= readLine) active = el.id;
+    for (const s of spyTops) {
+      if (s.top <= readLine) active = s.id;
       else break;
     }
-    const last = sectionEls[sectionEls.length - 1];
-    if (last && last.getBoundingClientRect().bottom < readLine) active = last.id;
+    const last = spyTops[spyTops.length - 1];
+    if (last && last.bottom < readLine) active = last.id;
     setActive(active);
   }
   let scrollFrame = null;
@@ -706,7 +722,9 @@
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', () => { measureSpy(); updateActive(); });
+  window.addEventListener('load', () => { measureSpy(); updateActive(); });
+  measureSpy();
   updateActive();
 
   // ── Click handler for #anchor links ──
@@ -733,4 +751,113 @@
   if (tocToggle && tocEl) {
     tocToggle.addEventListener('click', () => tocEl.classList.toggle('is-open'));
   }
+})();
+
+/* ═══ Floating hero title — drifts up at half scroll-speed, shrinks, and docks
+   at the top instead of vanishing. Child pages open already mid-scroll (scroll
+   UP for the full image, DOWN to read); hub pages open full. Driven by the
+   browser's compositor (ScrollTimeline) with a rAF fallback for older engines. ═══ */
+(function initHeroTitle(){
+  if(!document.documentElement.classList.contains('has-imghero')) return;
+  var hero=document.getElementById('sv-imghero');
+  var img=hero?hero.querySelector('.sv-imghero-img'):null;
+  var dim=document.getElementById('sv-imghero-dim');
+  var orig=document.querySelector('.sv-imghero-title');
+  var titleText=(orig&&orig.querySelector('.sv-imghero-h1'))?orig.querySelector('.sv-imghero-h1').textContent:document.title;
+  var subText=(window.SV_PAGES&&window.__SV_KEY__&&SV_PAGES[window.__SV_KEY__])?(SV_PAGES[window.__SV_KEY__].subtitle||''):'';
+  if(orig){ orig.classList.add('sv-d2-spacer'); orig.style.visibility='hidden'; }
+  var ft=document.createElement('div'); ft.className='sv-d2-title';
+  ft.innerHTML='<h1 class="sv-imghero-h1">'+titleText+'</h1>'+(subText?'<div class="sv-d2-sub">'+subText+'</div>':'');
+  document.body.appendChild(ft);
+  var h=ft.querySelector('h1'), sub=ft.querySelector('.sv-d2-sub');
+  var bodyEl=document.querySelector('.sv-imghero-body');
+  var hint=document.createElement('div'); hint.className='sv-d2-hint'; hint.textContent='▲ scroll up for the full scene';
+  document.body.appendChild(hint);
+  if('scrollRestoration' in history) history.scrollRestoration='manual';
+  /* Escape hatch: append ?nopara to the URL to freeze the hero image (no parallax) */
+  var noPara=/nopara/.test(location.search);
+  function lerp(a,b,p){return a+(b-a)*p;}
+  /* Native scroll-linked animations: the compositor moves the title/image in
+     lockstep with scroll — no one-frame JS lag. Falls back to the rAF path. */
+  var native=!!window.ScrollTimeline, nativeLive=false, anims=[];
+  function cancelAnims(){ anims.forEach(function(a){ try{a.cancel();}catch(e){} }); anims=[]; }
+  function buildNative(){
+    if(!native) return;
+    cancelAnims();
+    try{
+      /* create the timeline fresh each build — early-created ones can stick inactive */
+      var tl=new ScrollTimeline({source:document.scrollingElement,axis:'block'});
+      var vh=innerHeight;
+      var driftEnd=Math.max(1,vh*0.84-144);   /* scroll depth where the title docks */
+      function add(el,kf,end){ if(!el)return; anims.push(el.animate(kf,{timeline:tl,fill:'both',easing:'linear',rangeStart:'0px',rangeEnd:end.toFixed(1)+'px'})); }
+      add(ft,[{transform:'translate3d(0,'+(vh*0.42).toFixed(1)+'px,0)'},{transform:'translate3d(0,72px,0)'}],driftEnd);
+      add(h,[{transform:'scale(1)'},{transform:'scale(0.7115)'}],driftEnd);
+      if(!noPara) add(img,[{transform:'translate3d(0,0,0)'},{transform:'translate3d(0,'+(vh*0.11).toFixed(1)+'px,0)'}],vh*0.9167);
+      add(dim,[{opacity:0},{opacity:0.5}],vh);
+    }catch(e){ cancelAnims(); native=false; nativeLive=false; }
+  }
+  /* Build, then verify the timeline actually went live; retry a few frames and
+     fall back to the JS-driven path for good if it never does. */
+  var __armTries=0;
+  function armNative(){
+    if(!native) return;
+    buildNative();
+    requestAnimationFrame(function(){
+      if(!native) return;
+      if(anims.length&&anims[0].timeline&&anims[0].timeline.currentTime!==null){ nativeLive=true; lastY=-1; return; }
+      if(++__armTries<=90){ armNative(); }
+      else { cancelAnims(); native=false; nativeLive=false; lastY=-1; }
+    });
+  }
+  var hH=0, bodyTop=0;
+  function measure(){
+    hH=h.offsetHeight;
+    if(bodyEl) bodyTop=bodyEl.getBoundingClientRect().top+window.scrollY;
+  }
+  function on(y,vh){
+    var startY=vh*0.42,top=72;
+    var ty=Math.max(top,startY-y*0.5);
+    var np=Math.min(Math.max((startY-ty)/(startY-top),0),1);
+    var sc=lerp(1,74/104,np);
+    if(!nativeLive){
+      ft.style.transform='translate3d(0,'+ty.toFixed(2)+'px,0)';
+      h.style.transform='scale('+sc.toFixed(4)+')';
+      if(img&&!noPara) img.style.transform='translate3d(0,'+Math.min(y*0.12,vh*0.11).toFixed(1)+'px,0)';
+      if(dim) dim.style.opacity=(Math.min(y/vh,1)*0.5).toFixed(3);
+    }
+    if(sub) sub.style.opacity=(1-Math.min(np*1.9,1)).toFixed(2);
+    var g=(bodyTop-y)-(ty+hH*sc);   /* pure arithmetic — no layout reads per frame */
+    ft.style.opacity=Math.max(0,Math.min(1,g/160)).toFixed(2);
+    hint.style.opacity=(y<vh*0.22)?'0':(y<vh*0.85?'0.75':'0');
+  }
+  var lastY=-1,lastVh=-1;
+  function frame(){
+    var y=window.scrollY,vh=innerHeight;
+    if(y!==lastY||vh!==lastVh){ lastY=y; lastVh=vh; on(y,vh); }
+    requestAnimationFrame(frame);
+  }
+  var __isChild=(function(){try{var pn=location.pathname;for(var k in (window.SV_PAGES||{})){var hz=SV_PAGES[k].href||'';if(hz&&pn.slice(-hz.length)===hz)return !!SV_PAGES[k].parent;}}catch(e){}return true;})();
+  var __userScrolled=false;
+  function land(){
+    var target=__isChild?Math.round(innerHeight*0.55):0;
+    var de=document.documentElement, prev=de.style.scrollBehavior;
+    de.style.scrollBehavior='auto';           /* kill site-wide smooth scroll for this jump */
+    window.scrollTo(0,target);
+    de.style.scrollBehavior=prev;
+    if(target>90){                             /* land already past the condense threshold: */
+      document.body.classList.add('sv-condensed','sv-no-anim');   /* bar starts minimal… */
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        document.body.classList.remove('sv-no-anim');             /* …and animates again after */
+      }); });
+    }
+    lastY=window.scrollY; lastVh=innerHeight;
+    on(lastY,lastVh);                          /* paint the correct state immediately */
+  }
+  window.addEventListener('scroll',function(){__userScrolled=true;},{passive:true});
+  window.addEventListener('resize',function(){ measure(); if(native){ __armTries=0; armNative(); } lastY=-1; });
+  window.addEventListener('load',function(){ measure(); lastY=-1; if(!__userScrolled) land(); });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ measure(); lastY=-1; });
+  measure(); land();
+  armNative();
+  requestAnimationFrame(frame);
 })();

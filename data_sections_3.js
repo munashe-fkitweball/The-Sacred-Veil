@@ -12,16 +12,17 @@ window.SV_SECTIONS_3 = [
 
 {
   id: "kingdom-overview",
-  title: "The Kingdom & Its People",
+  title: "The Kingdom",
   subtitle: "A land that makes every mile a struggle",
   blocks: [
     { type: "p", text: `The kingdom of [[knaan:K'naan]] sits in the wider world of [[averium:Averium]] — a small, grim, neo-feudal realm ruled in name by a [[lord-of-lords:Lord of Lords]] and, in the Sovereign's absence, held in tense gridlock by the [[high-council:High Council of Electors]]. Its geography is obstructive, its people hardy, its politics brittle. Everything below is there to support play — who lives where, why they matter, and what a traveller can expect to find.` },
     { type: "h3", text: "What's on this page" },
     { type: "ul", items: [
-      `<b>Geography & Environment</b> — the regions and weather that shape every journey.`,
+      `<b>Geography</b> — the regions and weather that shape every journey.`,
       `<b>The Peoples</b> — who is considered human enough to be tolerated, and who is not.`,
       `<b>Places</b> — the cities, seats, and strongholds worth visiting (or avoiding).`,
-      `<b>Notable People</b> — the individuals most likely to appear across a campaign.`,
+      `<b>Figures of the Realm</b> — the individuals most likely to appear across a campaign.`,
+      `<b><a href="../map/index.html">The Map</a></b> — pan &amp; zoom the full map of the kingdom, from the Silt-Mere to the Valley of Woe.`,
     ]},
     { type: "children-grid", children: ['kingdom/geography', 'kingdom/peoples', 'kingdom/outcasts', 'kingdom/places', 'kingdom/minor-places', 'kingdom/people'] },
   ],
@@ -102,19 +103,58 @@ window.SV_SECTIONS_3 = [
   body: `Since the death of [[fidarel:Sovereign Fidarel]], the throne of the [[lord-of-lords:Lord of Lords]] sits empty. Authority that was once the Sovereign's now rests, in tense gridlock, with the [[high-council:High Council of Electors]] — an assembly of the most powerful noble Houses and a few important minor ones.`,
   blocks: [
     { type: "p", text: `Neither armies nor laws are primarily the Crown's any longer. The Magistracy, the tax collectors, and the military are almost entirely composed of the private, sworn levies of these Houses. To know K'naan is to know who holds what, who owes what, and who wants the throne.` },
+    { type: "p", text: `Major and minor, here, is a matter of instrument rather than size: a major house holds a [[sun-charter:Sun-Charter]], a minor house a [[crown-charter:Crown Charter]], and beneath both sit the unchartered gentry. The full law of it — charters, the royal [[the-ascendance:Ascendance]], marriage and the [[vigil:Vigil]] — is set out in <b>The Crown & the Charters</b>, below.` },
 
     { type: "h3", text: "The Houses (so far)" },
     { type: "table", headers: ["House", "Known as", "At a glance"], rows: [
       ["[[house-vane:Vane]]",      "Architects of War",    "Iron and coal. Only producer of high-grade steel. The wealthiest House in the realm."],
       ["[[house-chancel:Chancel]]",  "Marrow-Keepers",       "The Marrow-refiners. Banned from the throne by old compact. Zealous to Prios."],
       ["[[house-kaelen:Kaelen]]",    "Masters of the Silt",  "Grain, fisheries, shoreline trade. Second-wealthiest in liquid coin."],
-      ["[[house-morbray:Morbray]]",  "Frontier Keepers",     "The Gorse-Barrens pass. Feared cavalry. Militaristic and grim."],
+      ["[[house-morbray:Morbray]]",  "Frontier Keepers",     "Hold the one reliable pass through the Eastern Massif. Feared cavalry. Militaristic and grim."],
       ["[[house-thorne:Thorne]]",    "House of Whispers",    "Record-keepers and diplomats. Operate the Magistracy. The most informed House in K'naan."],
+      ["[[house-greyholt:Greyholt]]", "the Hewers",          "Forestry. Branch-family logging companies under the main family's conglomerate; forest-path mercenaries for hire."],
+      ["[[house-gallow:Gallow]]",    "the Quiet Branch",     "Ancient, solitary. Patrol the southern road and Great Plains; hang bandits from the plains' dead trees."],
       ["[[house-valerius:Valerius]]","The Minor Major",      "Clawed into relevance by providing Magistracy officers. Legalistic and harsh."],
       ["[[house-grendel:Grendel]]",  "The Frayed",           "Shunned minor House of the Silt-Mere fringe. Whispered to treat with Witches."],
       ["[[house-jannin:Jannin]]",    "—",                    "The PCs' employers. An ancient minor House on the eastern frontier. Leaderless."],
     ]},
-    { type: "children-grid", children: ['houses/vane', 'houses/chancel', 'houses/kaelen', 'houses/morbray', 'houses/thorne', 'houses/valerius', 'houses/grendel', 'houses/jannin'] },
+    { type: "children-grid", children: ['houses/vane', 'houses/chancel', 'houses/kaelen', 'houses/morbray', 'houses/thorne', 'houses/greyholt', 'houses/gallow', 'houses/valerius', 'houses/grendel', 'houses/jannin'] },
+  ],
+},
+
+{
+  id: "crown-charters",
+  title: "The Crown & the Charters",
+  subtitle: "How nobility is made — and why an empty throne freezes everything",
+  blocks: [
+    { type: "p", text: `In K'naan, nobility is not blood alone — it is parchment, sealed by the crown. Every house that exists at law exists because a Sovereign granted it a charter. Everything above that rests on marriage, Marrow, and the Sun.` },
+
+    { type: "h3", text: "The three tiers" },
+    { type: "table", headers: ["Tier", "Instrument", "What it means"], rows: [
+      ["Major house", "[[sun-charter:Sun-Charter]]", "A kingdom-scale exclusive grant — a monopoly, a march, an office of the realm. Permanent once blood-sealed by a royal marriage."],
+      ["Minor house", "[[crown-charter:Crown Charter]]", "Legal existence as a noble house: name, arms, land at law, the right to keep sworn levies."],
+      ["Unchartered gentry", "—", "Wealth, land, sometimes even a castle — but no house at law. Called hedge-lords, petty houses, or freeholders, depending on who is sneering."],
+    ]},
+    { type: "p", text: `A [[sun-charter:Sun-Charter]] sits atop a [[crown-charter:Crown Charter]] — every major house is also a chartered house. A Crown Charter is granted by the Sovereign alone and kept once granted; but when a royal line dies out, the charters granted under it may be reviewed by the next Sovereign. A Sun-Charter, once sealed by a single marriage into the royal line, is permanent — it survives the fall of dynasties. This is why every major house carries old royal blood, and why the majors sit untouchable through an interregnum that terrifies the minors.` },
+
+    { type: "h3", text: "The Ascendance — there is no royal house" },
+    { type: "p", text: `A sovereign of K'naan does not reign as the head of a house. At the [[the-kindling:Kindling]] — the rite of crowning — the chosen sovereign renounces their birth house entirely, takes a regnal name, and is raised into the Sun. Their line is called an [[the-ascendance:Ascendance]], counted apart from every house in the realm.` },
+    { type: "ul", items: [
+      `The full style of the late sovereign: <b>Fidarel, First of his Ascendance — the Unclouded Sun, Sovereign of K'naan, Warden of the Veil.</b> A reigning sovereign is addressed as <b>Your Radiance</b>.`,
+      `Each sovereign takes a <b>sun-epithet</b> — the Unclouded Sun, the Kindled Sun, the Constant Sun — and it becomes how history remembers them.`,
+      `Royal children are styled <b>Prince-</b> or <b>Princess-Ascendant</b>; the named successor is the <b>[[dawn-heir:Dawn-Heir]]</b>. Fidarel named none.`,
+      `A consort is raised but not renamed — styled the <b>Kindled Consort</b>, "of the Ascendance."`,
+      `When a royal line fails, the realm says: <b>"the Sun has set on the Ascendance."</b> It has.`,
+    ]},
+
+    { type: "h3", text: "Marriage & the Vigil" },
+    { type: "p", text: `Nobles wed nobles — law of the realm, sanctified by the [[orthodoxy:Orthodoxy]]. Before any noble marriage, both lines must be proven: ledger-proofs, sworn witnesses, and — where any doubt remains — the [[vigil:Vigil of Absolute Disclosure]] itself. No provable noble line, no marriage. Only one person stands outside this law: the Sovereign, the fount of nobility itself, whose chosen consort is raised by the wedding. The Sovereign alone marries freely.` },
+
+    { type: "h3", text: "The crown's arms" },
+    { type: "p", text: `The crown keeps no levies — armies belong to the houses. What the crown keeps instead is its household men-at-arms, and something else entirely: the Marrow-wrought guard, ultra-soldiers sustained on [[seraphs-marrow:Seraph's Marrow]] and supplied exclusively by [[house-chancel:House Chancel]]. Ceremonial in peace, decisive when unleashed — a deterrent no house levy wants tested. It is also why everyone understands the old compact barring Chancel from the throne: the hand that brews the Marrow and forges the crown's guard cannot also wear the crown.` },
+
+    { type: "h3", text: "The interregnum" },
+    { type: "p", text: `Only a Sovereign can grant, seal, or revoke a charter — not the [[high-council:High Council]], not the [[sun-speaker:Sun-Speaker]], no proxy. With the throne empty, nothing moves: no new houses, no new seals, and every charter granted under the fallen Fidarel Ascendance waiting to learn what the next Radiance will think of it. The sealed majors are safe. The minors are not. That asymmetry sits beneath every alliance, marriage offer, and threat in the succession crisis.` },
   ],
 },
 
@@ -159,7 +199,7 @@ window.SV_SECTIONS_3 = [
 
 {
   id: "geography-intro",
-  title: "Geography & Environment",
+  title: "Geography",
   subtitle: "The regions that shape every journey",
   blocks: [
     { type: "p", text: `K'naan is not a passive backdrop. Its geography is jagged and obstructive, dictating the pace of every journey and cutting the kingdom into regions that have evolved in near-isolation from one another. What follows are the major regions, plus the weather phenomenon — [[white-blind:the White-Blind]] — that haunts the worst of them.` },
@@ -186,12 +226,12 @@ window.SV_SECTIONS_3 = [
   title: "Places of K'naan",
   subtitle: "Cities, seats, and strongholds",
   blocks: [
-    { type: "p", text: `Six major places shape the kingdom: the seat of the Council and Orthodoxy in the capital, the industrial heart of the realm, the Marrow-abbey of the faith, the grain-and-skiff port of the Silt-Mere, the black-walled fortress of the eastern pass, and the small silver-mining town where the campaign begins in fire. Lesser holdings — halls, archives, waypoints, and the like — are gathered on the [[kingdom/minor-places:Notable Buildings page]].` },
+    { type: "p", text: `Six major places shape the kingdom: the seat of the Council and Orthodoxy in the capital, the industrial heart of the realm, the Marrow-abbey of the faith, the grain-and-skiff port of the Silt-Mere, the black-walled fortress of the eastern pass, and the small silver-mining town where the campaign begins in fire. Lesser holdings — halls, archives, waypoints, and the like — are gathered on the [[kingdom/minor-places:Lesser Holdings]] page.` },
   ],
 },
 {
   id: "minor-places-intro",
-  title: "Notable Buildings & Lesser Holdings",
+  title: "Lesser Holdings",
   subtitle: "Halls, archives, and waypoints",
   blocks: [
     { type: "p", text: `These are not cities in their own right but buildings, institutions, and small settlements of enough importance to name. Most sit within or adjacent to one of the six major places — a cathedral in Ash-Kadesh, a guild hall in Har-Moloch, a hidden moot in the Silt-Mere.` },
@@ -199,7 +239,7 @@ window.SV_SECTIONS_3 = [
 },
 {
   id: "people-intro",
-  title: "Notable People",
+  title: "Figures of the Realm",
   subtitle: "The individuals most likely to appear across a campaign",
   blocks: [
     { type: "p", text: `Fifteen figures worth knowing. Each sits at the head of a House, a Church office, or a Guild — and each is someone the PCs are likely to meet, negotiate with, or cross at some point. Entries are grouped by affiliation.` },
