@@ -71,6 +71,11 @@
     if (GLOSSARY_IDS.has(targetId)) {
       return rel('glossary.html') + '#' + targetId;
     }
+    // Whole-page link, e.g. [[faith/hierarchy:full hierarchy page]] — targetId
+    // is a SV_PAGES key (contains a slash), so link to that page.
+    if (window.SV_PAGES && window.SV_PAGES[targetId]) {
+      return rel(window.SV_PAGES[targetId].href);
+    }
     if (seen.has(targetId)) return '#' + targetId;
     const pageKey = entityToPage.get(targetId);
     if (pageKey) {
@@ -83,7 +88,8 @@
   function linkHTML(id, display) {
     const safeId = id.replace(/"/g, '&quot;');
     const href = linkHref(id);
-    const external = !seen.has(id) && !GLOSSARY_IDS.has(id) && entityToPage.has(id);
+    const isPageLink = !!(window.SV_PAGES && window.SV_PAGES[id]);
+    const external = isPageLink || (!seen.has(id) && !GLOSSARY_IDS.has(id) && entityToPage.has(id));
     const isGlossary = GLOSSARY_IDS.has(id) && PAGE_KEY !== 'glossary';
     const extAttr = (external || isGlossary) ? ' data-sv-external="1"' : '';
     return `<a class="sv-link" href="${href}" data-sv-ref="${safeId}"${extAttr}>${display}</a>`;
@@ -91,7 +97,7 @@
 
   function renderInline(text) {
     if (!text) return '';
-    let out = text.replace(/\[\[([a-z0-9-]+):([^\]]+)\]\]/gi, (m, id, disp) => linkHTML(id, disp));
+    let out = text.replace(/\[\[([a-z0-9/-]+):([^\]]+)\]\]/gi, (m, id, disp) => linkHTML(id, disp));
     if (!AUTO_REGEX) return out;
     const parts = out.split(/(<[^>]+>)/g);
     let insideAnchor = 0;
