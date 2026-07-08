@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>World Map of K'naan · The Sacred Veil</title>
+<link rel="icon" type="image/png" href="../assets/sigil.png"/>
+<link rel="stylesheet" href="leaflet/leaflet.css"/>
+<!-- OG_START -->
+<meta name="description" content="The full map of the Kingdom of K'naan — pan and zoom from the Silt-Mere to the Valley of Woe. A Symbaroum homebrew campaign."/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="The Sacred Veil"/>
+<meta property="og:title" content="World Map of K'naan — The Sacred Veil"/>
+<meta property="og:description" content="The full map of the Kingdom of K'naan — pan and zoom from the Silt-Mere to the Valley of Woe."/>
+<meta property="og:url" content="https://munashe-fkitweball.github.io/The-Sacred-Veil/map/index.html"/>
+<meta property="og:image" content="https://munashe-fkitweball.github.io/The-Sacred-Veil/assets/social-preview.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="World Map of K'naan — The Sacred Veil"/>
+<meta name="theme-color" content="#d8c99b"/>
+<!-- OG_END -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+  :root{
+    --gold:#d8c99b; --gold-bright:#f2d98c; --bg:#060309;
+    --text:#f0e4bc; --border:rgba(180,140,70,0.25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;background:var(--bg);color:var(--text);
+    font-family:'Cormorant Garamond',serif;overflow:hidden}
+  #map{position:absolute;inset:0;background:var(--bg);cursor:grab}
+  #map:active{cursor:grabbing}
+
+  /* Top scrim bar, site-styled */
+  .sv-mapbar{
+    position:absolute;top:0;left:0;right:0;z-index:1000;pointer-events:none;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 22px 30px;
+    background:linear-gradient(to bottom, rgba(6,3,9,0.88), rgba(6,3,9,0.55) 55%, transparent);
+  }
+  .sv-mapbar a, .sv-mapbar .sv-maptitle{pointer-events:auto}
+  .sv-mapback{
+    font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--gold);text-decoration:none;border:1px solid var(--border);
+    padding:8px 14px;border-radius:2px;background:rgba(6,3,9,0.55);
+    transition:color .2s,border-color .2s;
+  }
+  .sv-mapback:hover{color:var(--gold-bright);border-color:var(--gold)}
+  .sv-maptitle{
+    font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.35em;text-transform:uppercase;
+    color:var(--gold-bright);text-shadow:0 1px 8px rgba(0,0,0,0.9);
+    text-align:right;
+  }
+  .sv-maptitle small{
+    display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:14px;letter-spacing:0.05em;text-transform:none;color:var(--text);opacity:0.8;margin-top:3px;
+  }
+
+  /* Leaflet chrome, re-skinned to the site */
+  .leaflet-container{background:var(--bg);font-family:'Cormorant Garamond',serif}
+  .leaflet-bar{border:1px solid var(--border) !important;box-shadow:0 2px 14px rgba(0,0,0,0.7)}
+  .leaflet-bar a{
+    background:rgba(12,6,20,0.92) !important;color:var(--gold) !important;
+    border-bottom:1px solid var(--border) !important;
+  }
+  .leaflet-bar a:hover{background:rgba(30,16,44,0.95) !important;color:var(--gold-bright) !important}
+  .leaflet-control-zoom{margin-top:76px !important}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="sv-mapbar">
+  <a class="sv-mapback" href="../index.html">&larr; The Sacred Veil</a>
+  <div class="sv-maptitle">The Kingdom of K&rsquo;naan<small>pan &amp; zoom &mdash; from the Silt-Mere to the Valley of Woe</small></div>
+</div>
+<script src="leaflet/leaflet.js"></script>
+<script>
+  var W = 16383, H = 10923, MAX_Z = 6;
+
+  var map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: 0,
+    maxZoom: MAX_Z,
+    // Integer zoom = crisp native tiles + smooth animation (no laggy CSS scaling).
+    zoomSnap: 1,
+    zoomDelta: 1,
+    attributionControl: false,
+  });
+
+  var sw = map.unproject([0, H], MAX_Z);
+  var ne = map.unproject([W, 0], MAX_Z);
+  var bounds = new L.LatLngBounds(sw, ne);
+
+  L.tileLayer('tiles/{z}/{x}/{y}.webp', {
+    tileSize: 256,
+    bounds: bounds,
+    noWrap: true,
+    minZoom: 0,
+    maxNativeZoom: MAX_Z,
+    maxZoom: MAX_Z,
+    keepBuffer: 4,        // hold more off-screen tiles so panning doesn't flash grey
+    updateWhenZooming: false,
+  }).addTo(map);
+
+  map.fitBounds(bounds);
+  // Don't allow zooming out past "whole map on screen", or panning away from it.
+  map.setMinZoom(map.getBoundsZoom(bounds));
+  map.setMaxBounds(bounds.pad(0.05));
+  map.on('resize', function(){ map.setMinZoom(map.getBoundsZoom(bounds)); });
+</script>
+</body>
+</html>

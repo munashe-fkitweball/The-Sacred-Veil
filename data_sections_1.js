@@ -55,8 +55,8 @@ window.SV_SECTIONS = [
     { type: "h3", text: "The Vultures' Feud" },
     { type: "p", text: `With the sovereign gone, the Great Houses no longer hide their ambition behind courtly masks. Alliances are broken daily, and the voting process for the next Sovereign has turned into a series of bloody skirmishes that threaten to ignite a full-scale civil war.` },
     { type: "h3", text: "The Collapse of Order" },
-    { type: "p", text: `In K'naan, the crown is traditionally a birthright, passed from the Sovereign to his eldest legitimate son. However, while Sovereign Fidarel was a master of ruling his people, he was a failure at ruling his own household. He sired a legion of sons through illicit affairs, but not a single legitimate heir.` },
-    { type: "p", text: `By the ancient laws of the realm, the throne cannot pass to a bastard. Instead, the crown must be awarded through a grueling elective process among the noble and minor houses that share even a drop of Fidarel's blood. Because this voting process is long, bitter, and prone to sabotage, the "High Sovereign's Law" has effectively vanished. In this vacuum of power, guilds and criminal syndicates have become the de facto rulers of the streets. Open warfare between these factions has become a daily terror, and the common folk are increasingly caught in the crossfire of a kingdom with no head.` },
+    { type: "p", text: `In K'naan, the crown normally passes within the royal [[the-ascendance:Ascendance]] to the [[dawn-heir:Dawn-Heir]] — the named successor, by long tradition the Sovereign's eldest legitimate son. However, while Sovereign Fidarel was a master of ruling his people, he was a failure at ruling his own household. He sired a legion of sons through illicit affairs, but not a single legitimate heir — and he named no Dawn-Heir.` },
+    { type: "p", text: `By the ancient laws of the realm, the throne cannot pass to a bastard. Instead, the crown must be awarded through a grueling elective process among the noble and minor houses that can claim a drop of the old royal blood — thickest in Fidarel's scattered kin and by-blows. Because this voting process is long, bitter, and prone to sabotage, the "High Sovereign's Law" has effectively vanished. In this vacuum of power, guilds and criminal syndicates have become the de facto rulers of the streets. Open warfare between these factions has become a daily terror, and the common folk are increasingly caught in the crossfire of a kingdom with no head.` },
     { type: "h3", text: "The Shadow of the Arcane" },
     { type: "p", text: `Desperate times have led to desperate measures. The illicit use of magic is surging as lords and outlaws alike seek shortcuts to power. But in K'naan, magic is never free - and the more it is wielded, the faster the world seems to wither.` },
   ],
@@ -95,7 +95,8 @@ window.SV_SECTIONS = [
   title: "Seraph's Marrow",
   blocks: [
     { type: "p", text: `When administered carefully by trained members of [[house-chancel:House Chancel]] over time, the Marrow forces violent biological mutations. It often grants immense physical size, unnatural strength, and occasionally, strange, terrifying supernatural abilities. However, the process is agonizing and not without risk, sometimes leaving the user with severe physical or mental burdens. Because the chemical is staggeringly expensive to refine, most noble houses can only afford to "anoint" their ruling Lord and perhaps one or two promising heirs at most.` },
-    { type: "p", text: `The ancient edicts of the realm dictate that the High Sovereign shall command the lion's share of the kingdom's precious yields. Once the Electors have concluded their arduous deliberations and anointed a successor, the Sovereign typically utilizes the Marrow to maintain a towering, almost monstrous physical stature. This divine vitalization further empowers them to sustain a private regiment of several thousand hulking, mutated ultra-soldiers who serve as the ultimate, terrifying enforcers of the crown. The magnitude of this standing army is entirely contingent upon the fluctuating prosperity of the K'naanian economy, the collection of tribute, and the seasonal harvest of the rare flora required to distil the Marrow.` },
+    { type: "p", text: `Even for those who can pay, a noble's anointing is a once-or-twice-in-a-lifetime event — and always the same draught at full potency; there is no lesser vintage. What separates an anointed lord from the crown's Marrow-wrought guard is not the quality of the Marrow but the frequency of it, orders of magnitude apart.` },
+    { type: "p", text: `The ancient edicts of the realm dictate that the High Sovereign shall command the lion's share of the kingdom's precious yields. Once a new sovereign is raised at the Kindling, they typically utilize the Marrow to maintain a towering, almost monstrous physical stature. This divine vitalization further empowers them to sustain a private regiment of several thousand hulking, mutated ultra-soldiers who serve as the ultimate, terrifying enforcers of the crown. The magnitude of this standing army is entirely contingent upon the fluctuating prosperity of the K'naanian economy, the collection of tribute, and the seasonal harvest of the rare flora required to distil the Marrow.` },
   ],
 },
 
@@ -260,6 +261,8 @@ window.SV_SECTIONS = [
       ["[[house-kaelen:Kaelen]]", "the Masters of the Silt", "\"We Provide.\"", "Silver eel coiled around a trident"],
       ["[[house-morbray:Morbray]]", "the Frontier Keepers", "\"The First to Bleed.\"", "Severed wolf's head on grey"],
       ["[[house-thorne:Thorne]]", "the House of Whispers", "\"Truth is the Truest Coin.\"", "Silver owl holding a gold coin"],
+      ["[[house-greyholt:Greyholt]]", "the Hewers", "\"By Our Axe, Every Tree Falls.\"", "Crossed axes over a pale stump, on deep green"],
+      ["[[house-gallow:Gallow]]", "the Quiet Branch", "\"The Tree Bears Fruit.\"", "A single bare branch with hanging noose, on bone-white"],
       ["[[house-valerius:Valerius]]", "the Minor Major", "\"Steel is Law.\"", "Vertical sword breaking a chain"],
       ["[[house-grendel:Grendel]]", "the Frayed", "\"Deep Roots, Dark Waters.\"", "Black reed on murky green"],
       ["[[house-jannin:Jannin]]", "—", "\"None Lost Under Our Watch\"", "Shepherd's crook on forest green, silver gem"],
@@ -291,6 +294,7 @@ window.SV_SECTIONS = [
   chip: { motto: "We Bleed that He Might Shine.", arms: "A weeping golden eye over a chalice." },
   blocks: [
     { type: "p", text: `The second most powerful house, yet permanently banned from ever ascending to the throne. They command the entire production and refinement of [[seraphs-marrow:Seraph's Marrow]]. As a zealous, prophetic house, they are profoundly devoted to the worship of [[prios:Prios]] and largely detached from standard governance. It is unknown how wealthy they are, but of whatever wealth they have much of it is dispensed in alms; some suggest this is out of genuine kindness, while others contend it is a shrewd strategy to maintain the hearts of the people, the only source of true power accessible to them in the absence of their ability to climb the traditional political poles.` },
+    { type: "p", text: `Chancel alone supplies the crown's Marrow-wrought guard — a near-liturgical duty that binds the house tightly to whoever wears the crown. Their ancient bar from the throne is doctrine on parchment, but everyone understands the arithmetic beneath it: the hand that brews the Marrow and forges the crown's guard cannot also wear the crown.` },
     { type: "facts", items: [
       ["Notable members", "[[vespera:High Abbotess Vespera]], [[tybalt:Brother-Captain Tybalt]]"],
       ["Seat", "[[bet-seraphim:Bet-Seraphim]]"],
@@ -321,7 +325,7 @@ window.SV_SECTIONS = [
   subtitle: "the Frontier Keepers",
   chip: { motto: "The First to Bleed.", arms: "A severed wolf's head on a grey shield." },
   blocks: [
-    { type: "p", text: `A grim, militaristic house and the pre-eminent power among the various lords tasked with holding the frontier. While several houses share the burden of watching the roads and the [[gorse-barrens:Gorse-Barrens]], House Morbray is the largest and most significant, commanding a battle-hardened cavalry that is feared across the kingdom. They treat their border-lands like an armed camp, and their loyalty is often as expensive as their steel.` },
+    { type: "p", text: `A grim, militaristic house — the pre-eminent power among the various lords tasked with holding the frontier. From their black-walled seat at [[raven-garron:Raven-Garron]], House Morbray holds the single reliably traversable pass through the [[eastern-massif:Eastern Massif]]: the one dependable gap in the wall of stone that forms K'naan's eastern boundary, reached across the lawless [[gorse-barrens:Gorse-Barrens]]. Anyone crossing east — trader, army, or fugitive — comes through their gate and on up the [[valley-of-woe:Valley of Woe]] beyond it. While several lesser houses share the burden of watching the roads and the Barrens, Morbray is the largest and most significant, commanding a battle-hardened cavalry that is feared across the kingdom. They treat their border-lands like an armed camp, and their loyalty is often as expensive as their steel.` },
     { type: "facts", items: [
       ["Notable members", "[[fenris-morbray:Lord-Captain Fenris Morbray]]"],
       ["Seat", "[[raven-garron:Raven-Garron]]"],
@@ -340,6 +344,39 @@ window.SV_SECTIONS = [
     { type: "facts", items: [
       ["Notable members", "[[malachi-thorne:Lord Chancellor Malachi Thorne]]"],
       ["Seat", "[[thorne-archive:Thorne Archive]], Ledger-Ward"],
+    ]},
+  ],
+},
+
+{
+  id: "house-greyholt",
+  group: "Houses",
+  title: "House Greyholt",
+  subtitle: "the Hewers",
+  chip: { motto: "By Our Axe, Every Tree Falls.", arms: "Crossed axes over a pale stump, on deep green." },
+  blocks: [
+    { type: "p", text: `The Major House in charge of forestry. Individual branch-families within Greyholt run their own smaller logging, wood-processing, lumber, and carpentry companies, while the main family owns a stack of vertically and horizontally integrated ones — effectively one great conglomerate. The house also keeps troops and mercenaries adept at the forest paths: they guard the camps and companies working the woods, and are available for hire to anyone needing to traverse [[great-forests:the Great Forests]].` },
+    { type: "p", text: `Harvesting timber from woods that shelter the kingdom's foulest creatures and [[witches:Witches]] makes Greyholt's trade quietly dangerous in a way no other house's is.` },
+    { type: "p", text: `The house's real secret is not felling but <i>finishing</i>: by closely-guarded techniques Greyholt treats its timber into a material that barely seems like wood at all — astonishingly light, unbelievably strong, and resistant to fire. In a kingdom where quality steel is a desperate rarity monopolised by [[house-vane:House Vane]], a workable material this good is worth a fortune. Their seat, <b>Oakenhold</b> — a great timber hall above [[holts-grove:Holt's Grove]] — is built from it.` },
+    { type: "facts", items: [
+      ["Notable members", "[[aldric-greyholt:Lord Aldric Greyholt]], [[rowena-greyholt:Lady Rowena Greyholt]]"],
+      ["Seat", "<b>Oakenhold</b>, above [[holts-grove:Holt's Grove]]"],
+    ]},
+  ],
+},
+
+{
+  id: "house-gallow",
+  group: "Houses",
+  title: "House Gallow",
+  subtitle: "the Quiet Branch",
+  chip: { motto: "The Tree Bears Fruit.", arms: "A single bare branch, a noose hanging from it, on bone-white." },
+  blocks: [
+    { type: "p", text: `An ancient, solitary house charged with patrolling the main southern road and — more importantly — the Great Plains. Famed for hanging plains-bandits from the dead and hibernating trees that scatter the expanse: on the Plains, the trees themselves display Gallow justice. Like most houses of its size, Gallow has cadet branches and lesser families sworn beneath it, though the main line keeps famously to itself.` },
+    { type: "p", text: `The house is so old that no one knows whether the gallows was named after them or the other way round — scholars argue it both ways, and the house never corrects anyone. What is certain: in K'naan nobody says "a hanging-tree." They say <i>a gallow-tree</i>, because for as long as anyone can remember, a bandit swinging from a dead tree meant the Gallows rode here.` },
+    { type: "facts", items: [
+      ["Notable members", "[[osric-gallow:Lord Osric Gallow]], [[aldith-gallow:Lady Aldith Gallow]]"],
+      ["Seat", "<b>Aeruud</b>, above [[weysend:Weysend]]"],
     ]},
   ],
 },

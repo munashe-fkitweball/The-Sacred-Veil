@@ -22,6 +22,8 @@ window.SV_DATA = {
     { id: "house-kaelen", name: "House Kaelen", aliases: ["Kaelen", "the Masters of the Silt"] },
     { id: "house-morbray", name: "House Morbray", aliases: ["Morbray", "the Frontier Keepers"] },
     { id: "house-thorne", name: "House Thorne", aliases: ["Thorne", "the House of Whispers"] },
+    { id: "house-greyholt", name: "House Greyholt", aliases: ["Greyholt", "the Hewers"] },
+    { id: "house-gallow", name: "House Gallow", aliases: ["Gallow", "the Quiet Branch"] },
     { id: "house-valerius", name: "House Valerius", aliases: ["Valerius", "the Minor Major"] },
     { id: "house-grendel", name: "House Grendel", aliases: ["Grendel", "the Frayed"] },
     { id: "house-jannin", name: "House Jannin", aliases: ["Jannin"] },
@@ -61,6 +63,10 @@ window.SV_DATA = {
     { id: "tybalt", name: "Tybalt", aliases: ["Brother-Captain Tybalt"] },
     { id: "olenna-kaelen", name: "Olenna Kaelen", aliases: ["Lady-Regent Olenna Kaelen"] },
     { id: "fenris-morbray", name: "Fenris Morbray", aliases: ["Lord-Captain Fenris Morbray"] },
+    { id: "aldric-greyholt", name: "Aldric Greyholt", aliases: ["Lord Aldric Greyholt"] },
+    { id: "rowena-greyholt", name: "Rowena Greyholt", aliases: ["Lady Rowena Greyholt"] },
+    { id: "osric-gallow", name: "Osric Gallow", aliases: ["Lord Osric Gallow"] },
+    { id: "aldith-gallow", name: "Aldith Gallow", aliases: ["Lady Aldith Gallow"] },
     { id: "malachi-thorne", name: "Malachi Thorne", aliases: ["Lord Chancellor Malachi Thorne"] },
     { id: "arkin-valerius", name: "Arkin Valerius", aliases: ["Lord Arkin Valerius"] },
     { id: "dennin-grendel", name: "Dennin Grendel", aliases: ["Lord Dennin Grendel"] },
@@ -77,6 +83,9 @@ window.SV_DATA = {
     { id: "bet-seraphim", name: "Bet-Seraphim" },
     { id: "gath-mere", name: "Gath-Mere" },
     { id: "raven-garron", name: "Raven-Garron" },
+    { id: "valley-of-woe", name: "Valley of Woe", aliases: ["The Valley of Woe"] },
+    { id: "holts-grove", name: "Holt's Grove", aliases: ["Holt’s Grove"] },
+    { id: "weysend", name: "Weysend" },
     { id: "hollow-sun", name: "The Hollow Sun", aliases: ["Hollow Sun"] },
     { id: "thorne-archive", name: "Thorne Archive" },
     { id: "iron-gavel", name: "The Iron Gavel", aliases: ["Iron Gavel"] },
@@ -119,6 +128,13 @@ window.SV_DATA = {
     { id: "silence-of-god", name: "The Silence of God", aliases: ["Silence of God"] },
     { id: "true-quality-steel", name: "True Quality Steel", aliases: ["Quality Steel"] },
     { id: "high-council", name: "High Council of Electors", aliases: ["High Council"] },
+
+    // Law & titles (constitution)
+    { id: "sun-charter", name: "Sun-Charter", aliases: ["Sun-Charters", "Sun Charter"] },
+    { id: "crown-charter", name: "Crown Charter", aliases: ["Crown Charters"] },
+    { id: "the-ascendance", name: "The Ascendance", aliases: ["Ascendance"] },
+    { id: "the-kindling", name: "The Kindling" },
+    { id: "dawn-heir", name: "Dawn-Heir", aliases: ["Dawn-Heirs"] },
     { id: "magistracy", name: "Magistracy", aliases: ["the Watch"] },
 
     // Glossary-only terms (have no full section; linkable everywhere in the wiki)

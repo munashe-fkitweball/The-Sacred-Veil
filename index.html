@@ -10,6 +10,9 @@
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;min-height:100vh;background:#030106;color:#d8c99b;font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+/* Hide the page scrollbar (scrolling still works) — matches the rest of the site */
+html{scrollbar-width:none}
+html::-webkit-scrollbar{width:0;height:0;display:none}
 
 :root{
   --gold: #d8c99b;
@@ -98,11 +101,11 @@ html,body{margin:0;padding:0;min-height:100vh;background:#030106;color:#d8c99b;f
   letter-spacing:0.03em;
 }
 
-/* ── 7 entry buttons ── */
+/* ── entry buttons (one per hub) ── */
 .home-nav{
-  width:100%;max-width:1400px;
+  width:100%;max-width:1560px;
   display:grid;
-  grid-template-columns:repeat(8, minmax(0, 1fr));
+  grid-template-columns:repeat(9, minmax(0, 1fr));
   gap:10px;
 }
 .home-nav-item{
@@ -123,21 +126,10 @@ html,body{margin:0;padding:0;min-height:100vh;background:#030106;color:#d8c99b;f
   transform:translateY(-2px);
   box-shadow:0 8px 28px rgba(0,0,0,0.7), 0 0 22px rgba(220,180,100,0.25);
 }
-.home-nav-num{
-  font-family:'UnifrakturCook',serif;
-  font-size:26px;
-  color:rgba(200,160,80,0.78);
-  margin-bottom:6px;line-height:1;
-  transition:color 0.25s ease, text-shadow 0.25s ease;
-}
 .home-nav-label{
   font-family:'Cinzel',serif;
   font-size:12px;letter-spacing:0.2em;text-transform:uppercase;
   text-align:center;line-height:1.3;
-}
-.home-nav-item:hover .home-nav-num{
-  color:#f2d98c;
-  text-shadow:0 0 14px rgba(220,180,100,0.55);
 }
 
 /* ── GM corner ── */
@@ -168,13 +160,15 @@ html,body{margin:0;padding:0;min-height:100vh;background:#030106;color:#d8c99b;f
 .glossary-corner:hover{color:var(--gold)}
 
 /* ── Responsive ── */
+@media (max-width:1300px){
+  .home-nav{grid-template-columns:repeat(3, 1fr);max-width:760px}
+}
 @media (max-width:900px){
   .home{padding:32px 14px 24px}
   .home-sigil{width:clamp(160px, 32vh, 260px);height:clamp(160px, 32vh, 260px)}
   .home-title{font-size:clamp(32px, 9vw, 48px)}
   .home-nav{grid-template-columns:repeat(2, 1fr)}
   .home-nav-item{min-height:80px;padding:14px 8px}
-  .home-nav-num{font-size:22px}
   .home-nav-label{font-size:11px;letter-spacing:0.15em}
 }
 @media (max-width:500px){
@@ -220,15 +214,14 @@ html,body{margin:0;padding:0;min-height:100vh;background:#030106;color:#d8c99b;f
 <a class="glossary-corner" href="glossary.html" title="Glossary">Glossary</a>
 <a class="gm-corner" href="gm.html" title="GM area">GM</a>
 
-<script src="page_configs.js?v=25"></script>
+<script src="page_configs.js?v=28"></script>
 <script>
-  // Generate the 8 home tiles from page_configs SV_HUBS (single source of truth)
+  // Generate the home tiles from page_configs SV_HUBS (single source of truth)
   (function(){
     var nav = document.getElementById('home-nav');
     if (!nav || !window.SV_HUBS) return;
     nav.innerHTML = window.SV_HUBS.map(function(h){
       return '<a class="home-nav-item" href="' + h.href + '">' +
-             '<span class="home-nav-num">' + h.numeral + '</span>' +
              '<span class="home-nav-label">' + (h.homeLabel || h.short) + '</span></a>';
     }).join('');
   })();
