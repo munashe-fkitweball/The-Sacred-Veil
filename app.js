@@ -398,7 +398,6 @@
             <div class="sv-search-results" id="sv-search-results" hidden></div>
           </div>
           <a class="sv-glossary-link" href="${rel('glossary.html')}">Glossary</a>
-          <a class="sv-gm-link" href="${rel('gm.html')}">GM</a>
         </header>
 
         <nav class="sv-archbar" aria-label="Main sections">${renderArchBar()}</nav>

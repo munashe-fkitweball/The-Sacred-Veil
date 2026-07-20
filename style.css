@@ -76,7 +76,7 @@ noscript .sv-noscript h1{
   border-bottom:1px solid var(--border);
 }
 
-/* Top header row: sigil + title + search + GM */
+/* Top header row: sigil + title + search + glossary */
 .sv-head{
   display:flex;align-items:center;gap:16px;
   padding:12px clamp(16px,3vw,28px);
@@ -115,14 +115,7 @@ noscript .sv-noscript h1{
 .sv-search:focus{border-color:var(--border-bright);box-shadow:0 0 16px rgba(220,180,100,0.15)}
 .sv-search::placeholder{color:var(--text-faint);font-style:italic}
 
-.sv-gm-link{
-  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;
-  color:var(--text-dim);padding:7px 14px;text-decoration:none;
-  border:1px solid var(--border);transition:all 0.2s;flex-shrink:0;
-}
-.sv-gm-link:hover{color:var(--gold-bright);border-color:var(--border-bright)}
-
-/* Glossary: smaller secondary link next to GM. No border, lighter weight. */
+/* Glossary link */
 .sv-glossary-link{
   font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;
   color:var(--text-faint);padding:7px 10px;text-decoration:none;
@@ -679,7 +672,6 @@ noscript .sv-noscript h1{
   .sv-mark-text{font-size:16px}
   .sv-search{font-size:14px}
   .sv-head-search-wrap{max-width:none}
-  .sv-gm-link{padding:5px 10px;font-size:10px;letter-spacing:0.2em}
   .sv-glossary-link{display:none}  /* too cramped on mobile; glossary still accessible via URL */
   .sv-toc-toggle{display:inline-flex}
 
