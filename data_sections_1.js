@@ -167,7 +167,7 @@ window.SV_SECTIONS = [
       `Your total corruption (TotalCor) is equal to your TempCor plus PermCor.`,
       `You mainly gain TempCor from casting spells or taking damage from blighted creatures. In Symbaroum traditionally this washes off at the end of a "scene".`,
       `You mainly gain PermCor from learning magic, binding magical items, or pushing yourself too far (going over half your Maximum Corruption). PermCor never* goes away.`,
-      `<b>The Threshold (Resolute / 2):</b> If your TotalCor ever goes above half your Resolute score, two things happen instantly: you gain a physical "Stigma" (a dark mark, like weeping black tears or a smell of rot), and you take 1d4 PermCor.`,
+      `<b>The Threshold (Resolute / 2, rounded up):</b> If your TotalCor reaches or exceeds your Threshold, two things happen instantly: you gain a physical "Stigma" (a dark mark, like weeping black tears or a smell of rot), and you take 1d4 PermCor.`,
       `<b>Maximum Corruption (Resolute):</b> If your TotalCor ever equals your total Resolute score, you instantly turn into an Abomination. The character is gone forever. The GM takes control of the monster.`,
     ]},
     { type: "p", text: `<i>*kinda</i>` },
@@ -184,7 +184,7 @@ window.SV_SECTIONS = [
       `You will not necessarily be able to automatically clear corruption at the end of a scene. More to come on this. Safe areas, rest, and the like…`,
     ]},
     { type: "h3", text: "The Threshold is a Gamble" },
-    { type: "p", text: `Your [[threshold:Threshold]] — half your Resolute score — no longer scars you on contact. When your TotalCor goes above it, you don't mutate instantly. Instead, you must immediately roll Resolute.` },
+    { type: "p", text: `Your [[threshold:Threshold]] — half your Resolute score, rounded up — no longer scars you automatically. When your TotalCor reaches or exceeds it, you must immediately roll Resolute.` },
     { type: "ul", items: [
       `<b>Success:</b> You hold it back. Nothing happens, but you must roll again the next time you gain any corruption.`,
       `<b>Failure:</b> You transform 1d4 TempCor into PermCor and gain a physical Stigma.`,
@@ -213,7 +213,7 @@ window.SV_SECTIONS = [
     { type: "h3", text: "The \"Strong Gift\" Boon is Rebalanced" },
     { type: "p", text: `If you take this boon to protect yourself, the math is adjusted:` },
     { type: "ul", items: [
-      `<b>Novice:</b> Works as intended (guaranteed to only take 1 TempCor on a failed cast).`,
+      `<b>Novice:</b> Choose one power you already know as your signature power. That power costs exactly 1 TempCor whenever you use it, whether the casting roll succeeds or fails. This applies only to that chosen power, not to every power you know. Instead of a power, you may tie the gift to Ritualist (all your rituals then cost no more than 1 TempCor), to Witchsight, or to a trait such as Wisdom of the Ages.`,
       `<b>Adept:</b> Your Threshold increases to your full Resolute value, but your Maximum Corruption is calculated as Resolute + 5 (rather than Resolute * 2).`,
     ]},
   ],

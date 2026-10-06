@@ -1054,7 +1054,7 @@ window.SV_SECTIONS_2 = [
     { type: "h3", text: "Mechanics" },
     { type: "defs", items: [
       ["Resolute", `Symbaroum attribute. Sets Corruption [[threshold:Threshold]] (Resolute / 2) and Maximum Corruption (Resolute).`],
-      ["Threshold", `Half your Resolute score (Resolute ÷ 2) — that is all "Threshold" means. The term is shorthand. Under Sacred Veil's house rules the Threshold is a gamble: when TotalCor goes above it you must immediately roll Resolute — fail, and you transform 1d4 TempCor into PermCor and gain a [[stigma:Stigma]]. See [[magic/corruption:the Corruption page]]. "Above Threshold" and "crossing the Threshold" both refer to TotalCor exceeding half Resolute.`],
+      ["Threshold", `Half your Resolute score, rounded up (Resolute ÷ 2) — that is all "Threshold" means. The term is shorthand. Under Sacred Veil's house rules the Threshold is a gamble: when TotalCor reaches or exceeds it you must immediately roll Resolute — fail, and you transform 1d4 TempCor into PermCor and gain a [[stigma:Stigma]]. See [[magic/corruption:the Corruption page]].`],
       ["TempCor", `Temporary [[corruption:corruption]] — recovers with rest.`],
       ["PermCor", `Permanent [[corruption:corruption]] — does not recover.`],
       ["TotalCor", `TempCor + PermCor. Compared against [[threshold:Threshold]] and Maximum Corruption.`],

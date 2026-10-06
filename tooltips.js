@@ -144,7 +144,7 @@ window.SV_TOOLTIPS = {
   "tempcor":           { kind: "System",    name: "TempCor",          text: "Temporary corruption — recovers with rest." },
   "permcor":           { kind: "System",    name: "PermCor",          text: "Permanent corruption — does not recover." },
   "totalcor":          { kind: "System",    name: "TotalCor",         text: "TempCor + PermCor — compared against Threshold and Maximum Corruption." },
-  "threshold":         { kind: "System",    name: "Threshold",        text: "Half your Resolute score (Resolute ÷ 2). 'Threshold' is just shorthand for that number. House rule — the Threshold is a gamble: when TotalCor goes above it you roll Resolute; fail, and you take a Stigma and 1d4 PermCor." },
+  "threshold":         { kind: "System",    name: "Threshold",        text: "Half your Resolute score, rounded up (Resolute ÷ 2). 'Threshold' is just shorthand for that number. House rule — the Threshold is a gamble: when TotalCor reaches or exceeds it you roll Resolute; fail, and you take a Stigma and transform 1d4 TempCor into PermCor." },
   "milestone-xp":      { kind: "Rule",      name: "Milestone XP",     text: "The progression model in use — XP granted at meaningful story points rather than per-challenge." },
 
   // ── Ash-Kadesh districts ──
