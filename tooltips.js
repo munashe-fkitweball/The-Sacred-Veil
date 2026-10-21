@@ -36,7 +36,7 @@ window.SV_TOOLTIPS = {
   "prios":             { kind: "Deity",       name: "Prios",                text: "The dying sun-god. A father who has been stabbed, slowly bleeding out in the dark. Rarely speaks to his clerics — his silence has caused the faith to splinter." },
 
   "anari":   { kind: "Deity — Child of Prios", name: "Anari",   text: "The Weeping Daughter; caught her father's spilling blood in a golden cup. Patron of mercy, hope, and the realm's primary healers and sanctuaries." },
-  "valeres": { kind: "Deity — Child of Prios", name: "Valeres", text: "The First Son, the Iron Apostle — drew his blade a heartbeat too late. Patron of K'naan's military and Morbray knights; secretly the patron of House Thorne." },
+  "valeres": { kind: "Deity — Child of Prios", name: "Valeres", text: "The First Son, the Iron Apostle — drew his blade a heartbeat too late. Patron of K'naan's military and Morbray knights." },
   "iriel":   { kind: "Deity — Child of Prios", name: "Iriel",   text: "The Scorned Daughter, the Burning Eye. Rode out to hunt her father's killers. Patron of zealous Inquisitors and celebrants of the Vigil of Absolute Disclosure." },
 
   "samael":   { kind: "Angel", name: "Samael",   text: "Angel of the Severed Rot — patron of the purge, of cutting away a corrupted limb to save the body. Soldiers, inquisitors, and doctors pray to him." },

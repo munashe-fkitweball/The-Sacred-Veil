@@ -53,7 +53,7 @@ window.SV_SECTIONS_3 = [
     { type: "p", text: `As the father fades, his three children are increasingly the face of devotion. Each commands a following of their own. See the [[faith/children:Children of the Sun page]] for the full stories.` },
     { type: "table", headers: ["Name", "Epithet", "Patronage"], rows: [
       ["[[anari:Anari]]",   "The Weeping Daughter",    "Mercy, hope, healers, sanctuaries."],
-      ["[[valeres:Valeres]]", "The First Son, the Iron Apostle", "Military, knights, the faithful sword — and secretly House Thorne."],
+      ["[[valeres:Valeres]]", "The First Son, the Iron Apostle", "Military, knights, the faithful sword."],
       ["[[iriel:Iriel]]",   "The Scorned Daughter, the Burning Eye", "Inquisitors, the Vigil, zealous justice."],
     ]},
 

@@ -110,7 +110,7 @@ window.SV_SECTIONS_2 = [
     { type: "p", text: `The Children of [[prios:Prios]] are not viewed as joyous, triumphant demigods. They are the surviving heirs of a dying estate, each representing a different tragic response to their father's murder.` },
     { type: "table", headers: ["Child", "Epithet", "Patron of"], rows: [
       ["[[anari:Anari]]", "The Weeping Daughter", "Mercy & hope; healers, sanctuaries"],
-      ["[[valeres:Valeres]]", "The First Son / Iron Apostle", "Military, Morbray knights; (covertly) House Thorne"],
+      ["[[valeres:Valeres]]", "The First Son / Iron Apostle", "Military, Morbray knights"],
       ["[[iriel:Iriel]]", "The Scorned Daughter / Burning Eye", "Inquisitors, celebrants of the Vigil"],
     ]},
   ],
@@ -135,7 +135,6 @@ window.SV_SECTIONS_2 = [
   blocks: [
     { type: "p", text: `Valeres is the Iron Apostle, the general who drew his blade a heartbeat too late to save his father. He is consumed by the crushing shame of this failure, a spiritual debt he seeks to repay through the violent and uncompromising defence of whatever light remains in a dying world.` },
     { type: "p", text: `He is the divine patron of K'naan's military, the Marrow-dosed ultra-soldiers, and the steel-clad knights of [[house-morbray:House Morbray]]. His followers believe that true purity is not found in prayer, but achieved through overwhelming physical might and the relentless, blood-soaked slaughter of blighted creatures. To them, every suit of heavy armour is a walking cathedral, and a sword swung in righteous anger against the encroaching dark is the only form of worship that matters.` },
-    { type: "p", text: `Unknown to the common masses, he is also the patron of [[house-thorne:House Thorne]]. They look beyond his fury to see the mind of a master tactician - a trait valued by those who understand that some wars are won by the precision of intellect and the whispers of shadows rather than the simple brutality of face-to-face combat.` },
   ],
 },
 
