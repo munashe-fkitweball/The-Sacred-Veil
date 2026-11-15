@@ -15,6 +15,7 @@ window.SV_TOOLTIPS = {
   "house-gallow":      { kind: "House",  name: "Gallow",      text: "The Quiet Branch — ancient, solitary house patrolling the southern road and the Great Plains. Hangs plains-bandits from the dead trees that scatter the expanse; so old no one knows whether the gallows is named for them, or they for it." },
   "house-valerius":    { kind: "House",  name: "Valerius",    text: "The Minor Major. Clawed into relevance by providing the bulk of the capital's Magistracy officers. Obsessed with legalism and the harsh application of old laws." },
   "house-grendel":     { kind: "House",  name: "Grendel",     text: "The Frayed — shunned minor house of the marshy Silt-Mere fringes. Hardy and quiet; whispered to spend too much time with Witches." },
+  "house-calder":      { kind: "House",  name: "Calder",      text: "A very minor chartered house, seated at Tallowcross. They hold the crossing and toll the bridges north of River Woe. Their silver went bad, and they owe money to larger houses." },
   "house-jannin":      { kind: "House",  name: "Jannin",      text: "The PCs' employers. An ancient minor house on the eastern frontier; silver mine and large flocks. Leaderless since Lord Amar's death and Naviel's abduction." },
 
   // ── Guilds ──
@@ -100,7 +101,7 @@ window.SV_TOOLTIPS = {
   "tide-reach-wharf": { kind: "Wharf",   name: "Tide-Reach Wharf", text: "Silt-Strider Collective HQ in Gath-Mere, stretching roughly a mile along the shore." },
   "silveldt":      { kind: "Manor",      name: "Silveldt",      text: "Olenna Kaelen's manor. Pale-stone hall raised above the flood-plain; ground floor floods some years." },
   "the-rot":       { kind: "Keep",       name: "The Rot",       text: "Grendel's keep at Grendel's Reach. Squat, algae-slicked dark-stone tower whose lower floors are periodically underwater." },
-  "tallowcross":   { kind: "Town",       name: "Tallowcross",  text: "A town on the road between Amarsgate and Har-Moloch, where the south road leaves it. The Sallow runs through it, under a toll bridge." },
+  "tallowcross":   { kind: "Town",       name: "Tallowcross",  text: "A town on the road between Amarsgate and Har-Moloch, where the south road leaves it. The Sallow runs through it, under a toll bridge. House Calder has its seat here and holds the crossing; their flag flies over the town walls." },
   "candlemoor":    { kind: "Town",       name: "Candlemoor",    text: "A small town with a spire, south-west of Tallowcross. A lane runs west to it off the south road." },
   "hobs-fork":     { kind: "Hamlet",     name: "Hob's Fork",    text: "A hamlet south-west of Amarsgate, where the roads fork. Roads run to the Amarsgate-Tallowcross road, to Tallowcross's south road, and south-east to Slatefoot." },
   "slatefoot":     { kind: "Hamlet",     name: "Slatefoot",     text: "A hamlet at the foot of the Eastern Massif, south of Amarsgate. The road from Hob's Fork ends here." },

@@ -655,7 +655,7 @@ window.SV_SECTIONS_2 = [
   title: "Tallowcross",
   subtitle: "Town on the road between Amarsgate and Har-Moloch",
   blocks: [
-    { type: "p", text: `A town on the road between [[amarsgate:Amarsgate]] and [[har-moloch:Har-Moloch]], where the south road leaves it. [[the-sallow:The Sallow]] runs through it, under a toll bridge.` },
+    { type: "p", text: `A town on the road between [[amarsgate:Amarsgate]] and [[har-moloch:Har-Moloch]], where the south road leaves it. [[the-sallow:The Sallow]] runs through it, under a toll bridge. [[house-calder:House Calder]] has its seat here and holds the crossing. Their flag flies over the town walls.` },
   ],
 },
 

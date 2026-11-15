@@ -266,6 +266,7 @@ window.SV_SECTIONS = [
       ["[[house-valerius:Valerius]]", "the Minor Major", "\"Steel is Law.\"", "Vertical sword breaking a chain"],
       ["[[house-grendel:Grendel]]", "the Frayed", "\"Deep Roots, Dark Waters.\"", "Black reed on murky green"],
       ["[[house-jannin:Jannin]]", "—", "\"None Lost Under Our Watch\"", "Shepherd's crook on forest green, silver gem"],
+      ["[[house-calder:Calder]]", "—", "—", "Black chain on pale grey"],
     ]},
   ],
 },
@@ -422,6 +423,25 @@ window.SV_SECTIONS = [
     { type: "facts", items: [
       ["Members", "Lord Amar, 13th of that name (Amar Jannin, now deceased); Lord-Elect Naviel Jannin"],
       ["Seat", "[[amarsgate:Amarsgate]]"],
+    ]},
+  ],
+},
+
+{
+  id: "house-calder",
+  group: "Houses",
+  title: "House Calder",
+  chip: { arms: "A black chain on a pale grey field." },
+  blocks: [
+    { type: "p", text: `A very minor landed house, chartered under a [[crown-charter:Crown Charter]]. Their seat is [[tallowcross:Tallowcross]]. They hold the crossing, and their flag flies over the town walls. Other Calder kin live in the nearby towns, but the house has no real power beyond Lord Edric's immediate family.` },
+    { type: "p", text: `Two generations ago the crown granted them a bridge charter: the right to take tolls on the road. They own several bridges and toll some roads here and there north of [[river-woe:River Woe]]. The land just around each bridge is theirs.` },
+    { type: "p", text: `They are sliding downhill. Their silver went bad: they lost money on bad deals and investments, and they owe money to a variety of larger houses. They have squeezed travellers ever since.` },
+    { type: "facts", items: [
+      ["Head", "Lord Edric Calder"],
+      ["Members", "Osric Calder, his third son"],
+      ["Arms", "A black chain on a pale grey field."],
+      ["Seat", "[[tallowcross:Tallowcross]]"],
+      ["Tolls", "The legal maximum on a small bridge is 5 ortegs. Tolls vary below that, and larger bridges vary too."],
     ]},
   ],
 },

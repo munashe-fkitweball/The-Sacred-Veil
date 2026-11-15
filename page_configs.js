@@ -264,7 +264,7 @@ window.SV_PAGES = {
     imageHero: 'hero-houses.webp',
     sigil: 'houses-sigil.png',
     sections: ['houses-overview', 'crown-charters'],
-    children: ['houses/vane', 'houses/chancel', 'houses/kaelen', 'houses/morbray', 'houses/thorne', 'houses/greyholt', 'houses/gallow', 'houses/valerius', 'houses/grendel', 'houses/jannin'],
+    children: ['houses/vane', 'houses/chancel', 'houses/kaelen', 'houses/morbray', 'houses/thorne', 'houses/greyholt', 'houses/gallow', 'houses/valerius', 'houses/grendel', 'houses/jannin', 'houses/calder'],
   },
   'houses/vane':     { hub:'houses', parent:'houses', href:'houses/vane.html',     title:'House Vane',     sigil:'vane-sigil.png', imageHero:'hero-houses-vane.webp',     sections:['house-vane'] },
   'houses/chancel':  { hub:'houses', parent:'houses', href:'houses/chancel.html',  title:'House Chancel',  sigil:'chancel-sigil.png', imageHero:'hero-houses-chancel.webp',  sections:['house-chancel'] },
@@ -276,6 +276,7 @@ window.SV_PAGES = {
   'houses/valerius': { hub:'houses', parent:'houses', href:'houses/valerius.html', title:'House Valerius', sigil:'valerius-sigil.png', imageHero:'hero-houses-valerius.webp', sections:['house-valerius'] },
   'houses/grendel':  { hub:'houses', parent:'houses', href:'houses/grendel.html',  title:'House Grendel',  sigil:'grendel-sigil.png', imageHero:'hero-houses-grendel.webp',  sections:['house-grendel'] },
   'houses/jannin':   { hub:'houses', parent:'houses', href:'houses/jannin.html',   title:'House Jannin',   sigil:'jannin-sigil.png', imageHero:'hero-houses-jannin.webp',   sections:['house-jannin'] },
+  'houses/calder':   { hub:'houses', parent:'houses', href:'houses/calder.html',   title:'House Calder',   sections:['house-calder'] },
 
   // ═══════════════════════════════════════════════════════════════════════
   // VI · GUILDS, CRIME & LAW

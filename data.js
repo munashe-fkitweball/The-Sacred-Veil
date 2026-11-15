@@ -27,6 +27,7 @@ window.SV_DATA = {
     { id: "house-valerius", name: "House Valerius", aliases: ["Valerius", "the Minor Major"] },
     { id: "house-grendel", name: "House Grendel", aliases: ["Grendel", "the Frayed"] },
     { id: "house-jannin", name: "House Jannin", aliases: ["Jannin"] },
+    { id: "house-calder", name: "House Calder", aliases: ["Calder"] },
 
     // Guilds
     { id: "covenant-of-coin", name: "The Covenant of Coin", aliases: ["Covenant of Coin"] },

@@ -117,8 +117,9 @@ window.SV_SECTIONS_3 = [
       ["[[house-valerius:Valerius]]","The Minor Major",      "Clawed into relevance by providing Magistracy officers. Legalistic and harsh."],
       ["[[house-grendel:Grendel]]",  "The Frayed",           "Shunned minor House of the Silt-Mere fringe. Whispered to treat with Witches."],
       ["[[house-jannin:Jannin]]",    "—",                    "The PCs' employers. An ancient minor House on the eastern frontier. Leaderless."],
+      ["[[house-calder:Calder]]",    "—",                    "A very minor chartered House. Holds the crossing at Tallowcross and tolls the bridges north of River Woe."],
     ]},
-    { type: "children-grid", children: ['houses/vane', 'houses/chancel', 'houses/kaelen', 'houses/morbray', 'houses/thorne', 'houses/greyholt', 'houses/gallow', 'houses/valerius', 'houses/grendel', 'houses/jannin'] },
+    { type: "children-grid", children: ['houses/vane', 'houses/chancel', 'houses/kaelen', 'houses/morbray', 'houses/thorne', 'houses/greyholt', 'houses/gallow', 'houses/valerius', 'houses/grendel', 'houses/jannin', 'houses/calder'] },
   ],
 },
 
