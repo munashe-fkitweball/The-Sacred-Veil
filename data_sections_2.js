@@ -487,6 +487,12 @@ window.SV_SECTIONS_2 = [
       `<b>[[third-furnace:Third Furnace]]</b> — most feared post in the city. Foreman: [[gest-harrow:Gest Harrow]].`,
       `<b>[[great-forge:The Great Forge]]</b> — Chainmakers' works. Largest single building in the city.`,
     ]},
+    { type: "h3", text: "Around the city" },
+    { type: "ul", items: [
+      `Iron and coal pits lie east of the city, along the road to [[tallowcross:Tallowcross]].`,
+      `Charcoal burners work the wooded hills to the south.`,
+      `The Great Forge's smoke drifts east over the mountains.`,
+    ]},
   ],
 },
 
@@ -644,6 +650,66 @@ window.SV_SECTIONS_2 = [
 },
 
 {
+  id: "tallowcross",
+  group: "Places",
+  title: "Tallowcross",
+  subtitle: "Town on the road between Amarsgate and Har-Moloch",
+  blocks: [
+    { type: "p", text: `A town on the road between [[amarsgate:Amarsgate]] and [[har-moloch:Har-Moloch]], where the south road leaves it. [[the-sallow:The Sallow]] runs through it, under a toll bridge.` },
+  ],
+},
+
+{
+  id: "candlemoor",
+  group: "Places",
+  title: "Candlemoor",
+  subtitle: "Small town with a spire",
+  blocks: [
+    { type: "p", text: `A small town with a spire, south-west of [[tallowcross:Tallowcross]]. A lane runs west to it off Tallowcross's south road.` },
+  ],
+},
+
+{
+  id: "hobs-fork",
+  group: "Places",
+  title: "Hob's Fork",
+  subtitle: "Hamlet where the roads fork",
+  blocks: [
+    { type: "p", text: `A hamlet south-west of [[amarsgate:Amarsgate]], where the roads fork. One road runs to the Amarsgate–[[tallowcross:Tallowcross]] road, one to Tallowcross's south road, and one south-east to [[slatefoot:Slatefoot]].` },
+  ],
+},
+
+{
+  id: "slatefoot",
+  group: "Places",
+  title: "Slatefoot",
+  subtitle: "Hamlet at the foot of the Massif",
+  blocks: [
+    { type: "p", text: `A hamlet at the foot of the [[eastern-massif:Eastern Massif]], south of [[amarsgate:Amarsgate]]. The road from [[hobs-fork:Hob's Fork]] ends here.` },
+  ],
+},
+
+{
+  id: "thistledown",
+  group: "Places",
+  title: "Thistledown",
+  subtitle: "Village south of Tallowcross",
+  blocks: [
+    { type: "p", text: `A village south of [[tallowcross:Tallowcross]]. Its road leaves Tallowcross's south road near [[river-woe:River Woe]] and runs east past the village, fading to a track as it climbs into the [[eastern-massif:Eastern Massif]]. A small wood stands just south of it.` },
+  ],
+},
+
+{
+  id: "bridgeholm",
+  group: "Places",
+  title: "Bridgeholm",
+  subtitle: "Town on an isle in River Woe",
+  blocks: [
+    { type: "p", text: `A town on Bridgeholm isle, where [[river-woe:River Woe]] splits in two, south-west of [[tallowcross:Tallowcross]]. Long bridges reach the isle from both banks.` },
+  ],
+},
+
+{
   id: "drowned-moot",
   group: "Places",
   title: "The Drowned Moot",
@@ -678,6 +744,26 @@ window.SV_SECTIONS_2 = [
     { type: "image-slot", file: "eastern-massif.webp", alt: "The Eastern Massif — storm-wreathed grey peaks rising over a high pass, a watchtower clinging to the cliffs", cinematic: true },
     { type: "p", text: `A wall of grey stone and thin air forming K'naan's eastern boundary. Its peaks are so steep and shattered that only a handful of high passes are even remotely traversable.` },
     { type: "p", text: `[[house-morbray:House Morbray]] holds the single reliable pass; [[raven-garron:Raven-Garron]] exists to guard it. Beyond their gate, the road runs on through the [[valley-of-woe:Valley of Woe]] — the only serious route out of K'naan through the Massif.` },
+  ],
+},
+
+{
+  id: "river-woe",
+  group: "Regions & Environment",
+  title: "River Woe",
+  subtitle: "The big river south of Tallowcross",
+  blocks: [
+    { type: "p", text: `The big river south of [[tallowcross:Tallowcross]]. It flows out of the [[valley-of-woe:Valley of Woe]] and splits in two around Bridgeholm isle, where [[bridgeholm:Bridgeholm]] stands. [[the-sallow:The Sallow]] runs into it.` },
+  ],
+},
+
+{
+  id: "the-sallow",
+  group: "Regions & Environment",
+  title: "The Sallow",
+  subtitle: "Tallowcross's river",
+  blocks: [
+    { type: "p", text: `Tallowcross's river. It comes down from the mountains to the north, runs through [[tallowcross:Tallowcross]] under its toll bridge, then flows south beside the south road into [[river-woe:River Woe]].` },
   ],
 },
 
@@ -1076,7 +1162,7 @@ window.SV_SECTIONS_2 = [
     { type: "h3", text: "Landmarks" },
     { type: "defs", items: [
       ["Iron Teeth", `The skyline of smelting towers and slag-heaps in [[har-moloch:Har-Moloch]].`],
-      ["Valley of Woe", `River-valley cutting northeast through the [[eastern-massif:Eastern Massif]] just beyond [[raven-garron:Raven-Garron]] — the main (effectively only) serious route beyond K'naan through the mountains. [[house-morbray:House Morbray]]'s keep guards its approach.`],
+      ["Valley of Woe", `River-valley cutting northeast through the [[eastern-massif:Eastern Massif]] just beyond [[raven-garron:Raven-Garron]] — the main (effectively only) serious route beyond K'naan through the mountains. [[house-morbray:House Morbray]]'s keep guards its approach. [[river-woe:River Woe]] flows out of it.`],
     ]},
   ],
 },

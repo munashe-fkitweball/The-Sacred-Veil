@@ -69,7 +69,7 @@ window.SV_PAGES = {
     title: 'Geography',
     subtitle: 'The regions of K\'naan',
     imageHero: 'hero-kingdom-geography.webp',
-    sections: ['geography-intro', 'silt-mere', 'eastern-massif', 'gorse-barrens', 'great-forests'],
+    sections: ['geography-intro', 'silt-mere', 'eastern-massif', 'gorse-barrens', 'great-forests', 'river-woe', 'the-sallow'],
   },
   'kingdom/peoples': {
     hub: 'kingdom',
@@ -107,7 +107,7 @@ window.SV_PAGES = {
     title: 'Lesser Holdings',
     subtitle: 'Halls, archives, and waypoints',
     imageHero: 'hero-kingdom-minor-places.webp',
-    sections: ['minor-places-intro', 'hollow-sun', 'thorne-archive', 'iron-gavel', 'argent-academy', 'golden-weights', 'great-forge', 'the-spike', 'grendels-reach', 'drowned-moot'],
+    sections: ['minor-places-intro', 'hollow-sun', 'thorne-archive', 'iron-gavel', 'argent-academy', 'golden-weights', 'great-forge', 'the-spike', 'grendels-reach', 'drowned-moot', 'tallowcross', 'candlemoor', 'hobs-fork', 'slatefoot', 'thistledown', 'bridgeholm'],
   },
   'kingdom/people': {
     hub: 'kingdom',
