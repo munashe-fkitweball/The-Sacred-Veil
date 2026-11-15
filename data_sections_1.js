@@ -438,7 +438,7 @@ window.SV_SECTIONS = [
     { type: "p", text: `They are sliding downhill. Their silver went bad: they lost money on bad deals and investments, and they owe money to a variety of larger houses. They have squeezed travellers ever since.` },
     { type: "facts", items: [
       ["Head", "Lord Edric Calder"],
-      ["Members", "Osric Calder, his third son"],
+      ["Members", "Osric Calder, his third son (killed at the Chained Bridge, on the road west of [[amarsgate:Amarsgate]])"],
       ["Arms", "A black chain on a pale grey field."],
       ["Seat", "[[tallowcross:Tallowcross]]"],
       ["Tolls", "The legal maximum on a small bridge is 5 ortegs. Tolls vary below that, and larger bridges vary too."],
