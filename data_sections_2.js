@@ -217,7 +217,7 @@ window.SV_SECTIONS_2 = [
   group: "Religion",
   title: "Moriel, Angel of the Final Breath",
   blocks: [
-    { type: "p", text: `The angel no one wants to see, Moriel is rarely spoken of aloud. He is the angel of the threshold, depicted as a featureless, towering shadow standing over Prios's bed with a heavy, leaden burial shroud. He represents the finality of the end. [[theurgs:Theurgs]] only invoke Moriel when a blighted Abomination is beyond saving and must be granted an absolute, final death. He is followed only by those whose duty it is to manage the dead and the damned. His "temples" are the ossuaries and the execution grounds of K'naan - cold, desolate places where the earth is salted and no birds sing. It is considered a dark omen to even look upon a shrine of Moriel, which usually consists of a single, unadorned slab of black basalt.` },
+    { type: "p", text: `The angel no one wants to see, Moriel is rarely spoken of aloud. She is the angel of the threshold, depicted as a featureless, towering shadow standing over Prios's bed with a heavy, leaden burial shroud. She represents the finality of the end. [[theurgs:Theurgs]] only invoke Moriel when a blighted Abomination is beyond saving and must be granted an absolute, final death. She is followed only by those whose duty it is to manage the dead and the damned. Her "temples" are the ossuaries and the execution grounds of K'naan - cold, desolate places where the earth is salted and no birds sing. It is considered a dark omen to even look upon a shrine of Moriel, which usually consists of a single, unadorned slab of black basalt.` },
   ],
 },
 
