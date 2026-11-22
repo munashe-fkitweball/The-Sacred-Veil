@@ -156,6 +156,7 @@ window.SV_SECTIONS_2 = [
   title: "The Six Angels of the Decline",
   blocks: [
     { type: "p", text: `In the old texts there remain many angels. Now, the Church only officially acknowledges the six who are necessary to manage the end of the world. They are not messengers of peace; they are the wardens of a dying realm.` },
+    { type: "p", text: `One of the others, Tekel, an angel of honest weights and fair dealing, is still honoured at the chapel in [[tallowcross:Tallowcross]].` },
     { type: "table", headers: ["Angel", "Title", "Domain"], rows: [
       ["[[samael:Samael]]", "Angel of the Severed Rot", "The purge; necessary amputation"],
       ["[[zachriel:Zachriel]]", "Angel of the Brand", "The Ritual of Cauterisation"],
@@ -656,6 +657,8 @@ window.SV_SECTIONS_2 = [
   subtitle: "Town on the road between Amarsgate and Har-Moloch",
   blocks: [
     { type: "p", text: `A town on the road between [[amarsgate:Amarsgate]] and [[har-moloch:Har-Moloch]], where the south road leaves it. [[the-sallow:The Sallow]] runs through it, under a toll bridge. [[house-calder:House Calder]] has its seat here and holds the crossing. Their flag flies over the town walls.` },
+    { type: "h3", text: "The chapel of Tekel" },
+    { type: "p", text: `The town chapel belongs to Tekel, an old angel of honest weights and fair dealing. The Church doesn't count him among the six and isn't fond of the chapel, but leaves it alone: too much of the north-east's trade runs through Tallowcross to pick that quarrel. Merchants pray to him before they strike a bargain, and they pray for a fair deal, not a good one. Nobody names a price under his roof. Deals are made afterwards, out on the chapel steps, so the steps are busy and the chapel stays quiet. Inside, his statue holds a pair of scales, level and empty. Talk business in there and the keeper rings a small bell. You're shown the door, and no one in town will deal with you for the rest of the day. When a Tallowcross trader thinks you're not being straight, they ask: "Would you say it in the chapel?"` },
   ],
 },
 
