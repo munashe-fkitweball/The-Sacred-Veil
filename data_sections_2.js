@@ -490,7 +490,10 @@ window.SV_SECTIONS_2 = [
     ]},
     { type: "h3", text: "Around the city" },
     { type: "ul", items: [
-      `Iron and coal pits lie east of the city, along the road to [[tallowcross:Tallowcross]].`,
+      `North of the city stands Har-Esh, a mountain that never stops pouring out lava. The forge workers call it the Furnace-Father. Its lava runs south into the forge quarter and powers all the great forges.`,
+      `A great stone sluice carries the lava from the mountain to [[great-forge:the Great Forge]], with iron gates to open and close the flow. Arched aqueducts carry it on into the foundry quarters.`,
+      `Massive lakes of lava lie near the city. Some smelting works stand right on their shores.`,
+      `Steel needs coal and charcoal as well as heat. Iron and coal pits lie east of the city, along the road to [[tallowcross:Tallowcross]], and there are mines for gems and other precious stones.`,
       `Charcoal burners work the wooded hills to the south.`,
       `The Great Forge's smoke drifts east over the mountains.`,
     ]},
